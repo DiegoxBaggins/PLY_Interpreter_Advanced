@@ -43,6 +43,13 @@ body {
   text-align: center;
 }
 
+.div-center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 16%;
+}
+
 .div-table{
   width: 80%;
   margin: 15px auto;

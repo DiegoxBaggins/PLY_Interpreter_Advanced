@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block body %}
+    <div class = center-image>
+        <img src="{{ url_for('static', filename='images/the-hang-over.gif') }}" alt="Allan" >
+    </div>
+    <div class="clearfix"> </div>
+    <div class="div-table">
+        <table class="default">
+            <caption>Tabla de Errores</caption>
+            <tr>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Linea</th>
+                <th>Columna</th>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div class="div-table">
+        <table class="default">
+            <caption>Tabla de Variables</caption>
+            <tr>
+                <th>Tipo</th>
+                <th>Tipo especifico</th>
+                <th>Id</th>
+                <th>Linea</th>
+                <th>Columna</th>
+                <th>Ambito</th>
+            </tr>
+        </table>
+    </div>
+    <div class="div-table">
+        <span>Aqui va la imagen del arbol</span>
+    </div>
+    <div class="clearfix"> </div>
+{% endblock %}
