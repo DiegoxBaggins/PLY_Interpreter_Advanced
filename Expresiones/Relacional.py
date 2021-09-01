@@ -12,7 +12,7 @@ class OperacionRelacional(Enum):
     DISTINTOS = 5
 
 
-class Relational(Expresion):
+class Relacional(Expresion):
 
     def __init__(self, izq, der, tipo, linea, columna):
         Expresion.__init__(self, linea, columna)
