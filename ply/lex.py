@@ -1048,7 +1048,7 @@ def lex(module=None, object=None, debug=False, optimize=False, lextab='lextab',
 # -----------------------------------------------------------------------------
 # runmain()
 #
-# This runs the lexer as a main program
+# This runs the lexer as a main.py program
 # -----------------------------------------------------------------------------
 
 def runmain(lexer=None, data=None):

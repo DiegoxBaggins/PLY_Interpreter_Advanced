@@ -8,6 +8,7 @@ class OperacionAritmetica(Enum):
     RESTA = 1
     MULTI = 2
     DIV = 3
+    MENOS = 4
 
 
 class Aritmetico(Expresion):
@@ -23,11 +24,13 @@ class Aritmetico(Expresion):
         valorDer = self.der.execute(entorno)
         resultado = Return(0, Tipo.INT)
         if self.tipo == OperacionAritmetica.SUMA:
-            resultado = valorIzq.valor + valorDer.valor
+            resultado.valor = valorIzq.valor + valorDer.valor
         elif self.tipo == OperacionAritmetica.RESTA:
-            resultado = valorIzq.valor - valorDer.valor
+            resultado.valor = valorIzq.valor - valorDer.valor
         elif self.tipo == OperacionAritmetica.MULTI:
-            resultado = valorIzq.valor * valorDer.valor
+            resultado.valor = valorIzq.valor * valorDer.valor
         elif self.tipo == OperacionAritmetica.DIV:
-            resultado = valorIzq.valor / valorDer.valor
+            resultado.valor = valorIzq.valor / valorDer.valor
+        elif self.tipo == OperacionAritmetica.MENOS:
+            resultado.valor = -valorIzq
         return resultado

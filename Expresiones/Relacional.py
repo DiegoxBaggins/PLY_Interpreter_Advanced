@@ -10,6 +10,9 @@ class OperacionRelacional(Enum):
     MENORIGUAL = 3
     IGUALES = 4
     DISTINTOS = 5
+    OR = 6
+    AND = 7
+    NOT = 8
 
 
 class Relacional(Expresion):
@@ -36,4 +39,16 @@ class Relacional(Expresion):
             resultado.valor = valorIzq.valor == valorDer.valor
         elif self.tipo == OperacionRelacional.DISTINTOS:
             resultado.valor = valorIzq.valor != valorDer.valor
+        elif self.tipo == OperacionRelacional.AND:
+            if valorIzq.valor is True and valorDer.valor is True:
+                resultado.valor = True
+            else:
+                resultado.valor = False
+        elif self.tipo == OperacionRelacional.OR:
+            if valorIzq.valor is True or valorDer.valor is True:
+                resultado.valor = True
+            else:
+                resultado.valor = False
+        elif self.tipo == OperacionRelacional.NOT:
+            resultado.valor = ~valorIzq.valor
         return resultado

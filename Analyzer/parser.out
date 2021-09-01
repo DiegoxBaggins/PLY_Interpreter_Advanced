@@ -1,0 +1,2117 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BOOL
+    CHAR
+    COMA
+    DOSPUNTOS
+    FLOAT64
+    ID
+    IGUAL
+    INT64
+    NULO
+    PUNTO
+    STRING
+
+Grammar
+
+Rule 0     S' -> inicio
+Rule 1     inicio -> instrucciones
+Rule 2     instrucciones -> instrucciones instruccion
+Rule 3     instrucciones -> instruccion
+Rule 4     instruccion -> printINS PUNTOCOMA
+Rule 5     instruccion -> ifINS PUNTOCOMA
+Rule 6     sentencia -> instrucciones
+Rule 7     printINS -> PRINTLN PARIZQ expresion PARDER
+Rule 8     printINS -> PRINT PARIZQ expresion PARDER
+Rule 9     ifINS -> IF expresion sentencia END
+Rule 10    ifINS -> IF expresion sentencia ELSE sentencia END
+Rule 11    ifINS -> IF expresion sentencia elseIfLista END
+Rule 12    elseIfLista -> ELSEIF expresion sentencia
+Rule 13    elseIfLista -> ELSEIF expresion sentencia ELSE sentencia
+Rule 14    elseIfLista -> ELSEIF expresion sentencia elseIfLista
+Rule 15    expresion -> MENOS expresion
+Rule 16    expresion -> NOT expresion
+Rule 17    expresion -> expresion MAS expresion
+Rule 18    expresion -> expresion MENOS expresion
+Rule 19    expresion -> expresion MULT expresion
+Rule 20    expresion -> expresion DIV expresion
+Rule 21    expresion -> expresion MAYOR expresion
+Rule 22    expresion -> expresion MENOR expresion
+Rule 23    expresion -> expresion MAYORIGUAL expresion
+Rule 24    expresion -> expresion MENORIGUAL expresion
+Rule 25    expresion -> expresion IGUALES expresion
+Rule 26    expresion -> expresion DISTINTOS expresion
+Rule 27    expresion -> expresion OR expresion
+Rule 28    expresion -> expresion AND expresion
+Rule 29    expresion -> expValor
+Rule 30    expValor -> PARIZQ expresion PARDER
+Rule 31    expValor -> INTID
+Rule 32    expValor -> FLOATID
+Rule 33    expValor -> STRINGID
+Rule 34    expValor -> TRUE
+Rule 35    expValor -> FALSE
+
+Terminals, with rules where they appear
+
+AND                  : 28
+BOOL                 : 
+CHAR                 : 
+COMA                 : 
+DISTINTOS            : 26
+DIV                  : 20
+DOSPUNTOS            : 
+ELSE                 : 10 13
+ELSEIF               : 12 13 14
+END                  : 9 10 11
+FALSE                : 35
+FLOAT64              : 
+FLOATID              : 32
+ID                   : 
+IF                   : 9 10 11
+IGUAL                : 
+IGUALES              : 25
+INT64                : 
+INTID                : 31
+MAS                  : 17
+MAYOR                : 21
+MAYORIGUAL           : 23
+MENOR                : 22
+MENORIGUAL           : 24
+MENOS                : 15 18
+MULT                 : 19
+NOT                  : 16
+NULO                 : 
+OR                   : 27
+PARDER               : 7 8 30
+PARIZQ               : 7 8 30
+PRINT                : 8
+PRINTLN              : 7
+PUNTO                : 
+PUNTOCOMA            : 4 5
+STRING               : 
+STRINGID             : 33
+TRUE                 : 34
+error                : 
+
+Nonterminals, with rules where they appear
+
+elseIfLista          : 11 14
+expValor             : 29
+expresion            : 7 8 9 10 11 12 13 14 15 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 30
+ifINS                : 5
+inicio               : 0
+instruccion          : 2 3
+instrucciones        : 1 2 6
+printINS             : 4
+sentencia            : 9 10 10 11 12 13 13 14
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . inicio
+    (1) inicio -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    inicio                         shift and go to state 1
+    instrucciones                  shift and go to state 2
+    instruccion                    shift and go to state 3
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 1
+
+    (0) S' -> inicio .
+
+
+
+state 2
+
+    (1) inicio -> instrucciones .
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    $end            reduce using rule 1 (inicio -> instrucciones .)
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    instruccion                    shift and go to state 9
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 3
+
+    (3) instrucciones -> instruccion .
+
+    PRINTLN         reduce using rule 3 (instrucciones -> instruccion .)
+    PRINT           reduce using rule 3 (instrucciones -> instruccion .)
+    IF              reduce using rule 3 (instrucciones -> instruccion .)
+    $end            reduce using rule 3 (instrucciones -> instruccion .)
+    END             reduce using rule 3 (instrucciones -> instruccion .)
+    ELSE            reduce using rule 3 (instrucciones -> instruccion .)
+    ELSEIF          reduce using rule 3 (instrucciones -> instruccion .)
+
+
+state 4
+
+    (4) instruccion -> printINS . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 10
+
+
+state 5
+
+    (5) instruccion -> ifINS . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 11
+
+
+state 6
+
+    (7) printINS -> PRINTLN . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 12
+
+
+state 7
+
+    (8) printINS -> PRINT . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 13
+
+
+state 8
+
+    (9) ifINS -> IF . expresion sentencia END
+    (10) ifINS -> IF . expresion sentencia ELSE sentencia END
+    (11) ifINS -> IF . expresion sentencia elseIfLista END
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 14
+    expValor                       shift and go to state 17
+
+state 9
+
+    (2) instrucciones -> instrucciones instruccion .
+
+    PRINTLN         reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    PRINT           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    IF              reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    $end            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    END             reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    ELSE            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    ELSEIF          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+
+
+state 10
+
+    (4) instruccion -> printINS PUNTOCOMA .
+
+    PRINTLN         reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+    PRINT           reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+    IF              reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+    $end            reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+    END             reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+    ELSE            reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+    ELSEIF          reduce using rule 4 (instruccion -> printINS PUNTOCOMA .)
+
+
+state 11
+
+    (5) instruccion -> ifINS PUNTOCOMA .
+
+    PRINTLN         reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+    PRINT           reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+    IF              reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+    $end            reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+    END             reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+    ELSE            reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+    ELSEIF          reduce using rule 5 (instruccion -> ifINS PUNTOCOMA .)
+
+
+state 12
+
+    (7) printINS -> PRINTLN PARIZQ . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 24
+    expValor                       shift and go to state 17
+
+state 13
+
+    (8) printINS -> PRINT PARIZQ . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 25
+    expValor                       shift and go to state 17
+
+state 14
+
+    (9) ifINS -> IF expresion . sentencia END
+    (10) ifINS -> IF expresion . sentencia ELSE sentencia END
+    (11) ifINS -> IF expresion . sentencia elseIfLista END
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+    (6) sentencia -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+    OR              shift and go to state 37
+    AND             shift and go to state 38
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    sentencia                      shift and go to state 26
+    instrucciones                  shift and go to state 39
+    instruccion                    shift and go to state 3
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 15
+
+    (15) expresion -> MENOS . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 40
+    expValor                       shift and go to state 17
+
+state 16
+
+    (16) expresion -> NOT . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 41
+    expValor                       shift and go to state 17
+
+state 17
+
+    (29) expresion -> expValor .
+
+    MAS             reduce using rule 29 (expresion -> expValor .)
+    MENOS           reduce using rule 29 (expresion -> expValor .)
+    MULT            reduce using rule 29 (expresion -> expValor .)
+    DIV             reduce using rule 29 (expresion -> expValor .)
+    MAYOR           reduce using rule 29 (expresion -> expValor .)
+    MENOR           reduce using rule 29 (expresion -> expValor .)
+    MAYORIGUAL      reduce using rule 29 (expresion -> expValor .)
+    MENORIGUAL      reduce using rule 29 (expresion -> expValor .)
+    IGUALES         reduce using rule 29 (expresion -> expValor .)
+    DISTINTOS       reduce using rule 29 (expresion -> expValor .)
+    OR              reduce using rule 29 (expresion -> expValor .)
+    AND             reduce using rule 29 (expresion -> expValor .)
+    PRINTLN         reduce using rule 29 (expresion -> expValor .)
+    PRINT           reduce using rule 29 (expresion -> expValor .)
+    IF              reduce using rule 29 (expresion -> expValor .)
+    PARDER          reduce using rule 29 (expresion -> expValor .)
+
+
+state 18
+
+    (30) expValor -> PARIZQ . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 42
+    expValor                       shift and go to state 17
+
+state 19
+
+    (31) expValor -> INTID .
+
+    MAS             reduce using rule 31 (expValor -> INTID .)
+    MENOS           reduce using rule 31 (expValor -> INTID .)
+    MULT            reduce using rule 31 (expValor -> INTID .)
+    DIV             reduce using rule 31 (expValor -> INTID .)
+    MAYOR           reduce using rule 31 (expValor -> INTID .)
+    MENOR           reduce using rule 31 (expValor -> INTID .)
+    MAYORIGUAL      reduce using rule 31 (expValor -> INTID .)
+    MENORIGUAL      reduce using rule 31 (expValor -> INTID .)
+    IGUALES         reduce using rule 31 (expValor -> INTID .)
+    DISTINTOS       reduce using rule 31 (expValor -> INTID .)
+    OR              reduce using rule 31 (expValor -> INTID .)
+    AND             reduce using rule 31 (expValor -> INTID .)
+    PRINTLN         reduce using rule 31 (expValor -> INTID .)
+    PRINT           reduce using rule 31 (expValor -> INTID .)
+    IF              reduce using rule 31 (expValor -> INTID .)
+    PARDER          reduce using rule 31 (expValor -> INTID .)
+
+
+state 20
+
+    (32) expValor -> FLOATID .
+
+    MAS             reduce using rule 32 (expValor -> FLOATID .)
+    MENOS           reduce using rule 32 (expValor -> FLOATID .)
+    MULT            reduce using rule 32 (expValor -> FLOATID .)
+    DIV             reduce using rule 32 (expValor -> FLOATID .)
+    MAYOR           reduce using rule 32 (expValor -> FLOATID .)
+    MENOR           reduce using rule 32 (expValor -> FLOATID .)
+    MAYORIGUAL      reduce using rule 32 (expValor -> FLOATID .)
+    MENORIGUAL      reduce using rule 32 (expValor -> FLOATID .)
+    IGUALES         reduce using rule 32 (expValor -> FLOATID .)
+    DISTINTOS       reduce using rule 32 (expValor -> FLOATID .)
+    OR              reduce using rule 32 (expValor -> FLOATID .)
+    AND             reduce using rule 32 (expValor -> FLOATID .)
+    PRINTLN         reduce using rule 32 (expValor -> FLOATID .)
+    PRINT           reduce using rule 32 (expValor -> FLOATID .)
+    IF              reduce using rule 32 (expValor -> FLOATID .)
+    PARDER          reduce using rule 32 (expValor -> FLOATID .)
+
+
+state 21
+
+    (33) expValor -> STRINGID .
+
+    MAS             reduce using rule 33 (expValor -> STRINGID .)
+    MENOS           reduce using rule 33 (expValor -> STRINGID .)
+    MULT            reduce using rule 33 (expValor -> STRINGID .)
+    DIV             reduce using rule 33 (expValor -> STRINGID .)
+    MAYOR           reduce using rule 33 (expValor -> STRINGID .)
+    MENOR           reduce using rule 33 (expValor -> STRINGID .)
+    MAYORIGUAL      reduce using rule 33 (expValor -> STRINGID .)
+    MENORIGUAL      reduce using rule 33 (expValor -> STRINGID .)
+    IGUALES         reduce using rule 33 (expValor -> STRINGID .)
+    DISTINTOS       reduce using rule 33 (expValor -> STRINGID .)
+    OR              reduce using rule 33 (expValor -> STRINGID .)
+    AND             reduce using rule 33 (expValor -> STRINGID .)
+    PRINTLN         reduce using rule 33 (expValor -> STRINGID .)
+    PRINT           reduce using rule 33 (expValor -> STRINGID .)
+    IF              reduce using rule 33 (expValor -> STRINGID .)
+    PARDER          reduce using rule 33 (expValor -> STRINGID .)
+
+
+state 22
+
+    (34) expValor -> TRUE .
+
+    MAS             reduce using rule 34 (expValor -> TRUE .)
+    MENOS           reduce using rule 34 (expValor -> TRUE .)
+    MULT            reduce using rule 34 (expValor -> TRUE .)
+    DIV             reduce using rule 34 (expValor -> TRUE .)
+    MAYOR           reduce using rule 34 (expValor -> TRUE .)
+    MENOR           reduce using rule 34 (expValor -> TRUE .)
+    MAYORIGUAL      reduce using rule 34 (expValor -> TRUE .)
+    MENORIGUAL      reduce using rule 34 (expValor -> TRUE .)
+    IGUALES         reduce using rule 34 (expValor -> TRUE .)
+    DISTINTOS       reduce using rule 34 (expValor -> TRUE .)
+    OR              reduce using rule 34 (expValor -> TRUE .)
+    AND             reduce using rule 34 (expValor -> TRUE .)
+    PRINTLN         reduce using rule 34 (expValor -> TRUE .)
+    PRINT           reduce using rule 34 (expValor -> TRUE .)
+    IF              reduce using rule 34 (expValor -> TRUE .)
+    PARDER          reduce using rule 34 (expValor -> TRUE .)
+
+
+state 23
+
+    (35) expValor -> FALSE .
+
+    MAS             reduce using rule 35 (expValor -> FALSE .)
+    MENOS           reduce using rule 35 (expValor -> FALSE .)
+    MULT            reduce using rule 35 (expValor -> FALSE .)
+    DIV             reduce using rule 35 (expValor -> FALSE .)
+    MAYOR           reduce using rule 35 (expValor -> FALSE .)
+    MENOR           reduce using rule 35 (expValor -> FALSE .)
+    MAYORIGUAL      reduce using rule 35 (expValor -> FALSE .)
+    MENORIGUAL      reduce using rule 35 (expValor -> FALSE .)
+    IGUALES         reduce using rule 35 (expValor -> FALSE .)
+    DISTINTOS       reduce using rule 35 (expValor -> FALSE .)
+    OR              reduce using rule 35 (expValor -> FALSE .)
+    AND             reduce using rule 35 (expValor -> FALSE .)
+    PRINTLN         reduce using rule 35 (expValor -> FALSE .)
+    PRINT           reduce using rule 35 (expValor -> FALSE .)
+    IF              reduce using rule 35 (expValor -> FALSE .)
+    PARDER          reduce using rule 35 (expValor -> FALSE .)
+
+
+state 24
+
+    (7) printINS -> PRINTLN PARIZQ expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 43
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+    OR              shift and go to state 37
+    AND             shift and go to state 38
+
+
+state 25
+
+    (8) printINS -> PRINT PARIZQ expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 44
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+    OR              shift and go to state 37
+    AND             shift and go to state 38
+
+
+state 26
+
+    (9) ifINS -> IF expresion sentencia . END
+    (10) ifINS -> IF expresion sentencia . ELSE sentencia END
+    (11) ifINS -> IF expresion sentencia . elseIfLista END
+    (12) elseIfLista -> . ELSEIF expresion sentencia
+    (13) elseIfLista -> . ELSEIF expresion sentencia ELSE sentencia
+    (14) elseIfLista -> . ELSEIF expresion sentencia elseIfLista
+
+    END             shift and go to state 45
+    ELSE            shift and go to state 46
+    ELSEIF          shift and go to state 48
+
+    elseIfLista                    shift and go to state 47
+
+state 27
+
+    (17) expresion -> expresion MAS . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 49
+    expValor                       shift and go to state 17
+
+state 28
+
+    (18) expresion -> expresion MENOS . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 50
+    expValor                       shift and go to state 17
+
+state 29
+
+    (19) expresion -> expresion MULT . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 51
+    expValor                       shift and go to state 17
+
+state 30
+
+    (20) expresion -> expresion DIV . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 52
+    expValor                       shift and go to state 17
+
+state 31
+
+    (21) expresion -> expresion MAYOR . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 53
+    expValor                       shift and go to state 17
+
+state 32
+
+    (22) expresion -> expresion MENOR . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 54
+    expValor                       shift and go to state 17
+
+state 33
+
+    (23) expresion -> expresion MAYORIGUAL . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 55
+    expValor                       shift and go to state 17
+
+state 34
+
+    (24) expresion -> expresion MENORIGUAL . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 56
+    expValor                       shift and go to state 17
+
+state 35
+
+    (25) expresion -> expresion IGUALES . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 57
+    expValor                       shift and go to state 17
+
+state 36
+
+    (26) expresion -> expresion DISTINTOS . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 58
+    expValor                       shift and go to state 17
+
+state 37
+
+    (27) expresion -> expresion OR . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 59
+    expValor                       shift and go to state 17
+
+state 38
+
+    (28) expresion -> expresion AND . expresion
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 60
+    expValor                       shift and go to state 17
+
+state 39
+
+    (6) sentencia -> instrucciones .
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    END             reduce using rule 6 (sentencia -> instrucciones .)
+    ELSE            reduce using rule 6 (sentencia -> instrucciones .)
+    ELSEIF          reduce using rule 6 (sentencia -> instrucciones .)
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    instruccion                    shift and go to state 9
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 40
+
+    (15) expresion -> MENOS expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAS             reduce using rule 15 (expresion -> MENOS expresion .)
+    MENOS           reduce using rule 15 (expresion -> MENOS expresion .)
+    MULT            reduce using rule 15 (expresion -> MENOS expresion .)
+    DIV             reduce using rule 15 (expresion -> MENOS expresion .)
+    MAYOR           reduce using rule 15 (expresion -> MENOS expresion .)
+    MENOR           reduce using rule 15 (expresion -> MENOS expresion .)
+    MAYORIGUAL      reduce using rule 15 (expresion -> MENOS expresion .)
+    MENORIGUAL      reduce using rule 15 (expresion -> MENOS expresion .)
+    IGUALES         reduce using rule 15 (expresion -> MENOS expresion .)
+    DISTINTOS       reduce using rule 15 (expresion -> MENOS expresion .)
+    OR              reduce using rule 15 (expresion -> MENOS expresion .)
+    AND             reduce using rule 15 (expresion -> MENOS expresion .)
+    PRINTLN         reduce using rule 15 (expresion -> MENOS expresion .)
+    PRINT           reduce using rule 15 (expresion -> MENOS expresion .)
+    IF              reduce using rule 15 (expresion -> MENOS expresion .)
+    PARDER          reduce using rule 15 (expresion -> MENOS expresion .)
+
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 28 ]
+  ! MULT            [ shift and go to state 29 ]
+  ! DIV             [ shift and go to state 30 ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 41
+
+    (16) expresion -> NOT expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAS             reduce using rule 16 (expresion -> NOT expresion .)
+    MENOS           reduce using rule 16 (expresion -> NOT expresion .)
+    MULT            reduce using rule 16 (expresion -> NOT expresion .)
+    DIV             reduce using rule 16 (expresion -> NOT expresion .)
+    MAYOR           reduce using rule 16 (expresion -> NOT expresion .)
+    MENOR           reduce using rule 16 (expresion -> NOT expresion .)
+    MAYORIGUAL      reduce using rule 16 (expresion -> NOT expresion .)
+    MENORIGUAL      reduce using rule 16 (expresion -> NOT expresion .)
+    IGUALES         reduce using rule 16 (expresion -> NOT expresion .)
+    DISTINTOS       reduce using rule 16 (expresion -> NOT expresion .)
+    OR              reduce using rule 16 (expresion -> NOT expresion .)
+    AND             reduce using rule 16 (expresion -> NOT expresion .)
+    PRINTLN         reduce using rule 16 (expresion -> NOT expresion .)
+    PRINT           reduce using rule 16 (expresion -> NOT expresion .)
+    IF              reduce using rule 16 (expresion -> NOT expresion .)
+    PARDER          reduce using rule 16 (expresion -> NOT expresion .)
+
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 28 ]
+  ! MULT            [ shift and go to state 29 ]
+  ! DIV             [ shift and go to state 30 ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 42
+
+    (30) expValor -> PARIZQ expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 61
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+    OR              shift and go to state 37
+    AND             shift and go to state 38
+
+
+state 43
+
+    (7) printINS -> PRINTLN PARIZQ expresion PARDER .
+
+    PUNTOCOMA       reduce using rule 7 (printINS -> PRINTLN PARIZQ expresion PARDER .)
+
+
+state 44
+
+    (8) printINS -> PRINT PARIZQ expresion PARDER .
+
+    PUNTOCOMA       reduce using rule 8 (printINS -> PRINT PARIZQ expresion PARDER .)
+
+
+state 45
+
+    (9) ifINS -> IF expresion sentencia END .
+
+    PUNTOCOMA       reduce using rule 9 (ifINS -> IF expresion sentencia END .)
+
+
+state 46
+
+    (10) ifINS -> IF expresion sentencia ELSE . sentencia END
+    (6) sentencia -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    sentencia                      shift and go to state 62
+    instrucciones                  shift and go to state 39
+    instruccion                    shift and go to state 3
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 47
+
+    (11) ifINS -> IF expresion sentencia elseIfLista . END
+
+    END             shift and go to state 63
+
+
+state 48
+
+    (12) elseIfLista -> ELSEIF . expresion sentencia
+    (13) elseIfLista -> ELSEIF . expresion sentencia ELSE sentencia
+    (14) elseIfLista -> ELSEIF . expresion sentencia elseIfLista
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MAYOR expresion
+    (22) expresion -> . expresion MENOR expresion
+    (23) expresion -> . expresion MAYORIGUAL expresion
+    (24) expresion -> . expresion MENORIGUAL expresion
+    (25) expresion -> . expresion IGUALES expresion
+    (26) expresion -> . expresion DISTINTOS expresion
+    (27) expresion -> . expresion OR expresion
+    (28) expresion -> . expresion AND expresion
+    (29) expresion -> . expValor
+    (30) expValor -> . PARIZQ expresion PARDER
+    (31) expValor -> . INTID
+    (32) expValor -> . FLOATID
+    (33) expValor -> . STRINGID
+    (34) expValor -> . TRUE
+    (35) expValor -> . FALSE
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 22
+    FALSE           shift and go to state 23
+
+    expresion                      shift and go to state 64
+    expValor                       shift and go to state 17
+
+state 49
+
+    (17) expresion -> expresion MAS expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAS             reduce using rule 17 (expresion -> expresion MAS expresion .)
+    MENOS           reduce using rule 17 (expresion -> expresion MAS expresion .)
+    MAYOR           reduce using rule 17 (expresion -> expresion MAS expresion .)
+    MENOR           reduce using rule 17 (expresion -> expresion MAS expresion .)
+    MAYORIGUAL      reduce using rule 17 (expresion -> expresion MAS expresion .)
+    MENORIGUAL      reduce using rule 17 (expresion -> expresion MAS expresion .)
+    IGUALES         reduce using rule 17 (expresion -> expresion MAS expresion .)
+    DISTINTOS       reduce using rule 17 (expresion -> expresion MAS expresion .)
+    OR              reduce using rule 17 (expresion -> expresion MAS expresion .)
+    AND             reduce using rule 17 (expresion -> expresion MAS expresion .)
+    PRINTLN         reduce using rule 17 (expresion -> expresion MAS expresion .)
+    PRINT           reduce using rule 17 (expresion -> expresion MAS expresion .)
+    IF              reduce using rule 17 (expresion -> expresion MAS expresion .)
+    PARDER          reduce using rule 17 (expresion -> expresion MAS expresion .)
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+
+  ! MULT            [ reduce using rule 17 (expresion -> expresion MAS expresion .) ]
+  ! DIV             [ reduce using rule 17 (expresion -> expresion MAS expresion .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 28 ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 50
+
+    (18) expresion -> expresion MENOS expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAS             reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    MENOS           reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    MAYOR           reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    MENOR           reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    MAYORIGUAL      reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    MENORIGUAL      reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    IGUALES         reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    DISTINTOS       reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    OR              reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    AND             reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    PRINTLN         reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    PRINT           reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    IF              reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    PARDER          reduce using rule 18 (expresion -> expresion MENOS expresion .)
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+
+  ! MULT            [ reduce using rule 18 (expresion -> expresion MENOS expresion .) ]
+  ! DIV             [ reduce using rule 18 (expresion -> expresion MENOS expresion .) ]
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 28 ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 51
+
+    (19) expresion -> expresion MULT expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAS             reduce using rule 19 (expresion -> expresion MULT expresion .)
+    MENOS           reduce using rule 19 (expresion -> expresion MULT expresion .)
+    MULT            reduce using rule 19 (expresion -> expresion MULT expresion .)
+    DIV             reduce using rule 19 (expresion -> expresion MULT expresion .)
+    MAYOR           reduce using rule 19 (expresion -> expresion MULT expresion .)
+    MENOR           reduce using rule 19 (expresion -> expresion MULT expresion .)
+    MAYORIGUAL      reduce using rule 19 (expresion -> expresion MULT expresion .)
+    MENORIGUAL      reduce using rule 19 (expresion -> expresion MULT expresion .)
+    IGUALES         reduce using rule 19 (expresion -> expresion MULT expresion .)
+    DISTINTOS       reduce using rule 19 (expresion -> expresion MULT expresion .)
+    OR              reduce using rule 19 (expresion -> expresion MULT expresion .)
+    AND             reduce using rule 19 (expresion -> expresion MULT expresion .)
+    PRINTLN         reduce using rule 19 (expresion -> expresion MULT expresion .)
+    PRINT           reduce using rule 19 (expresion -> expresion MULT expresion .)
+    IF              reduce using rule 19 (expresion -> expresion MULT expresion .)
+    PARDER          reduce using rule 19 (expresion -> expresion MULT expresion .)
+
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 28 ]
+  ! MULT            [ shift and go to state 29 ]
+  ! DIV             [ shift and go to state 30 ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 52
+
+    (20) expresion -> expresion DIV expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAS             reduce using rule 20 (expresion -> expresion DIV expresion .)
+    MENOS           reduce using rule 20 (expresion -> expresion DIV expresion .)
+    MULT            reduce using rule 20 (expresion -> expresion DIV expresion .)
+    DIV             reduce using rule 20 (expresion -> expresion DIV expresion .)
+    MAYOR           reduce using rule 20 (expresion -> expresion DIV expresion .)
+    MENOR           reduce using rule 20 (expresion -> expresion DIV expresion .)
+    MAYORIGUAL      reduce using rule 20 (expresion -> expresion DIV expresion .)
+    MENORIGUAL      reduce using rule 20 (expresion -> expresion DIV expresion .)
+    IGUALES         reduce using rule 20 (expresion -> expresion DIV expresion .)
+    DISTINTOS       reduce using rule 20 (expresion -> expresion DIV expresion .)
+    OR              reduce using rule 20 (expresion -> expresion DIV expresion .)
+    AND             reduce using rule 20 (expresion -> expresion DIV expresion .)
+    PRINTLN         reduce using rule 20 (expresion -> expresion DIV expresion .)
+    PRINT           reduce using rule 20 (expresion -> expresion DIV expresion .)
+    IF              reduce using rule 20 (expresion -> expresion DIV expresion .)
+    PARDER          reduce using rule 20 (expresion -> expresion DIV expresion .)
+
+  ! MAS             [ shift and go to state 27 ]
+  ! MENOS           [ shift and go to state 28 ]
+  ! MULT            [ shift and go to state 29 ]
+  ! DIV             [ shift and go to state 30 ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 53
+
+    (21) expresion -> expresion MAYOR expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAYOR           reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    MENOR           reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    MAYORIGUAL      reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    MENORIGUAL      reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    IGUALES         reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    DISTINTOS       reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    OR              reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    AND             reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    PRINTLN         reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    PRINT           reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    IF              reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    PARDER          reduce using rule 21 (expresion -> expresion MAYOR expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+
+  ! MAS             [ reduce using rule 21 (expresion -> expresion MAYOR expresion .) ]
+  ! MENOS           [ reduce using rule 21 (expresion -> expresion MAYOR expresion .) ]
+  ! MULT            [ reduce using rule 21 (expresion -> expresion MAYOR expresion .) ]
+  ! DIV             [ reduce using rule 21 (expresion -> expresion MAYOR expresion .) ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 54
+
+    (22) expresion -> expresion MENOR expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAYOR           reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    MENOR           reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    MAYORIGUAL      reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    MENORIGUAL      reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    IGUALES         reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    DISTINTOS       reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    OR              reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    AND             reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    PRINTLN         reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    PRINT           reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    IF              reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    PARDER          reduce using rule 22 (expresion -> expresion MENOR expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+
+  ! MAS             [ reduce using rule 22 (expresion -> expresion MENOR expresion .) ]
+  ! MENOS           [ reduce using rule 22 (expresion -> expresion MENOR expresion .) ]
+  ! MULT            [ reduce using rule 22 (expresion -> expresion MENOR expresion .) ]
+  ! DIV             [ reduce using rule 22 (expresion -> expresion MENOR expresion .) ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 55
+
+    (23) expresion -> expresion MAYORIGUAL expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAYOR           reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    MENOR           reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    IGUALES         reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    DISTINTOS       reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    OR              reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    AND             reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    PRINTLN         reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    PRINT           reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    IF              reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    PARDER          reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+
+  ! MAS             [ reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MULT            [ reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! DIV             [ reduce using rule 23 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 56
+
+    (24) expresion -> expresion MENORIGUAL expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    MAYOR           reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    MENOR           reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    IGUALES         reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    DISTINTOS       reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    OR              reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    AND             reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    PRINTLN         reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    PRINT           reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    IF              reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    PARDER          reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+
+  ! MAS             [ reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MULT            [ reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! DIV             [ reduce using rule 24 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MAYOR           [ shift and go to state 31 ]
+  ! MENOR           [ shift and go to state 32 ]
+  ! MAYORIGUAL      [ shift and go to state 33 ]
+  ! MENORIGUAL      [ shift and go to state 34 ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 57
+
+    (25) expresion -> expresion IGUALES expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    IGUALES         reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    DISTINTOS       reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    OR              reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    AND             reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    PRINTLN         reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    PRINT           reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    IF              reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    PARDER          reduce using rule 25 (expresion -> expresion IGUALES expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+
+  ! MAS             [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! MENOS           [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! MULT            [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! DIV             [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! MAYOR           [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! MENOR           [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 25 (expresion -> expresion IGUALES expresion .) ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 58
+
+    (26) expresion -> expresion DISTINTOS expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    IGUALES         reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    DISTINTOS       reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    OR              reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    AND             reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    PRINTLN         reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    PRINT           reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    IF              reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    PARDER          reduce using rule 26 (expresion -> expresion DISTINTOS expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+
+  ! MAS             [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! MENOS           [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! MULT            [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! DIV             [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! MAYOR           [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! MENOR           [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 26 (expresion -> expresion DISTINTOS expresion .) ]
+  ! IGUALES         [ shift and go to state 35 ]
+  ! DISTINTOS       [ shift and go to state 36 ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 59
+
+    (27) expresion -> expresion OR expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    OR              reduce using rule 27 (expresion -> expresion OR expresion .)
+    PRINTLN         reduce using rule 27 (expresion -> expresion OR expresion .)
+    PRINT           reduce using rule 27 (expresion -> expresion OR expresion .)
+    IF              reduce using rule 27 (expresion -> expresion OR expresion .)
+    PARDER          reduce using rule 27 (expresion -> expresion OR expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+    AND             shift and go to state 38
+
+  ! MAS             [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! MENOS           [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! MULT            [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! DIV             [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! MAYOR           [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! MENOR           [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! IGUALES         [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! DISTINTOS       [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! AND             [ reduce using rule 27 (expresion -> expresion OR expresion .) ]
+  ! OR              [ shift and go to state 37 ]
+
+
+state 60
+
+    (28) expresion -> expresion AND expresion .
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+
+    OR              reduce using rule 28 (expresion -> expresion AND expresion .)
+    AND             reduce using rule 28 (expresion -> expresion AND expresion .)
+    PRINTLN         reduce using rule 28 (expresion -> expresion AND expresion .)
+    PRINT           reduce using rule 28 (expresion -> expresion AND expresion .)
+    IF              reduce using rule 28 (expresion -> expresion AND expresion .)
+    PARDER          reduce using rule 28 (expresion -> expresion AND expresion .)
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+
+  ! MAS             [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! MENOS           [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! MULT            [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! DIV             [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! MAYOR           [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! MENOR           [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! IGUALES         [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! DISTINTOS       [ reduce using rule 28 (expresion -> expresion AND expresion .) ]
+  ! OR              [ shift and go to state 37 ]
+  ! AND             [ shift and go to state 38 ]
+
+
+state 61
+
+    (30) expValor -> PARIZQ expresion PARDER .
+
+    MAS             reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    MENOS           reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    MULT            reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    DIV             reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    MAYOR           reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    MENOR           reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    MAYORIGUAL      reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    MENORIGUAL      reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    IGUALES         reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    DISTINTOS       reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    OR              reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    AND             reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    PRINTLN         reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    PRINT           reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    IF              reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 30 (expValor -> PARIZQ expresion PARDER .)
+
+
+state 62
+
+    (10) ifINS -> IF expresion sentencia ELSE sentencia . END
+
+    END             shift and go to state 65
+
+
+state 63
+
+    (11) ifINS -> IF expresion sentencia elseIfLista END .
+
+    PUNTOCOMA       reduce using rule 11 (ifINS -> IF expresion sentencia elseIfLista END .)
+
+
+state 64
+
+    (12) elseIfLista -> ELSEIF expresion . sentencia
+    (13) elseIfLista -> ELSEIF expresion . sentencia ELSE sentencia
+    (14) elseIfLista -> ELSEIF expresion . sentencia elseIfLista
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MAYOR expresion
+    (22) expresion -> expresion . MENOR expresion
+    (23) expresion -> expresion . MAYORIGUAL expresion
+    (24) expresion -> expresion . MENORIGUAL expresion
+    (25) expresion -> expresion . IGUALES expresion
+    (26) expresion -> expresion . DISTINTOS expresion
+    (27) expresion -> expresion . OR expresion
+    (28) expresion -> expresion . AND expresion
+    (6) sentencia -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    MAS             shift and go to state 27
+    MENOS           shift and go to state 28
+    MULT            shift and go to state 29
+    DIV             shift and go to state 30
+    MAYOR           shift and go to state 31
+    MENOR           shift and go to state 32
+    MAYORIGUAL      shift and go to state 33
+    MENORIGUAL      shift and go to state 34
+    IGUALES         shift and go to state 35
+    DISTINTOS       shift and go to state 36
+    OR              shift and go to state 37
+    AND             shift and go to state 38
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    sentencia                      shift and go to state 66
+    instrucciones                  shift and go to state 39
+    instruccion                    shift and go to state 3
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 65
+
+    (10) ifINS -> IF expresion sentencia ELSE sentencia END .
+
+    PUNTOCOMA       reduce using rule 10 (ifINS -> IF expresion sentencia ELSE sentencia END .)
+
+
+state 66
+
+    (12) elseIfLista -> ELSEIF expresion sentencia .
+    (13) elseIfLista -> ELSEIF expresion sentencia . ELSE sentencia
+    (14) elseIfLista -> ELSEIF expresion sentencia . elseIfLista
+    (12) elseIfLista -> . ELSEIF expresion sentencia
+    (13) elseIfLista -> . ELSEIF expresion sentencia ELSE sentencia
+    (14) elseIfLista -> . ELSEIF expresion sentencia elseIfLista
+
+    END             reduce using rule 12 (elseIfLista -> ELSEIF expresion sentencia .)
+    ELSE            shift and go to state 67
+    ELSEIF          shift and go to state 48
+
+    elseIfLista                    shift and go to state 68
+
+state 67
+
+    (13) elseIfLista -> ELSEIF expresion sentencia ELSE . sentencia
+    (6) sentencia -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . printINS PUNTOCOMA
+    (5) instruccion -> . ifINS PUNTOCOMA
+    (7) printINS -> . PRINTLN PARIZQ expresion PARDER
+    (8) printINS -> . PRINT PARIZQ expresion PARDER
+    (9) ifINS -> . IF expresion sentencia END
+    (10) ifINS -> . IF expresion sentencia ELSE sentencia END
+    (11) ifINS -> . IF expresion sentencia elseIfLista END
+
+    PRINTLN         shift and go to state 6
+    PRINT           shift and go to state 7
+    IF              shift and go to state 8
+
+    sentencia                      shift and go to state 69
+    instrucciones                  shift and go to state 39
+    instruccion                    shift and go to state 3
+    printINS                       shift and go to state 4
+    ifINS                          shift and go to state 5
+
+state 68
+
+    (14) elseIfLista -> ELSEIF expresion sentencia elseIfLista .
+
+    END             reduce using rule 14 (elseIfLista -> ELSEIF expresion sentencia elseIfLista .)
+
+
+state 69
+
+    (13) elseIfLista -> ELSEIF expresion sentencia ELSE sentencia .
+
+    END             reduce using rule 13 (elseIfLista -> ELSEIF expresion sentencia ELSE sentencia .)
+

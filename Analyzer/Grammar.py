@@ -9,7 +9,7 @@ from Expresiones.Relacional import *
 rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
     "TRUE": "TRUE", "FALSE": "FALSE", "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT",
-    "PRINTLN": "PRINTLN "
+    "PRINTLN": "PRINTLN", "END": "END"
 }
 
 tokens = [
@@ -21,7 +21,7 @@ tokens = [
          ] + list(rw.values())
 
 t_IGUAL = r'='
-t_PUNTO = r'.'
+t_PUNTO = r'\.'
 t_DOSPUNTOS = r':'
 t_PUNTOCOMA = r';'
 t_COMA = r','
@@ -98,8 +98,8 @@ def t_error(t):
 
 
 import ply.lex as lex
-lexer = lex.lex()
 
+lexer = lex.lex()
 
 precedence = (
     ('left', 'OR'),
@@ -107,7 +107,7 @@ precedence = (
     ('left', 'IGUALES', 'DISTINTOS'),
     ('left', 'MAYORIGUAL', 'MENORIGUAL', 'MAYOR', 'MENOR'),
     ('left', 'MAS', 'MENOS'),
-    ('left', 'MULTI', 'DIV'),
+    ('left', 'MULT', 'DIV'),
     ('right', 'NOT'),
     ('right', 'UMINUS'),
 )
@@ -116,7 +116,7 @@ precedence = (
 # SYNTACTIC ANALYSIS
 
 def p_start(t):
-    'start : instructions'
+    'inicio : instrucciones'
     t[0] = t[1]
     return t[0]
 
@@ -170,7 +170,7 @@ def p_ifINS(t):
 def p_elseIfLista(t):
     '''elseIfLista   : ELSEIF expresion sentencia
                      | ELSEIF expresion sentencia ELSE sentencia
-                     | ELSEIF expresion sentencia elseIfList'''
+                     | ELSEIF expresion sentencia elseIfLista'''
     if len(t) == 4:
         t[0] = If(t[2], t[3], t.lineno(1), t.lexpos(0))
     elif len(t) == 6:
@@ -185,7 +185,7 @@ def p_expresion(t):
 
                     | expresion MAS expresion
                     | expresion MENOS expresion
-                    | expresion MULTI expresion
+                    | expresion MULT expresion
                     | expresion DIV expresion
                     | expresion MAYOR expresion
                     | expresion MENOR expresion
@@ -201,39 +201,39 @@ def p_expresion(t):
         t[0] = t[1]
     elif len(t) == 3:
         # UMINUS
-        t[0] = Aritmetico(Literal(0, Tipo.INT, t.lineno(1), t.lexpos(0)), t[2], OperacionAritmetica.MINUS, t.lineno(1),
-                          t.lexpos(0))
+        if t[1] == "-":
+            t[0] = Aritmetico(t[2], t[2], OperacionAritmetica.MENOS, t.lineno(1), t.lexpos(0))
+        elif t[1] == "!":
+            t[0] = Relacional(t[2], t[2], OperacionRelacional.NOT, t.lineno(1), t.lexpos(0))
     else:
         if t[2] == "+":
-            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.PLUS, t.lineno(2), t.lexpos(0))
+            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.SUMA, t.lineno(2), t.lexpos(0))
         elif t[2] == "-":
-            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.MINUS, t.lineno(2), t.lexpos(0))
+            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.RESTA, t.lineno(2), t.lexpos(0))
         elif t[2] == "*":
-            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.TIMES, t.lineno(2), t.lexpos(0))
+            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.MULTI, t.lineno(2), t.lexpos(0))
         elif t[2] == "/":
             t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.DIV, t.lineno(2), t.lexpos(0))
         elif t[2] == ">":
-            t[0] = Relacional(t[1], t[3], OperacionRelacional.GREATER, t.lineno(2), t.lexpos(2))
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.MAYOR, t.lineno(2), t.lexpos(2))
         elif t[2] == "<":
-            t[0] = Relacional(t[1], t[3], OperacionRelacional.LESS, t.lineno(2), t.lexpos(2))
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.MENOR, t.lineno(2), t.lexpos(2))
         elif t[2] == ">=":
-            t[0] = Relacional(t[1], t[3], OperacionRelacional.GREATEREQUAL, t.lineno(2), t.lexpos(2))
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.MAYORIGUAL, t.lineno(2), t.lexpos(2))
         elif t[2] == "<=":
-            t[0] = Relacional(t[1], t[3], OperacionRelacional.LESSEQUAL, t.lineno(2), t.lexpos(2))
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.MENORIGUAL, t.lineno(2), t.lexpos(2))
         elif t[2] == "==":
-            t[0] = Relacional(t[1], t[3], OperacionRelacional.EQUALSEQUALS, t.lineno(2), t.lexpos(2))
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.IGUALES, t.lineno(2), t.lexpos(2))
         elif t[2] == "!=":
-            t[0] = Relacional(t[1], t[3], OperacionRelacional.DISTINT, t.lineno(2), t.lexpos(2))
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.DISTINTOS, t.lineno(2), t.lexpos(2))
         elif t[2] == "||":
-            # OR
-            t[0] = 0
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.OR, t.lineno(2), t.lexpos(2))
         elif t[2] == "&&":
-            # AND
-            t[0] = 0
+            t[0] = Relacional(t[1], t[3], OperacionRelacional.AND, t.lineno(2), t.lexpos(2))
 
 
-def p_finalExp(t):
-    '''expValor : PARIZQ expression PARDER
+def p_expValor(t):
+    '''expValor : PARIZQ expresion PARDER
                 | INTID
                 | FLOATID
                 | STRINGID
@@ -266,7 +266,5 @@ import ply.yacc as yacc
 parser = yacc.yacc()
 
 
-def parse():
-    f = open("./input.jl", "r")
-    input = f.read()
-    return parser.parse(input)
+def parse(str):
+    return parser.parse(str)
