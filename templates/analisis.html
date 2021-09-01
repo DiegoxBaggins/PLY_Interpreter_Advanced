@@ -5,18 +5,20 @@
                 <div class="subheader">
                     <span> Write code and press "Compilar"</span>
                 </div>
-                <div class="div-txt">
-                    <label id="txt1">Entrada:</label>
-                    <textarea id="txt1" class="txtArea"></textarea>
-                </div>
-                <div class="div-medio">
-                    <input type="button" value="Compilar" class="btn-upload"/>
-                    <img src="{{ url_for('static', filename='images/cat.gif') }}" alt="Cat" >
-                </div>
-                <div class="div-txt">
-                    <label id="txt2">Salida:</label>
-                    <textarea id="txt2"  class="txtArea" readOnly></textarea>
-                </div>
+                <form method="post">
+                    <div class="div-txt">
+                        <label for="txt1">Entrada:</label>
+                        <textarea name="txt1" id="txt1" class="txtArea">{{ text1 }}</textarea>
+                    </div>
+                    <div class="div-medio">
+                        <input type="submit" value="Compilar" class="btn-upload"/>
+                        <img src="{{ url_for('static', filename='images/cat.gif') }}" alt="Cat" >
+                    </div>
+                    <div class="div-txt">
+                        <label for="txt2">Salida:</label>
+                        <textarea name="txt2" id="txt2"  class="txtArea" readOnly>{{ text2 }}</textarea>
+                    </div>
+                </form>
                 <div class="clearfix"> </div>
             </div>
 {% endblock %}

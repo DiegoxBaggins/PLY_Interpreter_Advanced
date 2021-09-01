@@ -1,0 +1,9 @@
+True
+False
+Hola
+40.5
+If Normal
+If Else
+If Elseif en elseif
+If Elseif Else en Elseif
+If Elseif*2 Else en Elseif1
