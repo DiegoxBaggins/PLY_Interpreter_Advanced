@@ -2,6 +2,22 @@ True
 False
 Hola
 40.5
+Hola Mundo
+Diego Diego Diego 
+MINUSCULA
+mayuscula
+4.0
+6.25
+5.656854249492381
+2.0
+2.3
+2.0
+2.0
+0.8509035245341184
+-0.4480736161291701
+1.6197751905438615
+10.0
+100
 If Normal
 If Else
 If Elseif en elseif

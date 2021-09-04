@@ -5,17 +5,21 @@ from Instruction.If import *
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
 from Expresiones.Relacional import *
+from Expresiones.Nativas import *
 
 rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
-    "TRUE": "TRUE", "FALSE": "FALSE", "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT",
-    "PRINTLN": "PRINTLN", "END": "END"
+    "TRUE": "TRUE", "FALSE": "FALSE",
+    "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
+    "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
+    "LOWERCASE": "LOWERCASE"
 }
 
 tokens = [
-             "ID", "INTID", "FLOATID", "STRINGID",
-             "IGUAL", "PUNTO", "COMA", "DOSPUNTOS", "PUNTOCOMA", "PARIZQ", "PARDER",
-             "MAS", "MENOS", "MULT", "DIV",
+             "ID", "INTID", "FLOATID", "STRINGID", "CHARID",
+             "IGUAL", "PUNTO", "COMA", "DOSPUNTOS", "PUNTOCOMA",
+             "PARIZQ", "PARDER", "CORIZQ", "CORDER", "LLAVIZQ", "LLAVDER",
+             "MAS", "MENOS", "MULT", "DIV", "POT", "MOD",
              "AND", "OR", "NOT",
              "MAYOR", "MENOR", "MAYORIGUAL", "MENORIGUAL", "IGUALES", "DISTINTOS",
          ] + list(rw.values())
@@ -27,10 +31,16 @@ t_PUNTOCOMA = r';'
 t_COMA = r','
 t_PARIZQ = r'\('
 t_PARDER = r'\)'
+t_CORIZQ = r'\['
+t_CORDER = r'\]'
+t_LLAVIZQ = r'\{'
+t_LLAVDER = r'\}'
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULT = r'\*'
 t_DIV = r'/'
+t_POT = r'\^'
+t_MOD = r'%'
 t_AND = r'&&'
 t_OR = r'\|\|'
 t_NOT = r'!'
@@ -74,6 +84,12 @@ def t_STRINGID(t):
     return t
 
 
+def t_CHARID(t):
+    r'\'.*?\''
+    t.value = t.value[1:-1]
+    return t
+
+
 t_ignore = " \t"
 
 
@@ -107,9 +123,11 @@ precedence = (
     ('left', 'IGUALES', 'DISTINTOS'),
     ('left', 'MAYORIGUAL', 'MENORIGUAL', 'MAYOR', 'MENOR'),
     ('left', 'MAS', 'MENOS'),
-    ('left', 'MULT', 'DIV'),
+    ('left', 'MULT', 'DIV', 'MOD'),
+    ('right', 'POT'),
     ('right', 'NOT'),
     ('right', 'UMINUS'),
+    ('left', 'PARIZQ', 'PARDER', 'LLAVIZQ', 'LLAVDER')
 )
 
 
@@ -187,6 +205,9 @@ def p_expresion(t):
                     | expresion MENOS expresion
                     | expresion MULT expresion
                     | expresion DIV expresion
+                    | expresion MOD expresion
+                    | expresion POT expresion
+
                     | expresion MAYOR expresion
                     | expresion MENOR expresion
                     | expresion MAYORIGUAL expresion
@@ -214,6 +235,10 @@ def p_expresion(t):
             t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.MULTI, t.lineno(2), t.lexpos(0))
         elif t[2] == "/":
             t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.DIV, t.lineno(2), t.lexpos(0))
+        elif t[2] == "%":
+            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.MODULO, t.lineno(2), t.lexpos(0))
+        elif t[2] == "^":
+            t[0] = Aritmetico(t[1], t[3], OperacionAritmetica.POTENCIA, t.lineno(2), t.lexpos(0))
         elif t[2] == ">":
             t[0] = Relacional(t[1], t[3], OperacionRelacional.MAYOR, t.lineno(2), t.lexpos(2))
         elif t[2] == "<":
@@ -237,6 +262,8 @@ def p_expValor(t):
                 | INTID
                 | FLOATID
                 | STRINGID
+                | expCHAR
+                | expNativas
                 | TRUE
                 | FALSE'''
     if len(t) == 2:
@@ -245,15 +272,50 @@ def p_expValor(t):
         elif isinstance(t[1], float):
             t[0] = Literal(float(t[1]), Tipo.FLOAT, t.lineno(1), t.lexpos(0))
         elif isinstance(t[1], str):
-            value = str(t[1])
-            if "true" in value:
+            valor = str(t[1])
+            if "true" in valor:
                 t[0] = Literal(True, Tipo.BOOLEAN, t.lineno(1), t.lexpos(0))
-            elif "false" in value:
+            elif "false" in valor:
                 t[0] = Literal(False, Tipo.BOOLEAN, t.lineno(1), t.lexpos(0))
             else:
                 t[0] = Literal(str(t[1]), Tipo.STRING, t.lineno(1), t.lexpos(0))
+        else:
+            t[0] = t[1]
     else:
         t[0] = t[2]
+
+
+def p_CHARS(t):
+    '''expCHAR : CHARID'''
+    t[0] = Literal(str(t[1]), Tipo.CHAR, t.lineno(1), t.lexpos(0))
+
+
+def p_defNativas(t):
+    '''expNativas : LOG10 PARIZQ expresion PARDER
+                  | LOG PARIZQ expresion COMA expresion PARDER
+                  | SIN PARIZQ expresion PARDER
+                  | COS PARIZQ expresion PARDER
+                  | TAN PARIZQ expresion PARDER
+                  | SQRT PARIZQ expresion PARDER
+                  | UPPERCASE PARIZQ expresion PARDER
+                  | LOWERCASE PARIZQ expresion PARDER'''
+    valor = str(t[1])
+    if "log10" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.LOG10, t.lineno(1), t.lexpos(0))
+    elif "log" in valor:
+        t[0] = Nativo(t[3], t[5], FuncionNativa.LOGBAS, t.lineno(1), t.lexpos(0))
+    elif "sin" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.SEN, t.lineno(1), t.lexpos(0))
+    elif "cos" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.COS, t.lineno(1), t.lexpos(0))
+    elif "tan" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.TAN, t.lineno(1), t.lexpos(0))
+    elif "sqrt" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.RAIZ, t.lineno(1), t.lexpos(0))
+    elif "uppercase" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.UPPER, t.lineno(1), t.lexpos(0))
+    elif "lowercase" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.LOWER, t.lineno(1), t.lexpos(0))
 
 
 def p_error(t):
@@ -266,5 +328,5 @@ import ply.yacc as yacc
 parser = yacc.yacc()
 
 
-def parse(str):
-    return parser.parse(str)
+def parse(strs):
+    return parser.parse(strs)

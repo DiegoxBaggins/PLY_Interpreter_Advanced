@@ -40,15 +40,9 @@ class Relacional(Expresion):
         elif self.tipo == OperacionRelacional.DISTINTOS:
             resultado.valor = valorIzq.valor != valorDer.valor
         elif self.tipo == OperacionRelacional.AND:
-            if valorIzq.valor is True and valorDer.valor is True:
-                resultado.valor = True
-            else:
-                resultado.valor = False
+            resultado.valor = valorIzq.valor and valorDer.valor
         elif self.tipo == OperacionRelacional.OR:
-            if valorIzq.valor is True or valorDer.valor is True:
-                resultado.valor = True
-            else:
-                resultado.valor = False
+            resultado.valor = valorIzq.valor or valorDer.valor
         elif self.tipo == OperacionRelacional.NOT:
-            resultado.valor = ~valorIzq.valor
+            resultado.valor = not valorIzq.valor
         return resultado
