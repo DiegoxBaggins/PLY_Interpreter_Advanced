@@ -7,15 +7,12 @@ Unused terminals:
     CORDER
     CORIZQ
     DOSPUNTOS
-    FLOAT64
     ID
     IGUAL
-    INT64
     LLAVDER
     LLAVIZQ
     NULO
     PUNTO
-    STRING
 
 Grammar
 
@@ -68,6 +65,12 @@ Rule 45    expNativas -> TAN PARIZQ expresion PARDER
 Rule 46    expNativas -> SQRT PARIZQ expresion PARDER
 Rule 47    expNativas -> UPPERCASE PARIZQ expresion PARDER
 Rule 48    expNativas -> LOWERCASE PARIZQ expresion PARDER
+Rule 49    expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER
+Rule 50    expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER
+Rule 51    expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER
+Rule 52    expNativas -> FLOAT PARIZQ expresion PARDER
+Rule 53    expNativas -> STRING PARIZQ expresion PARDER
+Rule 54    expNativas -> TYPEOF PARIZQ expresion PARDER
 
 Terminals, with rules where they appear
 
@@ -75,7 +78,7 @@ AND                  : 30
 BOOL                 : 
 CHAR                 : 
 CHARID               : 40
-COMA                 : 42
+COMA                 : 42 49 50 51
 CORDER               : 
 CORIZQ               : 
 COS                  : 44
@@ -86,13 +89,14 @@ ELSE                 : 10 13
 ELSEIF               : 12 13 14
 END                  : 9 10 11
 FALSE                : 39
-FLOAT64              : 
+FLOAT                : 52
+FLOAT64              : 50
 FLOATID              : 34
 ID                   : 
 IF                   : 9 10 11
 IGUAL                : 
 IGUALES              : 27
-INT64                : 
+INT64                : 49 51
 INTID                : 33
 LLAVDER              : 
 LLAVIZQ              : 
@@ -110,8 +114,9 @@ MULT                 : 19
 NOT                  : 16
 NULO                 : 
 OR                   : 29
-PARDER               : 7 8 32 41 42 43 44 45 46 47 48
-PARIZQ               : 7 8 32 41 42 43 44 45 46 47 48
+PARDER               : 7 8 32 41 42 43 44 45 46 47 48 49 50 51 52 53 54
+PARIZQ               : 7 8 32 41 42 43 44 45 46 47 48 49 50 51 52 53 54
+PARSE                : 49 50
 POT                  : 22
 PRINT                : 8
 PRINTLN              : 7
@@ -119,10 +124,12 @@ PUNTO                :
 PUNTOCOMA            : 4 5
 SIN                  : 43
 SQRT                 : 46
-STRING               : 
+STRING               : 53
 STRINGID             : 35
 TAN                  : 45
 TRUE                 : 38
+TRUNC                : 51
+TYPEOF               : 54
 UPPERCASE            : 47
 error                : 
 
@@ -132,7 +139,7 @@ elseIfLista          : 11 14
 expCHAR              : 36
 expNativas           : 37
 expValor             : 31
-expresion            : 7 8 9 10 11 12 13 14 15 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 30 32 41 42 42 43 44 45 46 47 48
+expresion            : 7 8 9 10 11 12 13 14 15 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 30 32 41 42 42 43 44 45 46 47 48 49 50 51 52 53 54
 ifINS                : 5
 inicio               : 0
 instruccion          : 2 3
@@ -273,6 +280,12 @@ state 8
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -291,6 +304,11 @@ state 8
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
     expresion                      shift and go to state 14
     expValor                       shift and go to state 17
@@ -373,6 +391,12 @@ state 12
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -391,8 +415,13 @@ state 12
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 35
+    expresion                      shift and go to state 40
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
@@ -434,6 +463,12 @@ state 13
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -452,8 +487,13 @@ state 13
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 36
+    expresion                      shift and go to state 41
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
@@ -488,26 +528,26 @@ state 14
     (10) ifINS -> . IF expresion sentencia ELSE sentencia END
     (11) ifINS -> . IF expresion sentencia elseIfLista END
 
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
     PRINTLN         shift and go to state 6
     PRINT           shift and go to state 7
     IF              shift and go to state 8
 
-    sentencia                      shift and go to state 37
-    instrucciones                  shift and go to state 52
+    sentencia                      shift and go to state 42
+    instrucciones                  shift and go to state 57
     instruccion                    shift and go to state 3
     printINS                       shift and go to state 4
     ifINS                          shift and go to state 5
@@ -549,6 +589,12 @@ state 15
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -567,8 +613,13 @@ state 15
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 53
+    expresion                      shift and go to state 58
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
@@ -610,6 +661,12 @@ state 16
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -628,8 +685,13 @@ state 16
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 54
+    expresion                      shift and go to state 59
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
@@ -696,6 +758,12 @@ state 18
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -714,8 +782,13 @@ state 18
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 55
+    expresion                      shift and go to state 60
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
@@ -924,59 +997,95 @@ state 27
 
     (41) expNativas -> LOG10 . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 56
+    PARIZQ          shift and go to state 61
 
 
 state 28
 
     (42) expNativas -> LOG . PARIZQ expresion COMA expresion PARDER
 
-    PARIZQ          shift and go to state 57
+    PARIZQ          shift and go to state 62
 
 
 state 29
 
     (43) expNativas -> SIN . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 58
+    PARIZQ          shift and go to state 63
 
 
 state 30
 
     (44) expNativas -> COS . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 59
+    PARIZQ          shift and go to state 64
 
 
 state 31
 
     (45) expNativas -> TAN . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 60
+    PARIZQ          shift and go to state 65
 
 
 state 32
 
     (46) expNativas -> SQRT . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 61
+    PARIZQ          shift and go to state 66
 
 
 state 33
 
     (47) expNativas -> UPPERCASE . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 62
+    PARIZQ          shift and go to state 67
 
 
 state 34
 
     (48) expNativas -> LOWERCASE . PARIZQ expresion PARDER
 
-    PARIZQ          shift and go to state 63
+    PARIZQ          shift and go to state 68
 
 
 state 35
+
+    (49) expNativas -> PARSE . PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> PARSE . PARIZQ FLOAT64 COMA expresion PARDER
+
+    PARIZQ          shift and go to state 69
+
+
+state 36
+
+    (51) expNativas -> TRUNC . PARIZQ INT64 COMA expresion PARDER
+
+    PARIZQ          shift and go to state 70
+
+
+state 37
+
+    (52) expNativas -> FLOAT . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 71
+
+
+state 38
+
+    (53) expNativas -> STRING . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 72
+
+
+state 39
+
+    (54) expNativas -> TYPEOF . PARIZQ expresion PARDER
+
+    PARIZQ          shift and go to state 73
+
+
+state 40
 
     (7) printINS -> PRINTLN PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -994,24 +1103,24 @@ state 35
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 64
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 74
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 36
+state 41
 
     (8) printINS -> PRINT PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -1029,24 +1138,24 @@ state 36
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 65
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 75
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 37
+state 42
 
     (9) ifINS -> IF expresion sentencia . END
     (10) ifINS -> IF expresion sentencia . ELSE sentencia END
@@ -1055,13 +1164,13 @@ state 37
     (13) elseIfLista -> . ELSEIF expresion sentencia ELSE sentencia
     (14) elseIfLista -> . ELSEIF expresion sentencia elseIfLista
 
-    END             shift and go to state 66
-    ELSE            shift and go to state 67
-    ELSEIF          shift and go to state 69
+    END             shift and go to state 76
+    ELSE            shift and go to state 77
+    ELSEIF          shift and go to state 79
 
-    elseIfLista                    shift and go to state 68
+    elseIfLista                    shift and go to state 78
 
-state 38
+state 43
 
     (17) expresion -> expresion MAS . expresion
     (15) expresion -> . MENOS expresion
@@ -1098,6 +1207,12 @@ state 38
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1116,13 +1231,18 @@ state 38
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 70
+    expresion                      shift and go to state 80
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 39
+state 44
 
     (18) expresion -> expresion MENOS . expresion
     (15) expresion -> . MENOS expresion
@@ -1159,6 +1279,12 @@ state 39
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1177,13 +1303,18 @@ state 39
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 71
+    expresion                      shift and go to state 81
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 40
+state 45
 
     (19) expresion -> expresion MULT . expresion
     (15) expresion -> . MENOS expresion
@@ -1220,6 +1351,12 @@ state 40
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1238,13 +1375,18 @@ state 40
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 72
+    expresion                      shift and go to state 82
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 41
+state 46
 
     (20) expresion -> expresion DIV . expresion
     (15) expresion -> . MENOS expresion
@@ -1281,6 +1423,12 @@ state 41
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1299,13 +1447,18 @@ state 41
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 73
+    expresion                      shift and go to state 83
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 42
+state 47
 
     (21) expresion -> expresion MOD . expresion
     (15) expresion -> . MENOS expresion
@@ -1342,6 +1495,12 @@ state 42
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1360,13 +1519,18 @@ state 42
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 74
+    expresion                      shift and go to state 84
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 43
+state 48
 
     (22) expresion -> expresion POT . expresion
     (15) expresion -> . MENOS expresion
@@ -1403,6 +1567,12 @@ state 43
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1421,13 +1591,18 @@ state 43
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 75
+    expresion                      shift and go to state 85
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 44
+state 49
 
     (23) expresion -> expresion MAYOR . expresion
     (15) expresion -> . MENOS expresion
@@ -1464,6 +1639,12 @@ state 44
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1482,13 +1663,18 @@ state 44
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 76
+    expresion                      shift and go to state 86
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 45
+state 50
 
     (24) expresion -> expresion MENOR . expresion
     (15) expresion -> . MENOS expresion
@@ -1525,6 +1711,12 @@ state 45
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1543,13 +1735,18 @@ state 45
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 77
+    expresion                      shift and go to state 87
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 46
+state 51
 
     (25) expresion -> expresion MAYORIGUAL . expresion
     (15) expresion -> . MENOS expresion
@@ -1586,6 +1783,12 @@ state 46
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1604,13 +1807,18 @@ state 46
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 78
+    expresion                      shift and go to state 88
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 47
+state 52
 
     (26) expresion -> expresion MENORIGUAL . expresion
     (15) expresion -> . MENOS expresion
@@ -1647,6 +1855,12 @@ state 47
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1665,13 +1879,18 @@ state 47
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 79
+    expresion                      shift and go to state 89
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 48
+state 53
 
     (27) expresion -> expresion IGUALES . expresion
     (15) expresion -> . MENOS expresion
@@ -1708,6 +1927,12 @@ state 48
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1726,13 +1951,18 @@ state 48
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 80
+    expresion                      shift and go to state 90
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 49
+state 54
 
     (28) expresion -> expresion DISTINTOS . expresion
     (15) expresion -> . MENOS expresion
@@ -1769,6 +1999,12 @@ state 49
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1787,13 +2023,18 @@ state 49
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 81
+    expresion                      shift and go to state 91
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 50
+state 55
 
     (29) expresion -> expresion OR . expresion
     (15) expresion -> . MENOS expresion
@@ -1830,6 +2071,12 @@ state 50
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1848,13 +2095,18 @@ state 50
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 82
+    expresion                      shift and go to state 92
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 51
+state 56
 
     (30) expresion -> expresion AND . expresion
     (15) expresion -> . MENOS expresion
@@ -1891,6 +2143,12 @@ state 51
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -1909,13 +2167,18 @@ state 51
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 83
+    expresion                      shift and go to state 93
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 52
+state 57
 
     (6) sentencia -> instrucciones .
     (2) instrucciones -> instrucciones . instruccion
@@ -1938,7 +2201,7 @@ state 52
     printINS                       shift and go to state 4
     ifINS                          shift and go to state 5
 
-state 53
+state 58
 
     (15) expresion -> MENOS expresion .
     (17) expresion -> expresion . MAS expresion
@@ -1976,23 +2239,23 @@ state 53
     PARDER          reduce using rule 15 (expresion -> MENOS expresion .)
     COMA            reduce using rule 15 (expresion -> MENOS expresion .)
 
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MULT            [ shift and go to state 40 ]
-  ! DIV             [ shift and go to state 41 ]
-  ! MOD             [ shift and go to state 42 ]
-  ! POT             [ shift and go to state 43 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MULT            [ shift and go to state 45 ]
+  ! DIV             [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+  ! POT             [ shift and go to state 48 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 54
+state 59
 
     (16) expresion -> NOT expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2030,23 +2293,23 @@ state 54
     PARDER          reduce using rule 16 (expresion -> NOT expresion .)
     COMA            reduce using rule 16 (expresion -> NOT expresion .)
 
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MULT            [ shift and go to state 40 ]
-  ! DIV             [ shift and go to state 41 ]
-  ! MOD             [ shift and go to state 42 ]
-  ! POT             [ shift and go to state 43 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MULT            [ shift and go to state 45 ]
+  ! DIV             [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+  ! POT             [ shift and go to state 48 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 55
+state 60
 
     (32) expValor -> PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -2064,24 +2327,24 @@ state 55
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 84
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 94
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 56
+state 61
 
     (41) expNativas -> LOG10 PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2118,6 +2381,12 @@ state 56
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2136,13 +2405,18 @@ state 56
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 85
+    expresion                      shift and go to state 95
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 57
+state 62
 
     (42) expNativas -> LOG PARIZQ . expresion COMA expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2179,6 +2453,12 @@ state 57
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2197,13 +2477,18 @@ state 57
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 86
+    expresion                      shift and go to state 96
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 58
+state 63
 
     (43) expNativas -> SIN PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2240,6 +2525,12 @@ state 58
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2258,13 +2549,18 @@ state 58
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 87
+    expresion                      shift and go to state 97
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 59
+state 64
 
     (44) expNativas -> COS PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2301,6 +2597,12 @@ state 59
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2319,13 +2621,18 @@ state 59
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 88
+    expresion                      shift and go to state 98
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 60
+state 65
 
     (45) expNativas -> TAN PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2362,6 +2669,12 @@ state 60
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2380,13 +2693,18 @@ state 60
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 89
+    expresion                      shift and go to state 99
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 61
+state 66
 
     (46) expNativas -> SQRT PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2423,6 +2741,12 @@ state 61
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2441,13 +2765,18 @@ state 61
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 90
+    expresion                      shift and go to state 100
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 62
+state 67
 
     (47) expNativas -> UPPERCASE PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2484,6 +2813,12 @@ state 62
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2502,13 +2837,18 @@ state 62
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 91
+    expresion                      shift and go to state 101
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 63
+state 68
 
     (48) expNativas -> LOWERCASE PARIZQ . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -2545,6 +2885,12 @@ state 63
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2563,34 +2909,271 @@ state 63
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 92
+    expresion                      shift and go to state 102
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 64
+state 69
+
+    (49) expNativas -> PARSE PARIZQ . INT64 COMA expresion PARDER
+    (50) expNativas -> PARSE PARIZQ . FLOAT64 COMA expresion PARDER
+
+    INT64           shift and go to state 103
+    FLOAT64         shift and go to state 104
+
+
+state 70
+
+    (51) expNativas -> TRUNC PARIZQ . INT64 COMA expresion PARDER
+
+    INT64           shift and go to state 105
+
+
+state 71
+
+    (52) expNativas -> FLOAT PARIZQ . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MOD expresion
+    (22) expresion -> . expresion POT expresion
+    (23) expresion -> . expresion MAYOR expresion
+    (24) expresion -> . expresion MENOR expresion
+    (25) expresion -> . expresion MAYORIGUAL expresion
+    (26) expresion -> . expresion MENORIGUAL expresion
+    (27) expresion -> . expresion IGUALES expresion
+    (28) expresion -> . expresion DISTINTOS expresion
+    (29) expresion -> . expresion OR expresion
+    (30) expresion -> . expresion AND expresion
+    (31) expresion -> . expValor
+    (32) expValor -> . PARIZQ expresion PARDER
+    (33) expValor -> . INTID
+    (34) expValor -> . FLOATID
+    (35) expValor -> . STRINGID
+    (36) expValor -> . expCHAR
+    (37) expValor -> . expNativas
+    (38) expValor -> . TRUE
+    (39) expValor -> . FALSE
+    (40) expCHAR -> . CHARID
+    (41) expNativas -> . LOG10 PARIZQ expresion PARDER
+    (42) expNativas -> . LOG PARIZQ expresion COMA expresion PARDER
+    (43) expNativas -> . SIN PARIZQ expresion PARDER
+    (44) expNativas -> . COS PARIZQ expresion PARDER
+    (45) expNativas -> . TAN PARIZQ expresion PARDER
+    (46) expNativas -> . SQRT PARIZQ expresion PARDER
+    (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
+    (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 24
+    FALSE           shift and go to state 25
+    CHARID          shift and go to state 26
+    LOG10           shift and go to state 27
+    LOG             shift and go to state 28
+    SIN             shift and go to state 29
+    COS             shift and go to state 30
+    TAN             shift and go to state 31
+    SQRT            shift and go to state 32
+    UPPERCASE       shift and go to state 33
+    LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
+
+    expresion                      shift and go to state 106
+    expValor                       shift and go to state 17
+    expCHAR                        shift and go to state 22
+    expNativas                     shift and go to state 23
+
+state 72
+
+    (53) expNativas -> STRING PARIZQ . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MOD expresion
+    (22) expresion -> . expresion POT expresion
+    (23) expresion -> . expresion MAYOR expresion
+    (24) expresion -> . expresion MENOR expresion
+    (25) expresion -> . expresion MAYORIGUAL expresion
+    (26) expresion -> . expresion MENORIGUAL expresion
+    (27) expresion -> . expresion IGUALES expresion
+    (28) expresion -> . expresion DISTINTOS expresion
+    (29) expresion -> . expresion OR expresion
+    (30) expresion -> . expresion AND expresion
+    (31) expresion -> . expValor
+    (32) expValor -> . PARIZQ expresion PARDER
+    (33) expValor -> . INTID
+    (34) expValor -> . FLOATID
+    (35) expValor -> . STRINGID
+    (36) expValor -> . expCHAR
+    (37) expValor -> . expNativas
+    (38) expValor -> . TRUE
+    (39) expValor -> . FALSE
+    (40) expCHAR -> . CHARID
+    (41) expNativas -> . LOG10 PARIZQ expresion PARDER
+    (42) expNativas -> . LOG PARIZQ expresion COMA expresion PARDER
+    (43) expNativas -> . SIN PARIZQ expresion PARDER
+    (44) expNativas -> . COS PARIZQ expresion PARDER
+    (45) expNativas -> . TAN PARIZQ expresion PARDER
+    (46) expNativas -> . SQRT PARIZQ expresion PARDER
+    (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
+    (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 24
+    FALSE           shift and go to state 25
+    CHARID          shift and go to state 26
+    LOG10           shift and go to state 27
+    LOG             shift and go to state 28
+    SIN             shift and go to state 29
+    COS             shift and go to state 30
+    TAN             shift and go to state 31
+    SQRT            shift and go to state 32
+    UPPERCASE       shift and go to state 33
+    LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
+
+    expresion                      shift and go to state 107
+    expValor                       shift and go to state 17
+    expCHAR                        shift and go to state 22
+    expNativas                     shift and go to state 23
+
+state 73
+
+    (54) expNativas -> TYPEOF PARIZQ . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MOD expresion
+    (22) expresion -> . expresion POT expresion
+    (23) expresion -> . expresion MAYOR expresion
+    (24) expresion -> . expresion MENOR expresion
+    (25) expresion -> . expresion MAYORIGUAL expresion
+    (26) expresion -> . expresion MENORIGUAL expresion
+    (27) expresion -> . expresion IGUALES expresion
+    (28) expresion -> . expresion DISTINTOS expresion
+    (29) expresion -> . expresion OR expresion
+    (30) expresion -> . expresion AND expresion
+    (31) expresion -> . expValor
+    (32) expValor -> . PARIZQ expresion PARDER
+    (33) expValor -> . INTID
+    (34) expValor -> . FLOATID
+    (35) expValor -> . STRINGID
+    (36) expValor -> . expCHAR
+    (37) expValor -> . expNativas
+    (38) expValor -> . TRUE
+    (39) expValor -> . FALSE
+    (40) expCHAR -> . CHARID
+    (41) expNativas -> . LOG10 PARIZQ expresion PARDER
+    (42) expNativas -> . LOG PARIZQ expresion COMA expresion PARDER
+    (43) expNativas -> . SIN PARIZQ expresion PARDER
+    (44) expNativas -> . COS PARIZQ expresion PARDER
+    (45) expNativas -> . TAN PARIZQ expresion PARDER
+    (46) expNativas -> . SQRT PARIZQ expresion PARDER
+    (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
+    (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 24
+    FALSE           shift and go to state 25
+    CHARID          shift and go to state 26
+    LOG10           shift and go to state 27
+    LOG             shift and go to state 28
+    SIN             shift and go to state 29
+    COS             shift and go to state 30
+    TAN             shift and go to state 31
+    SQRT            shift and go to state 32
+    UPPERCASE       shift and go to state 33
+    LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
+
+    expresion                      shift and go to state 108
+    expValor                       shift and go to state 17
+    expCHAR                        shift and go to state 22
+    expNativas                     shift and go to state 23
+
+state 74
 
     (7) printINS -> PRINTLN PARIZQ expresion PARDER .
 
     PUNTOCOMA       reduce using rule 7 (printINS -> PRINTLN PARIZQ expresion PARDER .)
 
 
-state 65
+state 75
 
     (8) printINS -> PRINT PARIZQ expresion PARDER .
 
     PUNTOCOMA       reduce using rule 8 (printINS -> PRINT PARIZQ expresion PARDER .)
 
 
-state 66
+state 76
 
     (9) ifINS -> IF expresion sentencia END .
 
     PUNTOCOMA       reduce using rule 9 (ifINS -> IF expresion sentencia END .)
 
 
-state 67
+state 77
 
     (10) ifINS -> IF expresion sentencia ELSE . sentencia END
     (6) sentencia -> . instrucciones
@@ -2608,20 +3191,20 @@ state 67
     PRINT           shift and go to state 7
     IF              shift and go to state 8
 
-    sentencia                      shift and go to state 93
-    instrucciones                  shift and go to state 52
+    sentencia                      shift and go to state 109
+    instrucciones                  shift and go to state 57
     instruccion                    shift and go to state 3
     printINS                       shift and go to state 4
     ifINS                          shift and go to state 5
 
-state 68
+state 78
 
     (11) ifINS -> IF expresion sentencia elseIfLista . END
 
-    END             shift and go to state 94
+    END             shift and go to state 110
 
 
-state 69
+state 79
 
     (12) elseIfLista -> ELSEIF . expresion sentencia
     (13) elseIfLista -> ELSEIF . expresion sentencia ELSE sentencia
@@ -2660,6 +3243,12 @@ state 69
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -2678,13 +3267,18 @@ state 69
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 95
+    expresion                      shift and go to state 111
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 70
+state 80
 
     (17) expresion -> expresion MAS expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2717,28 +3311,28 @@ state 70
     IF              reduce using rule 17 (expresion -> expresion MAS expresion .)
     PARDER          reduce using rule 17 (expresion -> expresion MAS expresion .)
     COMA            reduce using rule 17 (expresion -> expresion MAS expresion .)
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
 
   ! MULT            [ reduce using rule 17 (expresion -> expresion MAS expresion .) ]
   ! DIV             [ reduce using rule 17 (expresion -> expresion MAS expresion .) ]
   ! MOD             [ reduce using rule 17 (expresion -> expresion MAS expresion .) ]
   ! POT             [ reduce using rule 17 (expresion -> expresion MAS expresion .) ]
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 71
+state 81
 
     (18) expresion -> expresion MENOS expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2771,28 +3365,28 @@ state 71
     IF              reduce using rule 18 (expresion -> expresion MENOS expresion .)
     PARDER          reduce using rule 18 (expresion -> expresion MENOS expresion .)
     COMA            reduce using rule 18 (expresion -> expresion MENOS expresion .)
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
 
   ! MULT            [ reduce using rule 18 (expresion -> expresion MENOS expresion .) ]
   ! DIV             [ reduce using rule 18 (expresion -> expresion MENOS expresion .) ]
   ! MOD             [ reduce using rule 18 (expresion -> expresion MENOS expresion .) ]
   ! POT             [ reduce using rule 18 (expresion -> expresion MENOS expresion .) ]
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 72
+state 82
 
     (19) expresion -> expresion MULT expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2828,25 +3422,25 @@ state 72
     IF              reduce using rule 19 (expresion -> expresion MULT expresion .)
     PARDER          reduce using rule 19 (expresion -> expresion MULT expresion .)
     COMA            reduce using rule 19 (expresion -> expresion MULT expresion .)
-    POT             shift and go to state 43
+    POT             shift and go to state 48
 
   ! POT             [ reduce using rule 19 (expresion -> expresion MULT expresion .) ]
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MULT            [ shift and go to state 40 ]
-  ! DIV             [ shift and go to state 41 ]
-  ! MOD             [ shift and go to state 42 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MULT            [ shift and go to state 45 ]
+  ! DIV             [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 73
+state 83
 
     (20) expresion -> expresion DIV expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2882,25 +3476,25 @@ state 73
     IF              reduce using rule 20 (expresion -> expresion DIV expresion .)
     PARDER          reduce using rule 20 (expresion -> expresion DIV expresion .)
     COMA            reduce using rule 20 (expresion -> expresion DIV expresion .)
-    POT             shift and go to state 43
+    POT             shift and go to state 48
 
   ! POT             [ reduce using rule 20 (expresion -> expresion DIV expresion .) ]
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MULT            [ shift and go to state 40 ]
-  ! DIV             [ shift and go to state 41 ]
-  ! MOD             [ shift and go to state 42 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MULT            [ shift and go to state 45 ]
+  ! DIV             [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 74
+state 84
 
     (21) expresion -> expresion MOD expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2936,25 +3530,25 @@ state 74
     IF              reduce using rule 21 (expresion -> expresion MOD expresion .)
     PARDER          reduce using rule 21 (expresion -> expresion MOD expresion .)
     COMA            reduce using rule 21 (expresion -> expresion MOD expresion .)
-    POT             shift and go to state 43
+    POT             shift and go to state 48
 
   ! POT             [ reduce using rule 21 (expresion -> expresion MOD expresion .) ]
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MULT            [ shift and go to state 40 ]
-  ! DIV             [ shift and go to state 41 ]
-  ! MOD             [ shift and go to state 42 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MULT            [ shift and go to state 45 ]
+  ! DIV             [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 75
+state 85
 
     (22) expresion -> expresion POT expresion .
     (17) expresion -> expresion . MAS expresion
@@ -2990,25 +3584,25 @@ state 75
     IF              reduce using rule 22 (expresion -> expresion POT expresion .)
     PARDER          reduce using rule 22 (expresion -> expresion POT expresion .)
     COMA            reduce using rule 22 (expresion -> expresion POT expresion .)
-    POT             shift and go to state 43
+    POT             shift and go to state 48
 
   ! POT             [ reduce using rule 22 (expresion -> expresion POT expresion .) ]
-  ! MAS             [ shift and go to state 38 ]
-  ! MENOS           [ shift and go to state 39 ]
-  ! MULT            [ shift and go to state 40 ]
-  ! DIV             [ shift and go to state 41 ]
-  ! MOD             [ shift and go to state 42 ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAS             [ shift and go to state 43 ]
+  ! MENOS           [ shift and go to state 44 ]
+  ! MULT            [ shift and go to state 45 ]
+  ! DIV             [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 76
+state 86
 
     (23) expresion -> expresion MAYOR expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3039,12 +3633,12 @@ state 76
     IF              reduce using rule 23 (expresion -> expresion MAYOR expresion .)
     PARDER          reduce using rule 23 (expresion -> expresion MAYOR expresion .)
     COMA            reduce using rule 23 (expresion -> expresion MAYOR expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
 
   ! MAS             [ reduce using rule 23 (expresion -> expresion MAYOR expresion .) ]
   ! MENOS           [ reduce using rule 23 (expresion -> expresion MAYOR expresion .) ]
@@ -3052,17 +3646,17 @@ state 76
   ! DIV             [ reduce using rule 23 (expresion -> expresion MAYOR expresion .) ]
   ! MOD             [ reduce using rule 23 (expresion -> expresion MAYOR expresion .) ]
   ! POT             [ reduce using rule 23 (expresion -> expresion MAYOR expresion .) ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 77
+state 87
 
     (24) expresion -> expresion MENOR expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3093,12 +3687,12 @@ state 77
     IF              reduce using rule 24 (expresion -> expresion MENOR expresion .)
     PARDER          reduce using rule 24 (expresion -> expresion MENOR expresion .)
     COMA            reduce using rule 24 (expresion -> expresion MENOR expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
 
   ! MAS             [ reduce using rule 24 (expresion -> expresion MENOR expresion .) ]
   ! MENOS           [ reduce using rule 24 (expresion -> expresion MENOR expresion .) ]
@@ -3106,17 +3700,17 @@ state 77
   ! DIV             [ reduce using rule 24 (expresion -> expresion MENOR expresion .) ]
   ! MOD             [ reduce using rule 24 (expresion -> expresion MENOR expresion .) ]
   ! POT             [ reduce using rule 24 (expresion -> expresion MENOR expresion .) ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 78
+state 88
 
     (25) expresion -> expresion MAYORIGUAL expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3147,12 +3741,12 @@ state 78
     IF              reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .)
     PARDER          reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .)
     COMA            reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
 
   ! MAS             [ reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! MENOS           [ reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .) ]
@@ -3160,17 +3754,17 @@ state 78
   ! DIV             [ reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! MOD             [ reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .) ]
   ! POT             [ reduce using rule 25 (expresion -> expresion MAYORIGUAL expresion .) ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 79
+state 89
 
     (26) expresion -> expresion MENORIGUAL expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3201,12 +3795,12 @@ state 79
     IF              reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .)
     PARDER          reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .)
     COMA            reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
 
   ! MAS             [ reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .) ]
   ! MENOS           [ reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .) ]
@@ -3214,17 +3808,17 @@ state 79
   ! DIV             [ reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .) ]
   ! MOD             [ reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .) ]
   ! POT             [ reduce using rule 26 (expresion -> expresion MENORIGUAL expresion .) ]
-  ! MAYOR           [ shift and go to state 44 ]
-  ! MENOR           [ shift and go to state 45 ]
-  ! MAYORIGUAL      [ shift and go to state 46 ]
-  ! MENORIGUAL      [ shift and go to state 47 ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! MAYOR           [ shift and go to state 49 ]
+  ! MENOR           [ shift and go to state 50 ]
+  ! MAYORIGUAL      [ shift and go to state 51 ]
+  ! MENORIGUAL      [ shift and go to state 52 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 80
+state 90
 
     (27) expresion -> expresion IGUALES expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3251,16 +3845,16 @@ state 80
     IF              reduce using rule 27 (expresion -> expresion IGUALES expresion .)
     PARDER          reduce using rule 27 (expresion -> expresion IGUALES expresion .)
     COMA            reduce using rule 27 (expresion -> expresion IGUALES expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
 
   ! MAS             [ reduce using rule 27 (expresion -> expresion IGUALES expresion .) ]
   ! MENOS           [ reduce using rule 27 (expresion -> expresion IGUALES expresion .) ]
@@ -3272,13 +3866,13 @@ state 80
   ! MENOR           [ reduce using rule 27 (expresion -> expresion IGUALES expresion .) ]
   ! MAYORIGUAL      [ reduce using rule 27 (expresion -> expresion IGUALES expresion .) ]
   ! MENORIGUAL      [ reduce using rule 27 (expresion -> expresion IGUALES expresion .) ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 81
+state 91
 
     (28) expresion -> expresion DISTINTOS expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3305,16 +3899,16 @@ state 81
     IF              reduce using rule 28 (expresion -> expresion DISTINTOS expresion .)
     PARDER          reduce using rule 28 (expresion -> expresion DISTINTOS expresion .)
     COMA            reduce using rule 28 (expresion -> expresion DISTINTOS expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
 
   ! MAS             [ reduce using rule 28 (expresion -> expresion DISTINTOS expresion .) ]
   ! MENOS           [ reduce using rule 28 (expresion -> expresion DISTINTOS expresion .) ]
@@ -3326,13 +3920,13 @@ state 81
   ! MENOR           [ reduce using rule 28 (expresion -> expresion DISTINTOS expresion .) ]
   ! MAYORIGUAL      [ reduce using rule 28 (expresion -> expresion DISTINTOS expresion .) ]
   ! MENORIGUAL      [ reduce using rule 28 (expresion -> expresion DISTINTOS expresion .) ]
-  ! IGUALES         [ shift and go to state 48 ]
-  ! DISTINTOS       [ shift and go to state 49 ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! IGUALES         [ shift and go to state 53 ]
+  ! DISTINTOS       [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 82
+state 92
 
     (29) expresion -> expresion OR expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3356,19 +3950,19 @@ state 82
     IF              reduce using rule 29 (expresion -> expresion OR expresion .)
     PARDER          reduce using rule 29 (expresion -> expresion OR expresion .)
     COMA            reduce using rule 29 (expresion -> expresion OR expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    AND             shift and go to state 51
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    AND             shift and go to state 56
 
   ! MAS             [ reduce using rule 29 (expresion -> expresion OR expresion .) ]
   ! MENOS           [ reduce using rule 29 (expresion -> expresion OR expresion .) ]
@@ -3383,10 +3977,10 @@ state 82
   ! IGUALES         [ reduce using rule 29 (expresion -> expresion OR expresion .) ]
   ! DISTINTOS       [ reduce using rule 29 (expresion -> expresion OR expresion .) ]
   ! AND             [ reduce using rule 29 (expresion -> expresion OR expresion .) ]
-  ! OR              [ shift and go to state 50 ]
+  ! OR              [ shift and go to state 55 ]
 
 
-state 83
+state 93
 
     (30) expresion -> expresion AND expresion .
     (17) expresion -> expresion . MAS expresion
@@ -3411,18 +4005,18 @@ state 83
     IF              reduce using rule 30 (expresion -> expresion AND expresion .)
     PARDER          reduce using rule 30 (expresion -> expresion AND expresion .)
     COMA            reduce using rule 30 (expresion -> expresion AND expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
 
   ! MAS             [ reduce using rule 30 (expresion -> expresion AND expresion .) ]
   ! MENOS           [ reduce using rule 30 (expresion -> expresion AND expresion .) ]
@@ -3436,11 +4030,11 @@ state 83
   ! MENORIGUAL      [ reduce using rule 30 (expresion -> expresion AND expresion .) ]
   ! IGUALES         [ reduce using rule 30 (expresion -> expresion AND expresion .) ]
   ! DISTINTOS       [ reduce using rule 30 (expresion -> expresion AND expresion .) ]
-  ! OR              [ shift and go to state 50 ]
-  ! AND             [ shift and go to state 51 ]
+  ! OR              [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 56 ]
 
 
-state 84
+state 94
 
     (32) expValor -> PARIZQ expresion PARDER .
 
@@ -3465,7 +4059,7 @@ state 84
     COMA            reduce using rule 32 (expValor -> PARIZQ expresion PARDER .)
 
 
-state 85
+state 95
 
     (41) expNativas -> LOG10 PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3483,24 +4077,24 @@ state 85
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 96
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 112
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 86
+state 96
 
     (42) expNativas -> LOG PARIZQ expresion . COMA expresion PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3518,24 +4112,24 @@ state 86
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    COMA            shift and go to state 97
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    COMA            shift and go to state 113
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 87
+state 97
 
     (43) expNativas -> SIN PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3553,24 +4147,24 @@ state 87
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 98
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 114
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 88
+state 98
 
     (44) expNativas -> COS PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3588,24 +4182,24 @@ state 88
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 99
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 115
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 89
+state 99
 
     (45) expNativas -> TAN PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3623,24 +4217,24 @@ state 89
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 100
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 116
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 90
+state 100
 
     (46) expNativas -> SQRT PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3658,24 +4252,24 @@ state 90
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 101
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 117
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 91
+state 101
 
     (47) expNativas -> UPPERCASE PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3693,24 +4287,24 @@ state 91
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 102
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 118
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 92
+state 102
 
     (48) expNativas -> LOWERCASE PARIZQ expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -3728,38 +4322,164 @@ state 92
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 103
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 119
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 93
+state 103
+
+    (49) expNativas -> PARSE PARIZQ INT64 . COMA expresion PARDER
+
+    COMA            shift and go to state 120
+
+
+state 104
+
+    (50) expNativas -> PARSE PARIZQ FLOAT64 . COMA expresion PARDER
+
+    COMA            shift and go to state 121
+
+
+state 105
+
+    (51) expNativas -> TRUNC PARIZQ INT64 . COMA expresion PARDER
+
+    COMA            shift and go to state 122
+
+
+state 106
+
+    (52) expNativas -> FLOAT PARIZQ expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MOD expresion
+    (22) expresion -> expresion . POT expresion
+    (23) expresion -> expresion . MAYOR expresion
+    (24) expresion -> expresion . MENOR expresion
+    (25) expresion -> expresion . MAYORIGUAL expresion
+    (26) expresion -> expresion . MENORIGUAL expresion
+    (27) expresion -> expresion . IGUALES expresion
+    (28) expresion -> expresion . DISTINTOS expresion
+    (29) expresion -> expresion . OR expresion
+    (30) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 123
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
+
+
+state 107
+
+    (53) expNativas -> STRING PARIZQ expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MOD expresion
+    (22) expresion -> expresion . POT expresion
+    (23) expresion -> expresion . MAYOR expresion
+    (24) expresion -> expresion . MENOR expresion
+    (25) expresion -> expresion . MAYORIGUAL expresion
+    (26) expresion -> expresion . MENORIGUAL expresion
+    (27) expresion -> expresion . IGUALES expresion
+    (28) expresion -> expresion . DISTINTOS expresion
+    (29) expresion -> expresion . OR expresion
+    (30) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 124
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
+
+
+state 108
+
+    (54) expNativas -> TYPEOF PARIZQ expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MOD expresion
+    (22) expresion -> expresion . POT expresion
+    (23) expresion -> expresion . MAYOR expresion
+    (24) expresion -> expresion . MENOR expresion
+    (25) expresion -> expresion . MAYORIGUAL expresion
+    (26) expresion -> expresion . MENORIGUAL expresion
+    (27) expresion -> expresion . IGUALES expresion
+    (28) expresion -> expresion . DISTINTOS expresion
+    (29) expresion -> expresion . OR expresion
+    (30) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 125
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
+
+
+state 109
 
     (10) ifINS -> IF expresion sentencia ELSE sentencia . END
 
-    END             shift and go to state 104
+    END             shift and go to state 126
 
 
-state 94
+state 110
 
     (11) ifINS -> IF expresion sentencia elseIfLista END .
 
     PUNTOCOMA       reduce using rule 11 (ifINS -> IF expresion sentencia elseIfLista END .)
 
 
-state 95
+state 111
 
     (12) elseIfLista -> ELSEIF expresion . sentencia
     (13) elseIfLista -> ELSEIF expresion . sentencia ELSE sentencia
@@ -3789,31 +4509,31 @@ state 95
     (10) ifINS -> . IF expresion sentencia ELSE sentencia END
     (11) ifINS -> . IF expresion sentencia elseIfLista END
 
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
     PRINTLN         shift and go to state 6
     PRINT           shift and go to state 7
     IF              shift and go to state 8
 
-    sentencia                      shift and go to state 105
-    instrucciones                  shift and go to state 52
+    sentencia                      shift and go to state 127
+    instrucciones                  shift and go to state 57
     instruccion                    shift and go to state 3
     printINS                       shift and go to state 4
     ifINS                          shift and go to state 5
 
-state 96
+state 112
 
     (41) expNativas -> LOG10 PARIZQ expresion PARDER .
 
@@ -3838,7 +4558,7 @@ state 96
     COMA            reduce using rule 41 (expNativas -> LOG10 PARIZQ expresion PARDER .)
 
 
-state 97
+state 113
 
     (42) expNativas -> LOG PARIZQ expresion COMA . expresion PARDER
     (15) expresion -> . MENOS expresion
@@ -3875,6 +4595,12 @@ state 97
     (46) expNativas -> . SQRT PARIZQ expresion PARDER
     (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
     (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
 
     MENOS           shift and go to state 15
     NOT             shift and go to state 16
@@ -3893,13 +4619,18 @@ state 97
     SQRT            shift and go to state 32
     UPPERCASE       shift and go to state 33
     LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
 
-    expresion                      shift and go to state 106
+    expresion                      shift and go to state 128
     expValor                       shift and go to state 17
     expCHAR                        shift and go to state 22
     expNativas                     shift and go to state 23
 
-state 98
+state 114
 
     (43) expNativas -> SIN PARIZQ expresion PARDER .
 
@@ -3924,7 +4655,7 @@ state 98
     COMA            reduce using rule 43 (expNativas -> SIN PARIZQ expresion PARDER .)
 
 
-state 99
+state 115
 
     (44) expNativas -> COS PARIZQ expresion PARDER .
 
@@ -3949,7 +4680,7 @@ state 99
     COMA            reduce using rule 44 (expNativas -> COS PARIZQ expresion PARDER .)
 
 
-state 100
+state 116
 
     (45) expNativas -> TAN PARIZQ expresion PARDER .
 
@@ -3974,7 +4705,7 @@ state 100
     COMA            reduce using rule 45 (expNativas -> TAN PARIZQ expresion PARDER .)
 
 
-state 101
+state 117
 
     (46) expNativas -> SQRT PARIZQ expresion PARDER .
 
@@ -3999,7 +4730,7 @@ state 101
     COMA            reduce using rule 46 (expNativas -> SQRT PARIZQ expresion PARDER .)
 
 
-state 102
+state 118
 
     (47) expNativas -> UPPERCASE PARIZQ expresion PARDER .
 
@@ -4024,7 +4755,7 @@ state 102
     COMA            reduce using rule 47 (expNativas -> UPPERCASE PARIZQ expresion PARDER .)
 
 
-state 103
+state 119
 
     (48) expNativas -> LOWERCASE PARIZQ expresion PARDER .
 
@@ -4049,14 +4780,305 @@ state 103
     COMA            reduce using rule 48 (expNativas -> LOWERCASE PARIZQ expresion PARDER .)
 
 
-state 104
+state 120
+
+    (49) expNativas -> PARSE PARIZQ INT64 COMA . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MOD expresion
+    (22) expresion -> . expresion POT expresion
+    (23) expresion -> . expresion MAYOR expresion
+    (24) expresion -> . expresion MENOR expresion
+    (25) expresion -> . expresion MAYORIGUAL expresion
+    (26) expresion -> . expresion MENORIGUAL expresion
+    (27) expresion -> . expresion IGUALES expresion
+    (28) expresion -> . expresion DISTINTOS expresion
+    (29) expresion -> . expresion OR expresion
+    (30) expresion -> . expresion AND expresion
+    (31) expresion -> . expValor
+    (32) expValor -> . PARIZQ expresion PARDER
+    (33) expValor -> . INTID
+    (34) expValor -> . FLOATID
+    (35) expValor -> . STRINGID
+    (36) expValor -> . expCHAR
+    (37) expValor -> . expNativas
+    (38) expValor -> . TRUE
+    (39) expValor -> . FALSE
+    (40) expCHAR -> . CHARID
+    (41) expNativas -> . LOG10 PARIZQ expresion PARDER
+    (42) expNativas -> . LOG PARIZQ expresion COMA expresion PARDER
+    (43) expNativas -> . SIN PARIZQ expresion PARDER
+    (44) expNativas -> . COS PARIZQ expresion PARDER
+    (45) expNativas -> . TAN PARIZQ expresion PARDER
+    (46) expNativas -> . SQRT PARIZQ expresion PARDER
+    (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
+    (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 24
+    FALSE           shift and go to state 25
+    CHARID          shift and go to state 26
+    LOG10           shift and go to state 27
+    LOG             shift and go to state 28
+    SIN             shift and go to state 29
+    COS             shift and go to state 30
+    TAN             shift and go to state 31
+    SQRT            shift and go to state 32
+    UPPERCASE       shift and go to state 33
+    LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
+
+    expresion                      shift and go to state 129
+    expValor                       shift and go to state 17
+    expCHAR                        shift and go to state 22
+    expNativas                     shift and go to state 23
+
+state 121
+
+    (50) expNativas -> PARSE PARIZQ FLOAT64 COMA . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MOD expresion
+    (22) expresion -> . expresion POT expresion
+    (23) expresion -> . expresion MAYOR expresion
+    (24) expresion -> . expresion MENOR expresion
+    (25) expresion -> . expresion MAYORIGUAL expresion
+    (26) expresion -> . expresion MENORIGUAL expresion
+    (27) expresion -> . expresion IGUALES expresion
+    (28) expresion -> . expresion DISTINTOS expresion
+    (29) expresion -> . expresion OR expresion
+    (30) expresion -> . expresion AND expresion
+    (31) expresion -> . expValor
+    (32) expValor -> . PARIZQ expresion PARDER
+    (33) expValor -> . INTID
+    (34) expValor -> . FLOATID
+    (35) expValor -> . STRINGID
+    (36) expValor -> . expCHAR
+    (37) expValor -> . expNativas
+    (38) expValor -> . TRUE
+    (39) expValor -> . FALSE
+    (40) expCHAR -> . CHARID
+    (41) expNativas -> . LOG10 PARIZQ expresion PARDER
+    (42) expNativas -> . LOG PARIZQ expresion COMA expresion PARDER
+    (43) expNativas -> . SIN PARIZQ expresion PARDER
+    (44) expNativas -> . COS PARIZQ expresion PARDER
+    (45) expNativas -> . TAN PARIZQ expresion PARDER
+    (46) expNativas -> . SQRT PARIZQ expresion PARDER
+    (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
+    (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 24
+    FALSE           shift and go to state 25
+    CHARID          shift and go to state 26
+    LOG10           shift and go to state 27
+    LOG             shift and go to state 28
+    SIN             shift and go to state 29
+    COS             shift and go to state 30
+    TAN             shift and go to state 31
+    SQRT            shift and go to state 32
+    UPPERCASE       shift and go to state 33
+    LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
+
+    expresion                      shift and go to state 130
+    expValor                       shift and go to state 17
+    expCHAR                        shift and go to state 22
+    expNativas                     shift and go to state 23
+
+state 122
+
+    (51) expNativas -> TRUNC PARIZQ INT64 COMA . expresion PARDER
+    (15) expresion -> . MENOS expresion
+    (16) expresion -> . NOT expresion
+    (17) expresion -> . expresion MAS expresion
+    (18) expresion -> . expresion MENOS expresion
+    (19) expresion -> . expresion MULT expresion
+    (20) expresion -> . expresion DIV expresion
+    (21) expresion -> . expresion MOD expresion
+    (22) expresion -> . expresion POT expresion
+    (23) expresion -> . expresion MAYOR expresion
+    (24) expresion -> . expresion MENOR expresion
+    (25) expresion -> . expresion MAYORIGUAL expresion
+    (26) expresion -> . expresion MENORIGUAL expresion
+    (27) expresion -> . expresion IGUALES expresion
+    (28) expresion -> . expresion DISTINTOS expresion
+    (29) expresion -> . expresion OR expresion
+    (30) expresion -> . expresion AND expresion
+    (31) expresion -> . expValor
+    (32) expValor -> . PARIZQ expresion PARDER
+    (33) expValor -> . INTID
+    (34) expValor -> . FLOATID
+    (35) expValor -> . STRINGID
+    (36) expValor -> . expCHAR
+    (37) expValor -> . expNativas
+    (38) expValor -> . TRUE
+    (39) expValor -> . FALSE
+    (40) expCHAR -> . CHARID
+    (41) expNativas -> . LOG10 PARIZQ expresion PARDER
+    (42) expNativas -> . LOG PARIZQ expresion COMA expresion PARDER
+    (43) expNativas -> . SIN PARIZQ expresion PARDER
+    (44) expNativas -> . COS PARIZQ expresion PARDER
+    (45) expNativas -> . TAN PARIZQ expresion PARDER
+    (46) expNativas -> . SQRT PARIZQ expresion PARDER
+    (47) expNativas -> . UPPERCASE PARIZQ expresion PARDER
+    (48) expNativas -> . LOWERCASE PARIZQ expresion PARDER
+    (49) expNativas -> . PARSE PARIZQ INT64 COMA expresion PARDER
+    (50) expNativas -> . PARSE PARIZQ FLOAT64 COMA expresion PARDER
+    (51) expNativas -> . TRUNC PARIZQ INT64 COMA expresion PARDER
+    (52) expNativas -> . FLOAT PARIZQ expresion PARDER
+    (53) expNativas -> . STRING PARIZQ expresion PARDER
+    (54) expNativas -> . TYPEOF PARIZQ expresion PARDER
+
+    MENOS           shift and go to state 15
+    NOT             shift and go to state 16
+    PARIZQ          shift and go to state 18
+    INTID           shift and go to state 19
+    FLOATID         shift and go to state 20
+    STRINGID        shift and go to state 21
+    TRUE            shift and go to state 24
+    FALSE           shift and go to state 25
+    CHARID          shift and go to state 26
+    LOG10           shift and go to state 27
+    LOG             shift and go to state 28
+    SIN             shift and go to state 29
+    COS             shift and go to state 30
+    TAN             shift and go to state 31
+    SQRT            shift and go to state 32
+    UPPERCASE       shift and go to state 33
+    LOWERCASE       shift and go to state 34
+    PARSE           shift and go to state 35
+    TRUNC           shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    TYPEOF          shift and go to state 39
+
+    expresion                      shift and go to state 131
+    expValor                       shift and go to state 17
+    expCHAR                        shift and go to state 22
+    expNativas                     shift and go to state 23
+
+state 123
+
+    (52) expNativas -> FLOAT PARIZQ expresion PARDER .
+
+    MAS             reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MENOS           reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MULT            reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    DIV             reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MOD             reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    POT             reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MAYOR           reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MENOR           reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MAYORIGUAL      reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    MENORIGUAL      reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    IGUALES         reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    DISTINTOS       reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    OR              reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    AND             reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    PRINTLN         reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    PRINT           reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    IF              reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+    COMA            reduce using rule 52 (expNativas -> FLOAT PARIZQ expresion PARDER .)
+
+
+state 124
+
+    (53) expNativas -> STRING PARIZQ expresion PARDER .
+
+    MAS             reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MENOS           reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MULT            reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    DIV             reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MOD             reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    POT             reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MAYOR           reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MENOR           reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MAYORIGUAL      reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    MENORIGUAL      reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    IGUALES         reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    DISTINTOS       reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    OR              reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    AND             reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    PRINTLN         reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    PRINT           reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    IF              reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+    COMA            reduce using rule 53 (expNativas -> STRING PARIZQ expresion PARDER .)
+
+
+state 125
+
+    (54) expNativas -> TYPEOF PARIZQ expresion PARDER .
+
+    MAS             reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MENOS           reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MULT            reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    DIV             reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MOD             reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    POT             reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MAYOR           reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MENOR           reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MAYORIGUAL      reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    MENORIGUAL      reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    IGUALES         reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    DISTINTOS       reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    OR              reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    AND             reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    PRINTLN         reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    PRINT           reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    IF              reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+    COMA            reduce using rule 54 (expNativas -> TYPEOF PARIZQ expresion PARDER .)
+
+
+state 126
 
     (10) ifINS -> IF expresion sentencia ELSE sentencia END .
 
     PUNTOCOMA       reduce using rule 10 (ifINS -> IF expresion sentencia ELSE sentencia END .)
 
 
-state 105
+state 127
 
     (12) elseIfLista -> ELSEIF expresion sentencia .
     (13) elseIfLista -> ELSEIF expresion sentencia . ELSE sentencia
@@ -4066,12 +5088,12 @@ state 105
     (14) elseIfLista -> . ELSEIF expresion sentencia elseIfLista
 
     END             reduce using rule 12 (elseIfLista -> ELSEIF expresion sentencia .)
-    ELSE            shift and go to state 107
-    ELSEIF          shift and go to state 69
+    ELSE            shift and go to state 132
+    ELSEIF          shift and go to state 79
 
-    elseIfLista                    shift and go to state 108
+    elseIfLista                    shift and go to state 133
 
-state 106
+state 128
 
     (42) expNativas -> LOG PARIZQ expresion COMA expresion . PARDER
     (17) expresion -> expresion . MAS expresion
@@ -4089,24 +5111,129 @@ state 106
     (29) expresion -> expresion . OR expresion
     (30) expresion -> expresion . AND expresion
 
-    PARDER          shift and go to state 109
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
-    MULT            shift and go to state 40
-    DIV             shift and go to state 41
-    MOD             shift and go to state 42
-    POT             shift and go to state 43
-    MAYOR           shift and go to state 44
-    MENOR           shift and go to state 45
-    MAYORIGUAL      shift and go to state 46
-    MENORIGUAL      shift and go to state 47
-    IGUALES         shift and go to state 48
-    DISTINTOS       shift and go to state 49
-    OR              shift and go to state 50
-    AND             shift and go to state 51
+    PARDER          shift and go to state 134
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
 
 
-state 107
+state 129
+
+    (49) expNativas -> PARSE PARIZQ INT64 COMA expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MOD expresion
+    (22) expresion -> expresion . POT expresion
+    (23) expresion -> expresion . MAYOR expresion
+    (24) expresion -> expresion . MENOR expresion
+    (25) expresion -> expresion . MAYORIGUAL expresion
+    (26) expresion -> expresion . MENORIGUAL expresion
+    (27) expresion -> expresion . IGUALES expresion
+    (28) expresion -> expresion . DISTINTOS expresion
+    (29) expresion -> expresion . OR expresion
+    (30) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 135
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
+
+
+state 130
+
+    (50) expNativas -> PARSE PARIZQ FLOAT64 COMA expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MOD expresion
+    (22) expresion -> expresion . POT expresion
+    (23) expresion -> expresion . MAYOR expresion
+    (24) expresion -> expresion . MENOR expresion
+    (25) expresion -> expresion . MAYORIGUAL expresion
+    (26) expresion -> expresion . MENORIGUAL expresion
+    (27) expresion -> expresion . IGUALES expresion
+    (28) expresion -> expresion . DISTINTOS expresion
+    (29) expresion -> expresion . OR expresion
+    (30) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 136
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
+
+
+state 131
+
+    (51) expNativas -> TRUNC PARIZQ INT64 COMA expresion . PARDER
+    (17) expresion -> expresion . MAS expresion
+    (18) expresion -> expresion . MENOS expresion
+    (19) expresion -> expresion . MULT expresion
+    (20) expresion -> expresion . DIV expresion
+    (21) expresion -> expresion . MOD expresion
+    (22) expresion -> expresion . POT expresion
+    (23) expresion -> expresion . MAYOR expresion
+    (24) expresion -> expresion . MENOR expresion
+    (25) expresion -> expresion . MAYORIGUAL expresion
+    (26) expresion -> expresion . MENORIGUAL expresion
+    (27) expresion -> expresion . IGUALES expresion
+    (28) expresion -> expresion . DISTINTOS expresion
+    (29) expresion -> expresion . OR expresion
+    (30) expresion -> expresion . AND expresion
+
+    PARDER          shift and go to state 137
+    MAS             shift and go to state 43
+    MENOS           shift and go to state 44
+    MULT            shift and go to state 45
+    DIV             shift and go to state 46
+    MOD             shift and go to state 47
+    POT             shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    MAYORIGUAL      shift and go to state 51
+    MENORIGUAL      shift and go to state 52
+    IGUALES         shift and go to state 53
+    DISTINTOS       shift and go to state 54
+    OR              shift and go to state 55
+    AND             shift and go to state 56
+
+
+state 132
 
     (13) elseIfLista -> ELSEIF expresion sentencia ELSE . sentencia
     (6) sentencia -> . instrucciones
@@ -4124,20 +5251,20 @@ state 107
     PRINT           shift and go to state 7
     IF              shift and go to state 8
 
-    sentencia                      shift and go to state 110
-    instrucciones                  shift and go to state 52
+    sentencia                      shift and go to state 138
+    instrucciones                  shift and go to state 57
     instruccion                    shift and go to state 3
     printINS                       shift and go to state 4
     ifINS                          shift and go to state 5
 
-state 108
+state 133
 
     (14) elseIfLista -> ELSEIF expresion sentencia elseIfLista .
 
     END             reduce using rule 14 (elseIfLista -> ELSEIF expresion sentencia elseIfLista .)
 
 
-state 109
+state 134
 
     (42) expNativas -> LOG PARIZQ expresion COMA expresion PARDER .
 
@@ -4162,7 +5289,82 @@ state 109
     COMA            reduce using rule 42 (expNativas -> LOG PARIZQ expresion COMA expresion PARDER .)
 
 
-state 110
+state 135
+
+    (49) expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .
+
+    MAS             reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MENOS           reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MULT            reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    DIV             reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MOD             reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    POT             reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MAYOR           reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MENOR           reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MAYORIGUAL      reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    MENORIGUAL      reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    IGUALES         reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    DISTINTOS       reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    OR              reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    AND             reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    PRINTLN         reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    PRINT           reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    IF              reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    PARDER          reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+    COMA            reduce using rule 49 (expNativas -> PARSE PARIZQ INT64 COMA expresion PARDER .)
+
+
+state 136
+
+    (50) expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .
+
+    MAS             reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MENOS           reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MULT            reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    DIV             reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MOD             reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    POT             reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MAYOR           reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MENOR           reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MAYORIGUAL      reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    MENORIGUAL      reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    IGUALES         reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    DISTINTOS       reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    OR              reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    AND             reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    PRINTLN         reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    PRINT           reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    IF              reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    PARDER          reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+    COMA            reduce using rule 50 (expNativas -> PARSE PARIZQ FLOAT64 COMA expresion PARDER .)
+
+
+state 137
+
+    (51) expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .
+
+    MAS             reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MENOS           reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MULT            reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    DIV             reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MOD             reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    POT             reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MAYOR           reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MENOR           reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MAYORIGUAL      reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    MENORIGUAL      reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    IGUALES         reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    DISTINTOS       reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    OR              reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    AND             reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    PRINTLN         reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    PRINT           reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    IF              reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    PARDER          reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+    COMA            reduce using rule 51 (expNativas -> TRUNC PARIZQ INT64 COMA expresion PARDER .)
+
+
+state 138
 
     (13) elseIfLista -> ELSEIF expresion sentencia ELSE sentencia .
 

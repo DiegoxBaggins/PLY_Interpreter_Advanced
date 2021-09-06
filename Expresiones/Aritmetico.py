@@ -30,25 +30,30 @@ class Aritmetico(Expresion):
         valorDer = self.der.execute(entorno)
         resultado = casteos(valorIzq, valorDer)
         if self.tipo == OperacionAritmetica.SUMA:
-            resultado.valor = valorIzq.valor + valorDer.valor
+            if comprobar(valorIzq, valorDer):
+                resultado.valor = valorIzq.valor + valorDer.valor
         elif self.tipo == OperacionAritmetica.RESTA:
-            resultado.valor = valorIzq.valor - valorDer.valor
+            if comprobar(valorIzq, valorDer):
+                resultado.valor = valorIzq.valor - valorDer.valor
         elif self.tipo == OperacionAritmetica.MULTI:
             if valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
                 resultado.valor = valorIzq.valor + valorDer.valor
-            else:
+            elif comprobar(valorIzq, valorDer):
                 resultado.valor = valorIzq.valor * valorDer.valor
         elif self.tipo == OperacionAritmetica.DIV:
-            resultado.valor = valorIzq.valor / valorDer.valor
+            if comprobar(valorIzq, valorDer):
+                resultado.valor = valorIzq.valor / valorDer.valor
         elif self.tipo == OperacionAritmetica.MENOS:
-            resultado.valor = -valorIzq.valor
+            if comprobar(valorIzq, valorDer):
+                resultado.valor = -valorIzq.valor
         elif self.tipo == OperacionAritmetica.POTENCIA:
             if valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.INT:
                 resultado.valor = valorIzq.valor * valorDer.valor
-            else:
+            elif comprobar(valorIzq, valorDer):
                 resultado.valor = math.pow(valorIzq.valor, valorDer.valor)
         elif self.tipo == OperacionAritmetica.MODULO:
-            resultado.valor = valorIzq.valor % valorDer.valor
+            if comprobar(valorIzq, valorDer):
+                resultado.valor = valorIzq.valor % valorDer.valor
         return resultado
 
 
@@ -59,3 +64,13 @@ def casteos(izq, der):
         return Return("", Tipo.STRING)
     else:
         return Return(0, Tipo.INT)
+
+
+def comprobar(izq, der):
+    if izq.tipo == Tipo.FLOAT or izq.tipo == Tipo.INT:
+        if der.tipo == Tipo.FLOAT or der.tipo == Tipo.INT:
+            return True
+        else:
+            return False
+    else:
+        return False

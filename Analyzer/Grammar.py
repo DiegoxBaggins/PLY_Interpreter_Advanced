@@ -12,7 +12,7 @@ rw = {
     "TRUE": "TRUE", "FALSE": "FALSE",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
-    "LOWERCASE": "LOWERCASE"
+    "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF"
 }
 
 tokens = [
@@ -298,7 +298,13 @@ def p_defNativas(t):
                   | TAN PARIZQ expresion PARDER
                   | SQRT PARIZQ expresion PARDER
                   | UPPERCASE PARIZQ expresion PARDER
-                  | LOWERCASE PARIZQ expresion PARDER'''
+                  | LOWERCASE PARIZQ expresion PARDER
+                  | PARSE PARIZQ INT64 COMA expresion PARDER
+                  | PARSE PARIZQ FLOAT64 COMA expresion PARDER
+                  | TRUNC PARIZQ INT64 COMA expresion PARDER
+                  | FLOAT PARIZQ expresion PARDER
+                  | STRING PARIZQ expresion PARDER
+                  | TYPEOF PARIZQ expresion PARDER'''
     valor = str(t[1])
     if "log10" in valor:
         t[0] = Nativo(t[3], t[3], FuncionNativa.LOG10, t.lineno(1), t.lexpos(0))
@@ -316,6 +322,20 @@ def p_defNativas(t):
         t[0] = Nativo(t[3], t[3], FuncionNativa.UPPER, t.lineno(1), t.lexpos(0))
     elif "lowercase" in valor:
         t[0] = Nativo(t[3], t[3], FuncionNativa.LOWER, t.lineno(1), t.lexpos(0))
+    elif "parse" in valor:
+        valor2 = str(t[3])
+        if "int64" in valor2:
+            t[0] = Nativo(t[5], Tipo.INT, FuncionNativa.PARSE, t.lineno(1), t.lexpos(0))
+        else:
+            t[0] = Nativo(t[5], Tipo.FLOAT, FuncionNativa.PARSE, t.lineno(1), t.lexpos(0))
+    elif "trunc" in valor:
+        t[0] = Nativo(t[5], t[3], FuncionNativa.TRUNC, t.lineno(1), t.lexpos(0))
+    elif "float" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.FLOAT, t.lineno(1), t.lexpos(0))
+    elif "string" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.STRING, t.lineno(1), t.lexpos(0))
+    elif "typeof" in valor:
+        t[0] = Nativo(t[3], t[3], FuncionNativa.TYPEOF, t.lineno(1), t.lexpos(0))
 
 
 def p_error(t):
