@@ -2,19 +2,23 @@ from Instruction.Print import *
 from Instruction.Sentencia import *
 from Instruction.If import *
 from Instruction.Declaracion import *
+from Instruction.Funcion import *
+from Instruction.Parametro import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
 from Expresiones.Relacional import *
 from Expresiones.Nativas import *
 from Expresiones.Acceso import *
+from Expresiones.LlamadaFunc import *
 
 rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
     "TRUE": "TRUE", "FALSE": "FALSE", "LOCAL": "LOCAL", "GLOBAL": "GLOBAL",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
-    "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF"
+    "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF",
+    "FUNCTION": "FUNCTION"
 }
 
 tokens = [
@@ -136,9 +140,77 @@ precedence = (
 # SYNTACTIC ANALYSIS
 
 def p_start(t):
-    'inicio : instrucciones'
+    'inicio : instruccionesglb'
     t[0] = t[1]
     return t[0]
+
+
+def p_instruccionesglb(t):
+    '''instruccionesglb : instruccionesglb instruccionglb
+                        | instruccionglb'''
+    if len(t) == 2:
+        t[0] = [t[1]]
+    else:
+        t[1].append(t[2])
+        t[0] = t[1]
+
+
+def p_instruccionglb(t):
+    '''instruccionglb  : funcionINS PUNTOCOMA
+                       | declaracionglb PUNTOCOMA
+                       | printINS PUNTOCOMA
+                       | llamadaFunc PUNTOCOMA'''
+    t[0] = t[1]
+
+
+def p_declaracionglb(t):
+    '''declaracionglb : ID
+                      | ID IGUAL expresion
+                      | ID IGUAL expresion DOSPUNTOS DOSPUNTOS tipos'''
+    if len(t) == 2:
+        t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], Return(None, Tipo.UNDEFINED), Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+    elif len(t) == 4:
+        t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], t[3], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+    elif len(t) == 7:
+        t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
+
+
+def p_funcionINS(t):
+    '''funcionINS : FUNCTION ID PARIZQ PARDER sentencia END
+                  | FUNCTION ID PARIZQ params PARDER sentencia END'''
+    if len(t) == 7:
+        t[0] = Function(t[2], [], t[5], t.lineno(1), t.lexpos(0))
+    else:
+        t[0] = Function(t[2], [4], t[6], t.lineno(1), t.lexpos(0))
+
+
+def p_decParams(t):
+    '''params : params COMA ID
+              | ID'''
+    if len(t) == 2:
+        t[0] = [Parametro(t[1], t.lineno(1), t.lexpos(1))]
+    else:
+        t[1].append(Parametro(t[3], t.lineno(3), t.lexpos(3)))
+        t[0] = t[1]
+
+
+def p_llamadaFunc(t):
+    '''llamadaFunc : ID PARIZQ PARDER
+                   | ID PARIZQ listParams PARDER'''
+    if len(t) == 4:
+        t[0] = LlamadaFunc(t[1], [], t.lineno(1), t.lexpos(1))
+    else:
+        t[0] = LlamadaFunc(t[1], t[3], t.lineno(1), t.lexpos(1))
+
+
+def p_llamadaPar(t):
+    '''listParams :  listParams COMA expresion
+                  | expresion'''
+    if len(t) == 2:
+        t[0] = [t[1]]
+    else:
+        t[1].append(t[3])
+        t[0] = t[1]
 
 
 def p_instrucciones(t):
@@ -154,7 +226,8 @@ def p_instrucciones(t):
 def p_instruccion(t):
     '''instruccion  : printINS PUNTOCOMA
                     | ifINS PUNTOCOMA
-                    | declaracionINS PUNTOCOMA'''
+                    | declaracionINS PUNTOCOMA
+                    | llamadaFunc PUNTOCOMA'''
     t[0] = t[1]
 
 
