@@ -3,15 +3,25 @@ from Symbol.Simbolo import *
 
 class Entorno:
 
-    def __init__(self, prev):
+    def __init__(self, prev, nombre):
+        self.nombre = nombre
         self.prev = prev
         self.variables = {}
         self.funciones = {}
         self.structs = {}
 
-    def newVariable(self, idVar, valor, tipoVar):
+    def newVariableGlobal(self, idVar, valor, tipo):
+        nuevoSimbolo = Simbolo(valor, idVar, tipo)
+        glb = self.getGlobal()
+        glb.variables[idVar] = nuevoSimbolo
+
+    def newVariableLocal(self, idVar, valor, tipo):
+        nuevoSimbolo = Simbolo(valor, idVar, tipo)
+        self.variables[idVar] = nuevoSimbolo
+
+    def newVariable(self, idVar, valor, tipo):
         env = self
-        nuevoSimbolo = Simbolo(valor, idVar, tipoVar)
+        nuevoSimbolo = Simbolo(valor, idVar, tipo)
         while env is not None:
             if idVar in env.variables.keys():
                 self.variables[idVar] = nuevoSimbolo
@@ -19,16 +29,27 @@ class Entorno:
             env = env.prev
         self.variables[idVar] = nuevoSimbolo
 
+    def newVarStructGlobal(self, idVar, attrs, tipo):
+        nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
+        nuevoSimbolo.attributes = attrs
+        glb = self.getGlobal()
+        glb.variables[idVar] = nuevoSimbolo
+
+    def newVarStructLocal(self, idVar, attrs, tipo):
+        nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
+        nuevoSimbolo.attributes = attrs
+        self.variables[idVar] = nuevoSimbolo
+
     def newVarStruct(self, idVar, attrs, tipo):
         env = self
-        newSymbol = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        newSymbol.attributes = attrs
+        nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
+        nuevoSimbolo.attributes = attrs
         while env is not None:
             if idVar in env.variables.keys():
-                env.variables[idVar] = newSymbol
+                env.variables[idVar] = nuevoSimbolo
                 return
             env = env.prev
-        self.variables[idVar] = newSymbol
+        self.variables[idVar] = nuevoSimbolo
 
     def newFunc(self, idFunc, function):
         if idFunc in self.funciones.keys():

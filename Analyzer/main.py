@@ -1,18 +1,21 @@
 from Grammar import parse
 from Symbol.Entorno import *
 
-newEnv = Entorno(None)
+newEnv = Entorno(None, "global")
 
 
-f = open("../output.txt", "w")
-f.write("")
-f.close()
-print("ingrese direccion de archivo")
-texto = input()
+try:
+    f = open("../output.txt", "w")
+    f.write("")
+    f.close()
+    print("ingrese direccion de archivo")
+    texto = input()
 
-f = open(texto, "r")
-lectura = f.read()
-f.close()
-ast = parse(lectura)
-for instr in ast:
-    instr.execute(newEnv)
+    f = open(texto, "r")
+    lectura = f.read()
+    f.close()
+    ast = parse(lectura)
+    for instr in ast:
+        instr.execute(newEnv)
+except:
+    print("errores")

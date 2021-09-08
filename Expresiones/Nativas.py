@@ -71,7 +71,7 @@ class Nativo(Expresion):
                     try:
                         resultado.valor = int(valorArg1.valor)
                     except ValueError:
-                        print("No es un float")
+                        print("No es un int")
         elif self.tipo == FuncionNativa.TRUNC:
             if valorArg1.tipo == Tipo.FLOAT:
                 resultado = Return(0, Tipo.INT)

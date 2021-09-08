@@ -24,7 +24,7 @@ def analisis():  # put application's code here
         f = open("./output.txt", "w")
         f.write("")
         f.close()
-        newEnv = Entorno(None)
+        newEnv = Entorno(None, "global")
         ast = parse(codigo)
         for instr in ast:
             instr.execute(newEnv)

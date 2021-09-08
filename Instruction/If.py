@@ -12,6 +12,7 @@ class If(Expresion):
 
     def execute(self, entorno):
         cond = self.condicion.execute(entorno)
+        self.instrucciones.nombre = "IF"
         if cond.tipo != Tipo.BOOLEAN:
             print("Condición de tipo no boolean")
             return

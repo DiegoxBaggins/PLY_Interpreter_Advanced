@@ -42,6 +42,7 @@ class Aritmetico(Expresion):
                 resultado.valor = valorIzq.valor * valorDer.valor
         elif self.tipo == OperacionAritmetica.DIV:
             if comprobar(valorIzq, valorDer):
+                resultado = Return(0.0, Tipo.FLOAT)
                 resultado.valor = valorIzq.valor / valorDer.valor
         elif self.tipo == OperacionAritmetica.MENOS:
             if comprobar(valorIzq, valorDer):

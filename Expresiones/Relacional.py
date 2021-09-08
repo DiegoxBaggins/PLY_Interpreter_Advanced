@@ -27,9 +27,6 @@ class Relacional(Expresion):
         valorIzq = self.izq.execute(environment)
         valorDer = self.der.execute(environment)
         resultado = Return(False, Tipo.BOOLEAN)
-        if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
-            print("Los tipos no son true")
-            return resultado
         if self.tipo == OperacionRelacional.MAYOR:
             resultado.valor = valorIzq.valor > valorDer.valor
         elif self.tipo == OperacionRelacional.MENOR:
@@ -43,9 +40,18 @@ class Relacional(Expresion):
         elif self.tipo == OperacionRelacional.DISTINTOS:
             resultado.valor = valorIzq.valor != valorDer.valor
         elif self.tipo == OperacionRelacional.AND:
-            resultado.valor = valorIzq.valor and valorDer.valor
+            if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
+                print("Los tipos no son bool")
+            else:
+                resultado.valor = valorIzq.valor and valorDer.valor
         elif self.tipo == OperacionRelacional.OR:
-            resultado.valor = valorIzq.valor or valorDer.valor
+            if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
+                print("Los tipos no son bool")
+            else:
+                resultado.valor = valorIzq.valor or valorDer.valor
         elif self.tipo == OperacionRelacional.NOT:
-            resultado.valor = not valorIzq.valor
+            if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
+                print("Los tipos no son bool")
+            else:
+                resultado.valor = not valorIzq.valor
         return resultado

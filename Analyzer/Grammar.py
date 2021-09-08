@@ -1,15 +1,17 @@
 from Instruction.Print import *
 from Instruction.Sentencia import *
 from Instruction.If import *
+from Instruction.Declaracion import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
 from Expresiones.Relacional import *
 from Expresiones.Nativas import *
+from Expresiones.Acceso import *
 
 rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
-    "TRUE": "TRUE", "FALSE": "FALSE",
+    "TRUE": "TRUE", "FALSE": "FALSE", "LOCAL": "LOCAL", "GLOBAL": "GLOBAL",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
     "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF"
@@ -151,7 +153,8 @@ def p_instrucciones(t):
 
 def p_instruccion(t):
     '''instruccion  : printINS PUNTOCOMA
-                    | ifINS PUNTOCOMA'''
+                    | ifINS PUNTOCOMA
+                    | declaracionINS PUNTOCOMA'''
     t[0] = t[1]
 
 
@@ -170,6 +173,56 @@ def p_printlnINS(t):
 def p_printINS(t):
     'printINS  : PRINT PARIZQ expresion PARDER'
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0))
+
+
+def p_declaracionINS(t):
+    '''declaracionINS : ID
+                      | ID IGUAL expresion
+                      | ID IGUAL expresion DOSPUNTOS DOSPUNTOS tipos
+                      | accesos ID
+                      | accesos ID IGUAL expresion
+                      | accesos ID IGUAL expresion DOSPUNTOS DOSPUNTOS tipos'''
+    if len(t) == 2:
+        t[0] = Declaracion(TipoAcceso.VACIO, t[1], Return(None, Tipo.UNDEFINED), Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+    elif len(t) == 4:
+        t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+    elif len(t) == 7:
+        t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
+    elif len(t) == 3:
+        t[0] = Declaracion(t[1], t[2], Return(None, Tipo.UNDEFINED), Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+    elif len(t) == 5:
+        t[0] = Declaracion(t[1], t[2], t[4], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+    elif len(t) == 8:
+        t[0] = Declaracion(t[0], t[2], t[4], t[7], t.lineno(1), t.lexpos(0))
+
+
+def p_tipos(t):
+    '''tipos : INT64
+             | FLOAT64
+             | STRING
+             | BOOL
+             | CHAR'''
+    valor = str(t[1])
+    if "int64" in valor:
+        t[0] = Tipo.INT
+    if "float64" in valor:
+        t[0] = Tipo.FLOAT
+    if "string" in valor:
+        t[0] = Tipo.STRING
+    if "bool" in valor:
+        t[0] = Tipo.BOOLEAN
+    if "char" in valor:
+        t[0] = Tipo.CHAR
+
+
+def p_accesos(t):
+    '''accesos : LOCAL
+               | GLOBAL'''
+    valor = str(t[1])
+    if "local" in valor:
+        t[0] = TipoAcceso.LOCAL
+    if "global" in valor:
+        t[0] = TipoAcceso.GLOBAL
 
 
 # IFST
@@ -265,12 +318,15 @@ def p_expValor(t):
                 | expCHAR
                 | expNativas
                 | TRUE
-                | FALSE'''
+                | FALSE
+                | ID'''
     if len(t) == 2:
-        if isinstance(t[1], int):
+        if t.slice[1].type == "INTID":
             t[0] = Literal(int(t[1]), Tipo.INT, t.lineno(1), t.lexpos(0))
-        elif isinstance(t[1], float):
+        elif t.slice[1].type == "FLOATID":
             t[0] = Literal(float(t[1]), Tipo.FLOAT, t.lineno(1), t.lexpos(0))
+        elif t.slice[1].type == "ID":
+            t[0] = Acceso(t[1], t.lineno(1), t.lexpos(1))
         elif isinstance(t[1], str):
             valor = str(t[1])
             if "true" in valor:
@@ -344,6 +400,7 @@ def p_error(t):
 
 
 import ply.yacc as yacc
+
 
 parser = yacc.yacc()
 
