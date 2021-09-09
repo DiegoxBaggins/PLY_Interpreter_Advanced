@@ -11,6 +11,7 @@ class Tipo(Enum):
     ARRAY = 6
     STRUCT = 7
     UNDEFINED = 8
+    RETURNINS = 9
 
 
 class Return:

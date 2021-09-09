@@ -13,5 +13,7 @@ class Sentencia(Expresion):
     def execute(self, entorno):
         nuevoEntorno = Entorno(entorno, self.nombre)
         for ins in self.instrucciones:
-            ins.execute(nuevoEntorno)
+            rtr = ins.execute(nuevoEntorno)
+            if rtr is not None:
+                return rtr
             

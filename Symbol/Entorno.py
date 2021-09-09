@@ -22,7 +22,7 @@ class Entorno:
     def newVariable(self, idVar, valor, tipo):
         env = self
         nuevoSimbolo = Simbolo(valor, idVar, tipo)
-        while env is not None:
+        while env.prev is not None:
             if idVar in env.variables.keys():
                 self.variables[idVar] = nuevoSimbolo
                 return
@@ -44,7 +44,7 @@ class Entorno:
         env = self
         nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
         nuevoSimbolo.attributes = attrs
-        while env is not None:
+        while env.prev is not None:
             if idVar in env.variables.keys():
                 env.variables[idVar] = nuevoSimbolo
                 return
@@ -72,10 +72,12 @@ class Entorno:
         return None
 
     def getFunc(self, idFunc):
-        if idFunc in self.funciones.keys():
-            return self.funciones[idFunc]
-        else:
-            return None
+        env = self
+        while env is not None:
+            if idFunc in env.funciones.keys():
+                return env.funciones[idFunc]
+            env = env.prev
+        return None
 
     def getStruct(self, idStruct):
         env = self

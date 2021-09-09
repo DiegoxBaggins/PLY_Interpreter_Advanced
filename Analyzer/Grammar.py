@@ -4,6 +4,7 @@ from Instruction.If import *
 from Instruction.Declaracion import *
 from Instruction.Funcion import *
 from Instruction.Parametro import *
+from Instruction.ReturnIns import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
@@ -12,13 +13,14 @@ from Expresiones.Nativas import *
 from Expresiones.Acceso import *
 from Expresiones.LlamadaFunc import *
 
+
 rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
     "TRUE": "TRUE", "FALSE": "FALSE", "LOCAL": "LOCAL", "GLOBAL": "GLOBAL",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
+    "FUNCTION": "FUNCTION", "RETURN": "RETURN",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
     "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF",
-    "FUNCTION": "FUNCTION"
 }
 
 tokens = [
@@ -159,7 +161,8 @@ def p_instruccionglb(t):
     '''instruccionglb  : funcionINS PUNTOCOMA
                        | declaracionglb PUNTOCOMA
                        | printINS PUNTOCOMA
-                       | llamadaFunc PUNTOCOMA'''
+                       | llamadaFunc PUNTOCOMA
+                       | ifINS PUNTOCOMA'''
     t[0] = t[1]
 
 
@@ -181,7 +184,7 @@ def p_funcionINS(t):
     if len(t) == 7:
         t[0] = Function(t[2], [], t[5], t.lineno(1), t.lexpos(0))
     else:
-        t[0] = Function(t[2], [4], t[6], t.lineno(1), t.lexpos(0))
+        t[0] = Function(t[2], t[4], t[6], t.lineno(1), t.lexpos(0))
 
 
 def p_decParams(t):
@@ -213,6 +216,15 @@ def p_llamadaPar(t):
         t[0] = t[1]
 
 
+def p_return(t):
+    '''returnINS : RETURN
+                 | RETURN expresion'''
+    if len(t) == 2:
+        t[0] = ReturnIns(None, t.lineno(1), t.lexpos(1))
+    else:
+        t[0] = ReturnIns(t[2], t.lineno(1), t.lexpos(1))
+
+
 def p_instrucciones(t):
     '''instrucciones : instrucciones instruccion
                     | instruccion'''
@@ -227,7 +239,8 @@ def p_instruccion(t):
     '''instruccion  : printINS PUNTOCOMA
                     | ifINS PUNTOCOMA
                     | declaracionINS PUNTOCOMA
-                    | llamadaFunc PUNTOCOMA'''
+                    | llamadaFunc PUNTOCOMA
+                    | returnINS PUNTOCOMA'''
     t[0] = t[1]
 
 
@@ -392,7 +405,8 @@ def p_expValor(t):
                 | expNativas
                 | TRUE
                 | FALSE
-                | ID'''
+                | ID
+                | llamadaFunc'''
     if len(t) == 2:
         if t.slice[1].type == "INTID":
             t[0] = Literal(int(t[1]), Tipo.INT, t.lineno(1), t.lexpos(0))
