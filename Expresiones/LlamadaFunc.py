@@ -19,6 +19,9 @@ class LlamadaFunc(Expresion):
                 valor = param.execute(entorno)
                 nuevoEntorno.newVariable(func.params[i].id, valor.valor, valor.tipo)
                 i += 1
-            ret = func.instrucciones.execute(nuevoEntorno)
-            if ret is not None:
-                return ret
+            rtr = func.instrucciones.execute(nuevoEntorno)
+            if rtr is not None:
+                if rtr.tipo == Tipo.RETURNINS:
+                    return None
+                else:
+                    return rtr

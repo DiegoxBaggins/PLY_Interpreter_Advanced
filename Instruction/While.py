@@ -17,7 +17,14 @@ class While(Expresion):
         nuevoEntorno = Entorno(entorno, "WHILE")
         while condicion.valor is True and control < 250:
             rtr = self.instrucciones.execute(nuevoEntorno)
-            if rtr is not None:
-                return rtr
             condicion = self.condicion.execute(entorno)
             control += 1
+            if rtr is not None:
+                if rtr.tipo == Tipo.BREAKINS:
+                    break
+                elif rtr.tipo == Tipo.CONTINUEINS:
+                    continue
+                else:
+                    return rtr
+        if control == 250:
+            print("Error en sentencia While, stack overflow")

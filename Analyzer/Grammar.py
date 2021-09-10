@@ -7,6 +7,7 @@ from Instruction.Parametro import *
 from Instruction.ReturnIns import *
 from Instruction.While import *
 from Instruction.For import *
+from Instruction.ControlNS import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
@@ -20,7 +21,8 @@ rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
     "TRUE": "TRUE", "FALSE": "FALSE", "LOCAL": "LOCAL", "GLOBAL": "GLOBAL",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
-    "FUNCTION": "FUNCTION", "RETURN": "RETURN", "WHILE": "WHILE", "FOR": "FOR", "IN": "IN",
+    "FUNCTION": "FUNCTION", "RETURN": "RETURN", "WHILE": "WHILE", "FOR": "FOR", "IN": "IN", "BREAK": "BREAK",
+    "CONTINUE": "CONTINUE",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
     "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF",
 }
@@ -175,7 +177,7 @@ def p_declaracionglb(t):
                       | ID IGUAL expresion
                       | ID IGUAL expresion DOSPUNTOS DOSPUNTOS tipos'''
     if len(t) == 2:
-        t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], Return(None, Tipo.UNDEFINED), Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+        t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], None, Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 4:
         t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], t[3], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 7:
@@ -246,7 +248,9 @@ def p_instruccion(t):
                     | llamadaFunc PUNTOCOMA
                     | returnINS PUNTOCOMA
                     | whileINS PUNTOCOMA
-                    | forINS PUNTOCOMA'''
+                    | forINS PUNTOCOMA
+                    | breakINS PUNTOCOMA
+                    | continueINS PUNTOCOMA'''
     t[0] = t[1]
 
 
@@ -275,13 +279,13 @@ def p_declaracionINS(t):
                       | accesos ID IGUAL expresion
                       | accesos ID IGUAL expresion DOSPUNTOS DOSPUNTOS tipos'''
     if len(t) == 2:
-        t[0] = Declaracion(TipoAcceso.VACIO, t[1], Return(None, Tipo.UNDEFINED), Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+        t[0] = Declaracion(TipoAcceso.VACIO, t[1], None, Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 4:
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 7:
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
     elif len(t) == 3:
-        t[0] = Declaracion(t[1], t[2], Return(None, Tipo.UNDEFINED), Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+        t[0] = Declaracion(t[1], t[2], None, Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 5:
         t[0] = Declaracion(t[1], t[2], t[4], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 8:
@@ -329,6 +333,17 @@ def p_forINS(t):
         t[0] = For(t[2], t[4], None, t[5], t.lineno(1), t.lexpos(0))
     else:
         t[0] = For(t[2], t[4], t[6], t[7], t.lineno(1), t.lexpos(0))
+
+
+def p_breakINS(t):
+    'breakINS : BREAK'
+    t[0] = ControlIns(Tipo.BREAKINS, t.lineno(1), t.lexpos(0))
+
+
+def p_continueINS(t):
+    'continueINS : CONTINUE'
+    t[0] = ControlIns(Tipo.CONTINUEINS, t.lineno(1), t.lexpos(0))
+
 
 # IF
 def p_ifINS(t):

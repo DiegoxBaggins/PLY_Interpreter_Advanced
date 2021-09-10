@@ -10,6 +10,6 @@ class Acceso(Expresion):
     def execute(self, entorno):
         valor = entorno.getVar(self.id)
         if valor is None:
-            print("Error, no existe la variable")
+            print("Error, no existe la variable: ", self.id, self.linea, self.columna)
             return
         return Return(valor.valor, valor.tipo)

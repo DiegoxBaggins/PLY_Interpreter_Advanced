@@ -13,14 +13,19 @@ class For(Expresion):
     def execute(self, entorno):
         expresion1 = self.exp1.execute(entorno)
         idVar = self.variable
-        nuevoEntorno = Entorno(entorno.getGlobal(), "FOR")
+        nuevoEntorno = Entorno(entorno, "FOR")
         if self.exp2 is not None:
             expresion2 = self.exp2.execute(entorno)
             nuevoEntorno.newVariable(idVar, expresion1.valor, expresion1.tipo)
             while nuevoEntorno.getVar(idVar).valor <= expresion2.valor:
                 rtr = self.instrucciones.execute(nuevoEntorno)
                 if rtr is not None:
-                    return rtr
+                    if rtr.tipo == Tipo.BREAKINS:
+                        break
+                    elif rtr.tipo == Tipo.CONTINUEINS:
+                        continue
+                    else:
+                        return rtr
                 var = nuevoEntorno.getVar(idVar)
                 nuevoEntorno.newVariable(idVar, var.valor + 1, var.tipo)
         else:
@@ -31,4 +36,9 @@ class For(Expresion):
                     nuevoEntorno.newVariable(idVar, caracter, var.tipo)
                     rtr = self.instrucciones.execute(nuevoEntorno)
                     if rtr is not None:
-                        return rtr
+                        if rtr.tipo == Tipo.BREAKINS:
+                            break
+                        elif rtr.tipo == Tipo.CONTINUEINS:
+                            continue
+                        else:
+                            return rtr

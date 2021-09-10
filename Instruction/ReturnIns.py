@@ -12,4 +12,4 @@ class ReturnIns(Expresion):
             valor = self.exp.execute(entorno)
             return valor
         else:
-            return None
+            return Return(None, Tipo.RETURNINS, "")

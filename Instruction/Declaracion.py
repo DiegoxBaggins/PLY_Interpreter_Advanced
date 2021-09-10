@@ -28,7 +28,10 @@ class Declaracion(Expresion):
                 return True
 
     def execute(self, entorno):
-        valor = self.valor.execute(entorno)
+        if self.valor is not None:
+            valor = self.valor.execute(entorno)
+        else:
+            valor = Simbolo(None, self.id, Tipo.UNDEFINED)
         if self.chequearTipo(valor):
             if self.acceso == TipoAcceso.LOCAL:
                 if valor.tipo == Tipo.STRUCT:

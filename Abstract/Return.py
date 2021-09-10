@@ -12,6 +12,8 @@ class Tipo(Enum):
     STRUCT = 7
     UNDEFINED = 8
     RETURNINS = 9
+    BREAKINS = 10
+    CONTINUEINS = 11
 
 
 class Return:
