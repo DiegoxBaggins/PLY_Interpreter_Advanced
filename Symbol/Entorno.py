@@ -24,7 +24,7 @@ class Entorno:
         nuevoSimbolo = Simbolo(valor, idVar, tipo)
         while env.prev is not None:
             if idVar in env.variables.keys():
-                self.variables[idVar] = nuevoSimbolo
+                env.variables[idVar] = nuevoSimbolo
                 return
             env = env.prev
         self.variables[idVar] = nuevoSimbolo
