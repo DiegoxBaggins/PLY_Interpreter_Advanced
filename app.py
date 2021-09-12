@@ -20,7 +20,6 @@ def analisis():  # put application's code here
     if request.method == "POST":
         dic = request.form
         codigo = dic["txt1"]
-        print(codigo)
         f = open("./output.txt", "w")
         f.write("")
         f.close()

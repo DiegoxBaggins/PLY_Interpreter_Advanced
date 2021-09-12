@@ -1,4 +1,2 @@
------------Factorial Iterativo---------
-8! = 40320
------------Factorial Recursivo---------
-8! = 40320
+NO SOY NODO 3
+NODO2

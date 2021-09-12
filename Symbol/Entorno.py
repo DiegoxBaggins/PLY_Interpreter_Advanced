@@ -31,19 +31,19 @@ class Entorno:
 
     def newVarStructGlobal(self, idVar, attrs, tipo):
         nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        nuevoSimbolo.attributes = attrs
+        nuevoSimbolo.atributos = attrs
         glb = self.getGlobal()
         glb.variables[idVar] = nuevoSimbolo
 
     def newVarStructLocal(self, idVar, attrs, tipo):
         nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        nuevoSimbolo.attributes = attrs
+        nuevoSimbolo.atributos = attrs
         self.variables[idVar] = nuevoSimbolo
 
     def newVarStruct(self, idVar, attrs, tipo):
         env = self
         nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        nuevoSimbolo.attributes = attrs
+        nuevoSimbolo.atributos = attrs
         while env.prev is not None:
             if idVar in env.variables.keys():
                 env.variables[idVar] = nuevoSimbolo
@@ -57,11 +57,11 @@ class Entorno:
         else:
             self.funciones[idFunc] = function
 
-    def newStruct(self, idStruct, attr):
+    def newStruct(self, idStruct, struct):
         if idStruct in self.structs.keys():
             print("Struct repetido")
         else:
-            self.structs[idStruct] = attr
+            self.structs[idStruct] = struct
 
     def getVar(self, idVar):
         env = self

@@ -83,6 +83,8 @@ class Nativo(Expresion):
             if valorArg1.tipo != Tipo.STRING and valorArg1.tipo != Tipo.CHAR:
                 resultado = Return("", Tipo.STRING)
                 resultado.valor = str(valorArg1.valor)
+            elif valorArg1.tipo == Tipo.CHAR:
+                resultado = Return(valorArg1.valor, Tipo.STRING)
         elif self.tipo == FuncionNativa.TYPEOF:
             resultado = Return("", Tipo.STRING)
             resultado.valor = valorArg1.tipo.name

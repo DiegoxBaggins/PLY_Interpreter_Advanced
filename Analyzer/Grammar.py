@@ -8,6 +8,9 @@ from Instruction.ReturnIns import *
 from Instruction.While import *
 from Instruction.For import *
 from Instruction.ControlNS import *
+from Structs.Nuevo import *
+from Structs.Asignacion import *
+from Structs.Acceso import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
@@ -16,13 +19,12 @@ from Expresiones.Nativas import *
 from Expresiones.Acceso import *
 from Expresiones.LlamadaFunc import *
 
-
 rw = {
     "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
     "TRUE": "TRUE", "FALSE": "FALSE", "LOCAL": "LOCAL", "GLOBAL": "GLOBAL",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
     "FUNCTION": "FUNCTION", "RETURN": "RETURN", "WHILE": "WHILE", "FOR": "FOR", "IN": "IN", "BREAK": "BREAK",
-    "CONTINUE": "CONTINUE",
+    "CONTINUE": "CONTINUE", "STRUCT": "STRUCT", "MUTABLE": "MUTABLE",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
     "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF",
 }
@@ -45,8 +47,6 @@ t_PARIZQ = r'\('
 t_PARDER = r'\)'
 t_CORIZQ = r'\['
 t_CORDER = r'\]'
-t_LLAVIZQ = r'\{'
-t_LLAVDER = r'\}'
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULT = r'\*'
@@ -151,6 +151,7 @@ def p_start(t):
     return t[0]
 
 
+# instrucciones Globales
 def p_instruccionesglb(t):
     '''instruccionesglb : instruccionesglb instruccionglb
                         | instruccionglb'''
@@ -168,10 +169,13 @@ def p_instruccionglb(t):
                        | llamadaFunc PUNTOCOMA
                        | ifINS PUNTOCOMA
                        | whileINS PUNTOCOMA
-                       | forINS PUNTOCOMA'''
+                       | forINS PUNTOCOMA
+                       | newStruct PUNTOCOMA
+                       | asignacionStruct PUNTOCOMA'''
     t[0] = t[1]
 
 
+# Declaracion Global
 def p_declaracionglb(t):
     '''declaracionglb : ID
                       | ID IGUAL expresion
@@ -184,6 +188,7 @@ def p_declaracionglb(t):
         t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
 
 
+# Declaracion func
 def p_funcionINS(t):
     '''funcionINS : FUNCTION ID PARIZQ PARDER sentencia END
                   | FUNCTION ID PARIZQ params PARDER sentencia END'''
@@ -203,6 +208,7 @@ def p_decParams(t):
         t[0] = t[1]
 
 
+# Llamada func
 def p_llamadaFunc(t):
     '''llamadaFunc : ID PARIZQ PARDER
                    | ID PARIZQ listParams PARDER'''
@@ -222,6 +228,7 @@ def p_llamadaPar(t):
         t[0] = t[1]
 
 
+# Return
 def p_return(t):
     '''returnINS : RETURN
                  | RETURN expresion'''
@@ -231,6 +238,7 @@ def p_return(t):
         t[0] = ReturnIns(t[2], t.lineno(1), t.lexpos(1))
 
 
+# Instrucciones locales
 def p_instrucciones(t):
     '''instrucciones : instrucciones instruccion
                     | instruccion'''
@@ -254,13 +262,13 @@ def p_instruccion(t):
     t[0] = t[1]
 
 
-# STATEMENT
+# Sentencia
 def p_sentencia(t):
     '''sentencia : instrucciones'''
     t[0] = Sentencia(t[1], t.lineno(1), t.lexpos(0))
 
 
-# PRINT ST
+# PRINT
 def p_printlnINS(t):
     'printINS  : PRINTLN PARIZQ expresion PARDER'
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0), True)
@@ -271,6 +279,7 @@ def p_printINS(t):
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0))
 
 
+# Declaracion Local
 def p_declaracionINS(t):
     '''declaracionINS : ID
                       | ID IGUAL expresion
@@ -321,11 +330,18 @@ def p_accesos(t):
         t[0] = TipoAcceso.GLOBAL
 
 
+def p_asignacionStruct(t):
+    'asignacionStruct : ID PUNTO ID IGUAL expresion'
+    t[0] = AsignacionStruct(t[1], t[3], t[5], t.lineno(1), t.lexpos(1))
+
+
+# While
 def p_whileINS(t):
     'whileINS : WHILE expresion sentencia END'
     t[0] = While(t[2], t[3], t.lineno(1), t.lexpos(0))
 
 
+# For
 def p_forINS(t):
     '''forINS : FOR ID IN expresion DOSPUNTOS expresion sentencia END
               | FOR ID IN expresion sentencia END'''
@@ -335,11 +351,13 @@ def p_forINS(t):
         t[0] = For(t[2], t[4], t[6], t[7], t.lineno(1), t.lexpos(0))
 
 
+# Break
 def p_breakINS(t):
     'breakINS : BREAK'
     t[0] = ControlIns(Tipo.BREAKINS, t.lineno(1), t.lexpos(0))
 
 
+# Continue
 def p_continueINS(t):
     'continueINS : CONTINUE'
     t[0] = ControlIns(Tipo.CONTINUEINS, t.lineno(1), t.lexpos(0))
@@ -370,6 +388,34 @@ def p_elseIfLista(t):
         t[0] = If(t[2], t[3], t.lineno(1), t.lexpos(0), t[4])
 
 
+# Declarar Struct
+def p_newStruct(t):
+    '''newStruct : STRUCT ID atributosStr END
+                 | MUTABLE STRUCT ID atributosStr END'''
+    if len(t) == 5:
+        t[0] = NuevoStruct(TipoStruct.NOMUTABLE, t[2], t[3], t.lineno(1), t.lexpos(0))
+    else:
+        t[0] = NuevoStruct(TipoStruct.MUTABLE, t[3], t[4], t.lineno(1), t.lexpos(0))
+
+
+def p_atributosStr(t):
+    '''atributosStr : atributosStr ID PUNTOCOMA
+                    | ID PUNTOCOMA
+                    | atributosStr ID DOSPUNTOS DOSPUNTOS tipos PUNTOCOMA
+                    | ID DOSPUNTOS DOSPUNTOS tipos PUNTOCOMA'''
+    if len(t) == 3:
+        t[0] = [Return(t[1], Tipo.UNDEFINED, "")]
+    elif len(t) == 5:
+        t[0] = [Return(t[1], t[4], "")]
+    elif len(t) == 4:
+        t[1].append(Return(t[2], Tipo.UNDEFINED, ""))
+        t[0] = t[1]
+    else:
+        t[1].append(Return(t[2], t(5), ""))
+        t[0] = t[1]
+
+
+# Exp
 def p_expresion(t):
     '''expresion    : MENOS expresion %prec UMINUS
                     | NOT expresion %prec UMINUS
@@ -440,7 +486,8 @@ def p_expValor(t):
                 | TRUE
                 | FALSE
                 | ID
-                | llamadaFunc'''
+                | llamadaFunc
+                | accesoStruct'''
     if len(t) == 2:
         if t.slice[1].type == "INTID":
             t[0] = Literal(int(t[1]), Tipo.INT, t.lineno(1), t.lexpos(0))
@@ -515,13 +562,21 @@ def p_defNativas(t):
         t[0] = Nativo(t[3], t[3], FuncionNativa.TYPEOF, t.lineno(1), t.lexpos(0))
 
 
+def p_accesoStructST(t):
+    '''accesoStruct : ID PUNTO ID
+                    | accesoStruct PUNTO ID'''
+    if len(t) == 4:
+        t[0] = AccesoStruct(t[1], t[3], t.lineno(1), t.lexpos(1))
+    else:
+        t[0] = AccesoStruct(t[1], t[3], t.lineno(1), t.lexpos(1))
+
+
 def p_error(t):
     print(t)
     print("Syntactic error in '%s'" % t.value)
 
 
 import ply.yacc as yacc
-
 
 parser = yacc.yacc()
 
