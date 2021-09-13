@@ -11,6 +11,8 @@ from Instruction.ControlNS import *
 from Structs.Nuevo import *
 from Structs.Asignacion import *
 from Structs.Acceso import *
+from Arreglos.Nuevo import *
+from Arreglos.Acceso import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
@@ -20,11 +22,11 @@ from Expresiones.Acceso import *
 from Expresiones.LlamadaFunc import *
 
 rw = {
-    "NULO": "NULO", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
+    "NOTHING": "NOTHING", "INT64": "INT64", "FLOAT64": "FLOAT64", "BOOL": "BOOL", "CHAR": "CHAR", "STRING": "STRING",
     "TRUE": "TRUE", "FALSE": "FALSE", "LOCAL": "LOCAL", "GLOBAL": "GLOBAL",
     "IF": "IF", "ELSE": "ELSE", "ELSEIF": "ELSEIF", "PRINT": "PRINT", "PRINTLN": "PRINTLN", "END": "END",
     "FUNCTION": "FUNCTION", "RETURN": "RETURN", "WHILE": "WHILE", "FOR": "FOR", "IN": "IN", "BREAK": "BREAK",
-    "CONTINUE": "CONTINUE", "STRUCT": "STRUCT", "MUTABLE": "MUTABLE",
+    "CONTINUE": "CONTINUE", "STRUCT": "STRUCT", "MUTABLE": "MUTABLE", "PUSH": "PUSH", "POP": "POP", "LENGTH": "LENGTH",
     "LOG10": "LOG10", "LOG": "LOG", "SIN": "SIN", "COS": "COS", "TAN": "TAN", "SQRT": "SQRT", "UPPERCASE": "UPPERCASE",
     "LOWERCASE": "LOWERCASE", "PARSE": "PARSE", "TRUNC": "TRUNC", "FLOAT": "FLOAT", "TYPEOF": "TYPEOF",
 }
@@ -32,7 +34,7 @@ rw = {
 tokens = [
              "ID", "INTID", "FLOATID", "STRINGID", "CHARID",
              "IGUAL", "PUNTO", "COMA", "DOSPUNTOS", "PUNTOCOMA",
-             "PARIZQ", "PARDER", "CORIZQ", "CORDER", "LLAVIZQ", "LLAVDER",
+             "PARIZQ", "PARDER", "CORIZQ", "CORDER",
              "MAS", "MENOS", "MULT", "DIV", "POT", "MOD",
              "AND", "OR", "NOT",
              "MAYOR", "MENOR", "MAYORIGUAL", "MENORIGUAL", "IGUALES", "DISTINTOS",
@@ -139,7 +141,7 @@ precedence = (
     ('right', 'POT'),
     ('right', 'NOT'),
     ('right', 'UMINUS'),
-    ('left', 'PARIZQ', 'PARDER', 'LLAVIZQ', 'LLAVDER')
+    ('left', 'PARIZQ', 'PARDER', 'CORIZQ', 'CORDER')
 )
 
 
@@ -270,12 +272,12 @@ def p_sentencia(t):
 
 # PRINT
 def p_printlnINS(t):
-    'printINS  : PRINTLN PARIZQ expresion PARDER'
+    'printINS  : PRINTLN PARIZQ listParams PARDER'
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0), True)
 
 
 def p_printINS(t):
-    'printINS  : PRINT PARIZQ expresion PARDER'
+    'printINS  : PRINT PARIZQ listParams PARDER'
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0))
 
 
@@ -308,15 +310,15 @@ def p_tipos(t):
              | BOOL
              | CHAR'''
     valor = str(t[1])
-    if "int64" in valor:
+    if "Int64" in valor:
         t[0] = Tipo.INT
-    if "float64" in valor:
+    if "Float64" in valor:
         t[0] = Tipo.FLOAT
-    if "string" in valor:
+    if "String" in valor:
         t[0] = Tipo.STRING
-    if "bool" in valor:
+    if "Bool" in valor:
         t[0] = Tipo.BOOLEAN
-    if "char" in valor:
+    if "Char" in valor:
         t[0] = Tipo.CHAR
 
 
@@ -487,7 +489,9 @@ def p_expValor(t):
                 | FALSE
                 | ID
                 | llamadaFunc
-                | accesoStruct'''
+                | accesoStruct
+                | defArreglo
+                | accesoArreglo'''
     if len(t) == 2:
         if t.slice[1].type == "INTID":
             t[0] = Literal(int(t[1]), Tipo.INT, t.lineno(1), t.lexpos(0))
@@ -525,7 +529,7 @@ def p_defNativas(t):
                   | LOWERCASE PARIZQ expresion PARDER
                   | PARSE PARIZQ INT64 COMA expresion PARDER
                   | PARSE PARIZQ FLOAT64 COMA expresion PARDER
-                  | TRUNC PARIZQ INT64 COMA expresion PARDER
+                  | TRUNC PARIZQ expresion PARDER
                   | FLOAT PARIZQ expresion PARDER
                   | STRING PARIZQ expresion PARDER
                   | TYPEOF PARIZQ expresion PARDER'''
@@ -548,12 +552,12 @@ def p_defNativas(t):
         t[0] = Nativo(t[3], t[3], FuncionNativa.LOWER, t.lineno(1), t.lexpos(0))
     elif "parse" in valor:
         valor2 = str(t[3])
-        if "int64" in valor2:
+        if "Int64" in valor2:
             t[0] = Nativo(t[5], Tipo.INT, FuncionNativa.PARSE, t.lineno(1), t.lexpos(0))
         else:
             t[0] = Nativo(t[5], Tipo.FLOAT, FuncionNativa.PARSE, t.lineno(1), t.lexpos(0))
     elif "trunc" in valor:
-        t[0] = Nativo(t[5], t[3], FuncionNativa.TRUNC, t.lineno(1), t.lexpos(0))
+        t[0] = Nativo(t[3], t[3], FuncionNativa.TRUNC, t.lineno(1), t.lexpos(0))
     elif "float" in valor:
         t[0] = Nativo(t[3], t[3], FuncionNativa.FLOAT, t.lineno(1), t.lexpos(0))
     elif "string" in valor:
@@ -569,6 +573,20 @@ def p_accesoStructST(t):
         t[0] = AccesoStruct(t[1], t[3], t.lineno(1), t.lexpos(1))
     else:
         t[0] = AccesoStruct(t[1], t[3], t.lineno(1), t.lexpos(1))
+
+
+def p_defArreglo(t):
+    'defArreglo : CORIZQ listParams CORDER'
+    t[0] = NuevoArray(t[2], t.lineno(1), t.lexpos(1))
+
+
+def p_accesoArreglo(t):
+    '''accesoArreglo : ID CORIZQ expresion CORDER
+                    | accesoArreglo CORIZQ expresion CORDER'''
+    if len(t) == 5:
+        t[0] = AccesoArreglo(t[1], t[3], t.lineno(1), t.lexpos(1))
+    else:
+        t[0] = AccesoArreglo(t[1], t[3], t.lineno(1), t.lexpos(1))
 
 
 def p_error(t):

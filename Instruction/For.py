@@ -42,3 +42,16 @@ class For(Expresion):
                             continue
                         else:
                             return rtr
+            elif expresion1.tipo == Tipo.ARRAY:
+                nuevoEntorno.newVariable(idVar, "", Tipo.UNDEFINED)
+                for exp in expresion1.valor:
+                    var = nuevoEntorno.getVar(idVar)
+                    nuevoEntorno.newVariable(idVar, exp.valor, exp.tipo)
+                    rtr = self.instrucciones.execute(nuevoEntorno)
+                    if rtr is not None:
+                        if rtr.tipo == Tipo.BREAKINS:
+                            break
+                        elif rtr.tipo == Tipo.CONTINUEINS:
+                            continue
+                        else:
+                            return rtr

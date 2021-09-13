@@ -1,2 +1,6 @@
-NO SOY NODO 3
-NODO2
+TrueFalseFalseFalseFalseFalse
+FalseTrueFalseFalseFalseFalse
+FalseFalseTrueFalseFalseFalse
+FalseFalseFalseTrueFalseFalse
+FalseFalseFalseFalseTrueFalse
+FalseFalseFalseFalseFalseTrue
