@@ -13,6 +13,9 @@ from Structs.Asignacion import *
 from Structs.Acceso import *
 from Arreglos.Nuevo import *
 from Arreglos.Acceso import *
+from Arreglos.Asignacion import *
+from Arreglos.Cut import *
+from Arreglos.Funcs import *
 
 from Expresiones.Literal import *
 from Expresiones.Aritmetico import *
@@ -173,11 +176,13 @@ def p_instruccionglb(t):
                        | whileINS PUNTOCOMA
                        | forINS PUNTOCOMA
                        | newStruct PUNTOCOMA
-                       | asignacionStruct PUNTOCOMA'''
+                       | pushArreglo PUNTOCOMA
+                       | asignacionStruct PUNTOCOMA
+                       | asignacionArreglo PUNTOCOMA'''
     t[0] = t[1]
 
 
-# Declaracion Global
+# ------------------------------------------------Declaracion Global
 def p_declaracionglb(t):
     '''declaracionglb : ID
                       | ID IGUAL expresion
@@ -190,7 +195,7 @@ def p_declaracionglb(t):
         t[0] = Declaracion(TipoAcceso.GLOBAL, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
 
 
-# Declaracion func
+# -------------------------------------------------Declaracion func
 def p_funcionINS(t):
     '''funcionINS : FUNCTION ID PARIZQ PARDER sentencia END
                   | FUNCTION ID PARIZQ params PARDER sentencia END'''
@@ -210,7 +215,7 @@ def p_decParams(t):
         t[0] = t[1]
 
 
-# Llamada func
+# -------------------------------------------------Llamada func
 def p_llamadaFunc(t):
     '''llamadaFunc : ID PARIZQ PARDER
                    | ID PARIZQ listParams PARDER'''
@@ -230,7 +235,7 @@ def p_llamadaPar(t):
         t[0] = t[1]
 
 
-# Return
+# -------------------------------------------------Return
 def p_return(t):
     '''returnINS : RETURN
                  | RETURN expresion'''
@@ -240,7 +245,7 @@ def p_return(t):
         t[0] = ReturnIns(t[2], t.lineno(1), t.lexpos(1))
 
 
-# Instrucciones locales
+# -------------------------------------------------Instrucciones locales
 def p_instrucciones(t):
     '''instrucciones : instrucciones instruccion
                     | instruccion'''
@@ -252,25 +257,29 @@ def p_instrucciones(t):
 
 
 def p_instruccion(t):
-    '''instruccion  : printINS PUNTOCOMA
-                    | ifINS PUNTOCOMA
-                    | declaracionINS PUNTOCOMA
+    '''instruccion  : declaracionINS PUNTOCOMA
+                    | printINS PUNTOCOMA
                     | llamadaFunc PUNTOCOMA
+                    | ifINS PUNTOCOMA
                     | returnINS PUNTOCOMA
                     | whileINS PUNTOCOMA
                     | forINS PUNTOCOMA
                     | breakINS PUNTOCOMA
-                    | continueINS PUNTOCOMA'''
+                    | continueINS PUNTOCOMA
+                    | newStruct PUNTOCOMA
+                    | pushArreglo PUNTOCOMA
+                    | asignacionStruct PUNTOCOMA
+                    | asignacionArreglo PUNTOCOMA'''
     t[0] = t[1]
 
 
-# Sentencia
+# ---------------------------------------------------Sentencia
 def p_sentencia(t):
     '''sentencia : instrucciones'''
     t[0] = Sentencia(t[1], t.lineno(1), t.lexpos(0))
 
 
-# PRINT
+# ----------------------------------------------------PRINT
 def p_printlnINS(t):
     'printINS  : PRINTLN PARIZQ listParams PARDER'
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0), True)
@@ -281,7 +290,7 @@ def p_printINS(t):
     t[0] = Print(t[3], t.lineno(1), t.lexpos(0))
 
 
-# Declaracion Local
+# ---------------------------------------------------Declaracion Local
 def p_declaracionINS(t):
     '''declaracionINS : ID
                       | ID IGUAL expresion
@@ -332,18 +341,25 @@ def p_accesos(t):
         t[0] = TipoAcceso.GLOBAL
 
 
+# ---------------------------------------------------ASIGNACION STRUCT
 def p_asignacionStruct(t):
-    'asignacionStruct : ID PUNTO ID IGUAL expresion'
-    t[0] = AsignacionStruct(t[1], t[3], t[5], t.lineno(1), t.lexpos(1))
+    'asignacionStruct : accesoStruct IGUAL expresion'
+    t[0] = AsignacionStruct(t[1], t[3], t.lineno(1), t.lexpos(1))
 
 
-# While
+# ---------------------------------------------------ASIGNACION ARREGLO
+def p_asignacionArreglo(t):
+    'asignacionArreglo : accesoArreglo IGUAL expresion'
+    t[0] = AsignacionArreglo(t[1], t[3], t.lineno(1), t.lexpos(1))
+
+
+# ---------------------------------------------------While
 def p_whileINS(t):
     'whileINS : WHILE expresion sentencia END'
     t[0] = While(t[2], t[3], t.lineno(1), t.lexpos(0))
 
 
-# For
+# ---------------------------------------------------For
 def p_forINS(t):
     '''forINS : FOR ID IN expresion DOSPUNTOS expresion sentencia END
               | FOR ID IN expresion sentencia END'''
@@ -353,19 +369,19 @@ def p_forINS(t):
         t[0] = For(t[2], t[4], t[6], t[7], t.lineno(1), t.lexpos(0))
 
 
-# Break
+# ---------------------------------------------------Break
 def p_breakINS(t):
     'breakINS : BREAK'
     t[0] = ControlIns(Tipo.BREAKINS, t.lineno(1), t.lexpos(0))
 
 
-# Continue
+# ---------------------------------------------------Continue
 def p_continueINS(t):
     'continueINS : CONTINUE'
     t[0] = ControlIns(Tipo.CONTINUEINS, t.lineno(1), t.lexpos(0))
 
 
-# IF
+# ---------------------------------------------------IF
 def p_ifINS(t):
     '''ifINS : IF expresion sentencia END
              | IF expresion sentencia ELSE sentencia END
@@ -390,7 +406,7 @@ def p_elseIfLista(t):
         t[0] = If(t[2], t[3], t.lineno(1), t.lexpos(0), t[4])
 
 
-# Declarar Struct
+# --------------------------------------------------Declarar Struct
 def p_newStruct(t):
     '''newStruct : STRUCT ID atributosStr END
                  | MUTABLE STRUCT ID atributosStr END'''
@@ -407,7 +423,7 @@ def p_atributosStr(t):
                     | ID DOSPUNTOS DOSPUNTOS tipos PUNTOCOMA'''
     if len(t) == 3:
         t[0] = [Return(t[1], Tipo.UNDEFINED, "")]
-    elif len(t) == 5:
+    elif len(t) == 6:
         t[0] = [Return(t[1], t[4], "")]
     elif len(t) == 4:
         t[1].append(Return(t[2], Tipo.UNDEFINED, ""))
@@ -417,7 +433,7 @@ def p_atributosStr(t):
         t[0] = t[1]
 
 
-# Exp
+# --------------------------------------------------EXPRESIONES
 def p_expresion(t):
     '''expresion    : MENOS expresion %prec UMINUS
                     | NOT expresion %prec UMINUS
@@ -488,10 +504,14 @@ def p_expValor(t):
                 | TRUE
                 | FALSE
                 | ID
+                | NOTHING
                 | llamadaFunc
                 | accesoStruct
                 | defArreglo
-                | accesoArreglo'''
+                | accesoArreglo
+                | cutArreglo
+                | popArreglo
+                | lenArreglo'''
     if len(t) == 2:
         if t.slice[1].type == "INTID":
             t[0] = Literal(int(t[1]), Tipo.INT, t.lineno(1), t.lexpos(0))
@@ -505,6 +525,8 @@ def p_expValor(t):
                 t[0] = Literal(True, Tipo.BOOLEAN, t.lineno(1), t.lexpos(0))
             elif "false" in valor:
                 t[0] = Literal(False, Tipo.BOOLEAN, t.lineno(1), t.lexpos(0))
+            elif "nothing" in valor:
+                t[0] = Literal(None, Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
             else:
                 t[0] = Literal(str(t[1]), Tipo.STRING, t.lineno(1), t.lexpos(0))
         else:
@@ -518,6 +540,7 @@ def p_CHARS(t):
     t[0] = Literal(str(t[1]), Tipo.CHAR, t.lineno(1), t.lexpos(0))
 
 
+# -------------------------------------------------FUNCIONES NATIVAS
 def p_defNativas(t):
     '''expNativas : LOG10 PARIZQ expresion PARDER
                   | LOG PARIZQ expresion COMA expresion PARDER
@@ -566,6 +589,7 @@ def p_defNativas(t):
         t[0] = Nativo(t[3], t[3], FuncionNativa.TYPEOF, t.lineno(1), t.lexpos(0))
 
 
+# -------------------------------------------------ACCESO STRUCT
 def p_accesoStructST(t):
     '''accesoStruct : ID PUNTO ID
                     | accesoStruct PUNTO ID'''
@@ -575,6 +599,7 @@ def p_accesoStructST(t):
         t[0] = AccesoStruct(t[1], t[3], t.lineno(1), t.lexpos(1))
 
 
+# -------------------------------------------------METODOS ARREGLOS
 def p_defArreglo(t):
     'defArreglo : CORIZQ listParams CORDER'
     t[0] = NuevoArray(t[2], t.lineno(1), t.lexpos(1))
@@ -587,6 +612,30 @@ def p_accesoArreglo(t):
         t[0] = AccesoArreglo(t[1], t[3], t.lineno(1), t.lexpos(1))
     else:
         t[0] = AccesoArreglo(t[1], t[3], t.lineno(1), t.lexpos(1))
+
+
+def p_cutArreglo(t):
+    '''cutArreglo : accesoArreglo CORIZQ expresion DOSPUNTOS expresion CORDER
+                  | ID CORIZQ expresion DOSPUNTOS expresion CORDER'''
+    t[0] = CutArreglo(t[1], t[3], t[5], t.lineno(1), t.lexpos(1))
+
+
+def p_popArreglo(t):
+    '''popArreglo : POP NOT PARIZQ accesoArreglo PARDER
+                  | POP NOT PARIZQ ID PARDER'''
+    t[0] = FuncArreglo(t[4], None, FuncionArreglo.POP, t.lineno(1), t.lexpos(1))
+
+
+def p_lenArreglo(t):
+    '''lenArreglo : LENGTH PARIZQ accesoArreglo PARDER
+                  | LENGTH PARIZQ ID PARDER'''
+    t[0] = FuncArreglo(t[3], None, FuncionArreglo.LENGTH, t.lineno(1), t.lexpos(1))
+
+
+def p_pushArreglo(t):
+    '''pushArreglo : PUSH NOT PARIZQ accesoArreglo COMA expresion PARDER
+                   | PUSH NOT PARIZQ ID COMA expresion PARDER'''
+    t[0] = FuncArreglo(t[4], t[6], FuncionArreglo.PUSH, t.lineno(1), t.lexpos(1))
 
 
 def p_error(t):

@@ -16,8 +16,6 @@ class If(Expresion):
             print("Condición de tipo no boolean")
             return
         if cond.valor:
-            nuevoEntorno = Entorno(entorno, "IF")
-            return self.instrucciones.execute(nuevoEntorno)
+            return self.instrucciones.execute(entorno)
         elif self.elseIns is not None:
-            nuevoEntorno = Entorno(entorno, "ELSE-ELIF")
-            return self.elseIns.execute(nuevoEntorno)
+            return self.elseIns.execute(entorno)
