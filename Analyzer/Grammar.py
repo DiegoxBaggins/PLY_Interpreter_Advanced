@@ -302,6 +302,7 @@ def p_declaracionINS(t):
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], None, Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 4:
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
+        print(t[1], t[3])
     elif len(t) == 7:
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
     elif len(t) == 3:
@@ -429,7 +430,7 @@ def p_atributosStr(t):
         t[1].append(Return(t[2], Tipo.UNDEFINED, ""))
         t[0] = t[1]
     else:
-        t[1].append(Return(t[2], t(5), ""))
+        t[1].append(Return(t[2], t[5], ""))
         t[0] = t[1]
 
 

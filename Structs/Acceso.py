@@ -11,14 +11,12 @@ class AccesoStruct(Expresion):
         var = None
         if isinstance(self.id, AccesoStruct):
             var = self.id.execute(entorno)
-            tp = entorno.getVar(var.auxTipo)
-            var = tp
         else:
             var = entorno.getVar(self.id)
         if var is not None:
-            if var.atributos.get(self.atributo) is not None:
-                rtr = var.atributos.get(self.atributo)
-                return rtr
+            atributo = var.atributos.get(self.atributo)
+            if atributo is not None:
+                return atributo
             else:
                 print("No existe ese atributo")
         else:

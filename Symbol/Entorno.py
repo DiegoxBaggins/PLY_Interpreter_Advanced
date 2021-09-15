@@ -29,27 +29,21 @@ class Entorno:
             env = env.prev
         self.variables[idVar] = nuevoSimbolo
 
-    def newVarStructGlobal(self, idVar, attrs, tipo):
-        nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        nuevoSimbolo.atributos = attrs
+    def newVarStructGlobal(self, idVar, obj):
         glb = self.getGlobal()
-        glb.variables[idVar] = nuevoSimbolo
+        glb.variables[idVar] = obj
 
-    def newVarStructLocal(self, idVar, attrs, tipo):
-        nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        nuevoSimbolo.atributos = attrs
-        self.variables[idVar] = nuevoSimbolo
+    def newVarStructLocal(self, idVar, obj):
+        self.variables[idVar] = obj
 
-    def newVarStruct(self, idVar, attrs, tipo):
+    def newVarStruct(self, idVar, obj):
         env = self
-        nuevoSimbolo = Simbolo(None, idVar, Tipo.STRUCT, tipo)
-        nuevoSimbolo.atributos = attrs
         while env.prev is not None:
             if idVar in env.variables.keys():
-                env.variables[idVar] = nuevoSimbolo
+                env.variables[idVar] = obj
                 return
             env = env.prev
-        self.variables[idVar] = nuevoSimbolo
+        self.variables[idVar] = obj
 
     def newFunc(self, idFunc, function):
         if idFunc in self.funciones.keys():

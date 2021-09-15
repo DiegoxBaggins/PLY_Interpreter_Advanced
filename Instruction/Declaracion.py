@@ -19,10 +19,10 @@ class Declaracion(Expresion):
 
     def chequearTipo(self, valor):
         if self.tipo == Tipo.UNDEFINED:
-            self.tipo = valor.tipo
             return True
         else:
             if valor.tipo != self.tipo:
+                print(valor.tipo, self.tipo)
                 return False
             else:
                 return True
@@ -35,17 +35,17 @@ class Declaracion(Expresion):
         if self.chequearTipo(valor):
             if self.acceso == TipoAcceso.LOCAL:
                 if valor.tipo == Tipo.STRUCT:
-                    entorno.newVarStructLocal(self.id, valor.valor, valor.auxTipo)
+                    entorno.newVarStructLocal(self.id, valor)
                 else:
-                    entorno.newVariableLocal(self.id, valor.valor, valor.tipo)
+                    entorno.newVariableLocal(self.id, valor, valor.tipo)
             elif self.acceso == TipoAcceso.GLOBAL:
                 if valor.tipo == Tipo.STRUCT:
-                    entorno.newVarStructGlobal(self.id, valor.valor, valor.auxTipo)
+                    entorno.newVarStructGlobal(self.id, valor)
                 else:
                     entorno.newVariableGlobal(self.id, valor.valor, valor.tipo)
             else:
                 if valor.tipo == Tipo.STRUCT:
-                    entorno.newVarStruct(self.id, valor.valor, valor.auxTipo)
+                    entorno.newVarStruct(self.id, valor)
                 else:
                     entorno.newVariable(self.id, valor.valor, valor.tipo)
         else:

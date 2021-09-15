@@ -17,7 +17,10 @@ class LlamadaFunc(Expresion):
             i = 0
             for param in self.params:
                 valor = param.execute(entorno)
-                nuevoEntorno.newVariable(func.params[i].id, valor.valor, valor.tipo)
+                if isinstance(valor, Simbolo):
+                    nuevoEntorno.newVarStruct(func.params[i].id, valor)
+                else:
+                    nuevoEntorno.newVariable(func.params[i].id, valor.valor, valor.tipo)
                 i += 1
             rtr = func.instrucciones.execute(nuevoEntorno)
             if rtr is not None:
@@ -43,5 +46,7 @@ class LlamadaFunc(Expresion):
                     attrs.update({
                         id.valor: valor
                     })
-                    i += 1
-            return Return(attrs, Tipo.STRUCT, self.id)
+                i += 1
+            nuevoSimbolo = Simbolo(0, "", Tipo.STRUCT, self.id)
+            nuevoSimbolo.atributos = attrs
+            return nuevoSimbolo

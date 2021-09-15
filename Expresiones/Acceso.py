@@ -13,5 +13,5 @@ class Acceso(Expresion):
             print("Error, no existe la variable: ", self.id, self.linea, self.columna)
             return
         if valor.tipo == Tipo.STRUCT:
-            return Return(valor.atributos, Tipo.STRUCT, self.id)
+            return valor
         return Return(valor.valor, valor.tipo)

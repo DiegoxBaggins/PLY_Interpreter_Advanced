@@ -14,8 +14,7 @@ class AsignacionStruct(Expresion):
         id = self.id.id
         atributo = self.id.atributo
         if isinstance(id, AccesoStruct):
-            var = id.execute(entorno)
-            variable = entorno.getVar(var.auxTipo)
+            variable = id.execute(entorno)
         else:
             variable = entorno.getVar(id)
         if variable is not None:

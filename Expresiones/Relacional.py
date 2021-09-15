@@ -38,7 +38,8 @@ class Relacional(Expresion):
         elif self.tipo == OperacionRelacional.IGUALES:
             resultado.valor = valorIzq.valor == valorDer.valor
         elif self.tipo == OperacionRelacional.DISTINTOS:
-            resultado.valor = valorIzq.valor != valorDer.valor
+            result = valorIzq.valor != valorDer.valor
+            resultado.valor = result
         elif self.tipo == OperacionRelacional.AND:
             if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
                 print("Los tipos no son bool")
