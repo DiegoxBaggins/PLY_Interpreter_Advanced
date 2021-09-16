@@ -16,7 +16,7 @@ class AccesoArreglo(Expresion):
         if var is not None:
             indice = self.exp.execute(entorno).valor - 1
             tamano = len(var.valor)
-            if indice < tamano or indice < 0:
+            if tamano > indice >= 0:
                 rtr = var.valor[indice]
                 return rtr
             else:

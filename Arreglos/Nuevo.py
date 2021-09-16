@@ -7,9 +7,8 @@ class NuevoArray(Expresion):
         self.expresiones = expresiones
 
     def execute(self, entorno):
-        i = 0
+        nuevoArreglo = []
         for exp in self.expresiones:
             newExp = exp.execute(entorno)
-            self.expresiones[i] = newExp
-            i += 1
-        return Return(self.expresiones, Tipo.ARRAY)
+            nuevoArreglo.append(newExp)
+        return Return(nuevoArreglo, Tipo.ARRAY)

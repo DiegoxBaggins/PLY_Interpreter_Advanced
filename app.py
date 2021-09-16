@@ -1,3 +1,5 @@
+import sys
+
 from flask import Flask, render_template, url_for, redirect, request
 from Analyzer.Grammar import parse
 from Symbol.Entorno import *
@@ -23,6 +25,7 @@ def analisis():  # put application's code here
         f = open("./output.txt", "w")
         f.write("")
         f.close()
+        sys.setrecursionlimit(10**4)
         newEnv = Entorno(None, "global")
         ast = parse(codigo)
         for instr in ast:

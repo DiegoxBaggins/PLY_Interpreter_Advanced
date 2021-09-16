@@ -30,6 +30,8 @@ class Declaracion(Expresion):
     def execute(self, entorno):
         if self.valor is not None:
             valor = self.valor.execute(entorno)
+            if isinstance(valor, Simbolo) and valor.tipo == Tipo.ARRAY:
+                valor = Return(valor.valor, valor.tipo)
         else:
             valor = Simbolo(None, self.id, Tipo.UNDEFINED)
         if self.chequearTipo(valor):
@@ -37,7 +39,7 @@ class Declaracion(Expresion):
                 if valor.tipo == Tipo.STRUCT:
                     entorno.newVarStructLocal(self.id, valor)
                 else:
-                    entorno.newVariableLocal(self.id, valor, valor.tipo)
+                    entorno.newVariableLocal(self.id, valor.valor, valor.tipo)
             elif self.acceso == TipoAcceso.GLOBAL:
                 if valor.tipo == Tipo.STRUCT:
                     entorno.newVarStructGlobal(self.id, valor)

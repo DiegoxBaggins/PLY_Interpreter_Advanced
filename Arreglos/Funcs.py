@@ -30,20 +30,14 @@ class FuncArreglo(Expresion):
             if isinstance(self.id, str):
                 var = entorno.getVar(self.id)
                 var.valor.append(exp)
-                entorno.newVariable(self.id, var.valor, var.tipo)
             else:
                 var = self.id.execute(entorno)
                 var.valor.append(exp)
-                asig = AsignacionArreglo(self.id, var, self.linea, self.columna)
-                asig.execute(entorno)
         elif self.tipo == FuncionArreglo.POP:
             if isinstance(self.id, str):
                 var = entorno.getVar(self.id)
                 exp = var.valor.pop()
-                entorno.newVariable(self.id, var.valor, var.tipo)
             else:
                 var = self.id.execute(entorno)
                 exp = var.valor.pop()
-                asig = AsignacionArreglo(self.id, var, self.linea, self.columna)
-                asig.execute(entorno)
             return exp

@@ -28,5 +28,20 @@ class AsignacionArreglo(Expresion):
             valor = self.exp
         else:
             valor = self.exp.execute(entorno)
-        asignarAtras(self.id, valor, entorno)
+        id = self.id.id
+        indice = self.id.exp
+        if isinstance(id, AccesoArreglo):
+            variable = id.execute(entorno)
+        else:
+            variable = entorno.getVar(id)
+        if variable is not None:
+            indice = indice.execute(entorno).valor - 1
+            tamano = len(variable.valor)
+            if tamano > indice >= 0:
+                variable.valor[indice] = valor
+            else:
+                print("Indice fuera de rango")
+        else:
+            print("var no existe")
+        #asignarAtras(self.id, valor, entorno)
 

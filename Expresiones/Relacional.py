@@ -25,33 +25,49 @@ class Relacional(Expresion):
 
     def execute(self, environment):
         valorIzq = self.izq.execute(environment)
-        valorDer = self.der.execute(environment)
         resultado = Return(False, Tipo.BOOLEAN)
         if self.tipo == OperacionRelacional.MAYOR:
+            valorDer = self.der.execute(environment)
             resultado.valor = valorIzq.valor > valorDer.valor
         elif self.tipo == OperacionRelacional.MENOR:
+            valorDer = self.der.execute(environment)
             resultado.valor = valorIzq.valor < valorDer.valor
         elif self.tipo == OperacionRelacional.MAYORIGUAL:
+            valorDer = self.der.execute(environment)
             resultado.valor = valorIzq.valor >= valorDer.valor
         elif self.tipo == OperacionRelacional.MENORIGUAL:
+            valorDer = self.der.execute(environment)
             resultado.valor = valorIzq.valor <= valorDer.valor
         elif self.tipo == OperacionRelacional.IGUALES:
+            valorDer = self.der.execute(environment)
             resultado.valor = valorIzq.valor == valorDer.valor
         elif self.tipo == OperacionRelacional.DISTINTOS:
-            result = valorIzq.valor != valorDer.valor
-            resultado.valor = result
+            valorDer = self.der.execute(environment)
+            resultado.valor = valorIzq.valor != valorDer.valor
         elif self.tipo == OperacionRelacional.AND:
-            if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
+            if valorIzq.tipo != Tipo.BOOLEAN:
                 print("Los tipos no son bool")
             else:
-                resultado.valor = valorIzq.valor and valorDer.valor
+                if valorIzq.valor is True:
+                    valorDer = self.der.execute(environment)
+                    if valorDer.tipo != Tipo.BOOLEAN:
+                        print("los tipos no son bool")
+                    else:
+                        resultado.valor = valorDer.valor
         elif self.tipo == OperacionRelacional.OR:
-            if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
+            if valorIzq.tipo != Tipo.BOOLEAN:
                 print("Los tipos no son bool")
             else:
-                resultado.valor = valorIzq.valor or valorDer.valor
+                if valorIzq.valor is True:
+                    resultado.valor = True
+                else:
+                    valorDer = self.der.execute(environment)
+                    if valorDer.tipo != Tipo.BOOLEAN:
+                        print("los tipos no son bool")
+                    else:
+                        resultado.valor = valorDer.valor
         elif self.tipo == OperacionRelacional.NOT:
-            if valorIzq.tipo != Tipo.BOOLEAN or valorDer.tipo != Tipo.BOOLEAN:
+            if valorIzq.tipo != Tipo.BOOLEAN:
                 print("Los tipos no son bool")
             else:
                 resultado.valor = not valorIzq.valor

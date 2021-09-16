@@ -207,8 +207,10 @@ def p_funcionINS(t):
 
 def p_decParams(t):
     '''params : params COMA ID
-              | ID'''
-    if len(t) == 2:
+              | params COMA ID DOSPUNTOS DOSPUNTOS tipos
+              | ID
+              | ID DOSPUNTOS DOSPUNTOS tipos'''
+    if len(t) == 2 or len(t) == 5:
         t[0] = [Parametro(t[1], t.lineno(1), t.lexpos(1))]
     else:
         t[1].append(Parametro(t[3], t.lineno(3), t.lexpos(3)))
@@ -281,13 +283,21 @@ def p_sentencia(t):
 
 # ----------------------------------------------------PRINT
 def p_printlnINS(t):
-    'printINS  : PRINTLN PARIZQ listParams PARDER'
-    t[0] = Print(t[3], t.lineno(1), t.lexpos(0), True)
+    '''printINS  : PRINTLN PARIZQ listParams PARDER
+                 | PRINTLN PARIZQ PARDER'''
+    if len(t) == 5:
+        t[0] = Print(t[3], t.lineno(1), t.lexpos(0), True)
+    else:
+        t[0] = Print([Literal("", Tipo.STRING, t.lineno(1), t.lexpos(0))], t.lineno(1), t.lexpos(0), True)
 
 
 def p_printINS(t):
-    'printINS  : PRINT PARIZQ listParams PARDER'
-    t[0] = Print(t[3], t.lineno(1), t.lexpos(0))
+    '''printINS  : PRINT PARIZQ listParams PARDER
+                 | PRINT PARIZQ PARDER'''
+    if len(t) == 5:
+        t[0] = Print(t[3], t.lineno(1), t.lexpos(0))
+    else:
+        t[0] = Print([Literal("", Tipo.STRING, t.lineno(1), t.lexpos(0))], t.lineno(1), t.lexpos(0))
 
 
 # ---------------------------------------------------Declaracion Local
@@ -302,7 +312,6 @@ def p_declaracionINS(t):
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], None, Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
     elif len(t) == 4:
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], Tipo.UNDEFINED, t.lineno(1), t.lexpos(0))
-        print(t[1], t[3])
     elif len(t) == 7:
         t[0] = Declaracion(TipoAcceso.VACIO, t[1], t[3], t[6], t.lineno(1), t.lexpos(0))
     elif len(t) == 3:

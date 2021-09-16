@@ -40,6 +40,16 @@ Existe 1: True
 Existe 58: False
 BUSCANDO VALORES RECURSIVAMENTE
 Existe 7: False
-Existe 36: 36
-Existe 1: 1
+Existe 36: Struct     {
+Tipo: Node
+value: 36
+izq: None
+der: None
+}
+Existe 1: Struct     {
+Tipo: Node
+value: 1
+izq: None
+der: struct: Node
+}
 Existe 58: False

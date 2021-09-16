@@ -1,6 +1,18 @@
 from Symbol.Simbolo import *
 
 
+def copiarArreglo(arreglo):
+    arregloNuevo = []
+    for elemento in arreglo:
+        valor = elemento.valor
+        if isinstance(valor, list):
+            valor = copiarArreglo(valor)
+        else:
+            valor = elemento
+        arregloNuevo.append(valor)
+    return Return(arregloNuevo, Tipo.ARRAY)
+
+
 class Entorno:
 
     def __init__(self, prev, nombre):
@@ -11,15 +23,24 @@ class Entorno:
         self.structs = {}
 
     def newVariableGlobal(self, idVar, valor, tipo):
+        if isinstance(valor, list):
+            nuevo = copiarArreglo(valor)
+            valor = nuevo.valor
         nuevoSimbolo = Simbolo(valor, idVar, tipo)
         glb = self.getGlobal()
         glb.variables[idVar] = nuevoSimbolo
 
     def newVariableLocal(self, idVar, valor, tipo):
+        if isinstance(valor, list):
+            nuevo = copiarArreglo(valor)
+            valor = nuevo.valor
         nuevoSimbolo = Simbolo(valor, idVar, tipo)
         self.variables[idVar] = nuevoSimbolo
 
     def newVariable(self, idVar, valor, tipo):
+        if isinstance(valor, list):
+            nuevo = copiarArreglo(valor)
+            valor = nuevo.valor
         env = self
         nuevoSimbolo = Simbolo(valor, idVar, tipo)
         while env.prev is not None:

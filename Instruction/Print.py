@@ -19,6 +19,31 @@ def imprimirlistas(lista, f):
     f.write("]")
 
 
+def imprimirObjeto(objeto, f):
+    atributos = objeto.atributos
+    tipo = objeto.objeto
+    print("Struct:    {")
+    print("Tipo: ", tipo, ",")
+    f.write("Struct     {\nTipo: " + tipo + "\n")
+    llaves = atributos.keys()
+    for elemento in llaves:
+        valor = atributos.get(elemento)
+        print(elemento, ": ", end="")
+        f.write(elemento + ": ")
+        if valor.tipo == Tipo.ARRAY:
+            imprimirlistas(valor.valor, f)
+            print()
+            f.write("\n")
+        elif valor.tipo == Tipo.STRUCT:
+            print("struct: ", valor.objeto)
+            f.write("struct: " + valor.objeto + "\n")
+        else:
+            print(valor.valor)
+            f.write(str(valor.valor) + "\n")
+    print("}", end="")
+    f.write("}")
+
+
 class Print(Expresion):
 
     def __init__(self, valor, linea, columna, salto=False):
@@ -46,6 +71,8 @@ class Print(Expresion):
                     i += 1
                 print("]", end="")
                 f.write("]")
+            elif valor.tipo == Tipo.STRUCT:
+                imprimirObjeto(valor, f)
             else:
                 print(valor.valor, end="")
                 f.write(str(valor.valor))
