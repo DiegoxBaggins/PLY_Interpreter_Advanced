@@ -1,47 +1,42 @@
 from Abstract.Expresion import *
+from Abstract.Return import *
 
 
-def imprimirlistas(lista, f):
-    print("[", end="")
-    f.write("[")
+def imprimirlistas(lista):
+    string = ""
+    string += "["
     i = 1
     for elemento in lista:
         if elemento.tipo == Tipo.ARRAY:
-            imprimirlistas(elemento.valor, f)
+            string += imprimirlistas(elemento.valor)
+        elif elemento.tipo == Tipo.STRUCT:
+            string += imprimirObjeto(elemento)
         else:
-            print(elemento.valor, end="")
-            f.write(str(elemento.valor))
+            string += str(elemento.valor)
         if i != len(lista):
-            print(",", end="")
-            f.write(",")
+            string += ","
         i += 1
-    print("]", end="")
-    f.write("]")
+    string += "]"
+    return string
 
 
-def imprimirObjeto(objeto, f):
+def imprimirObjeto(objeto):
+    string = " "
     atributos = objeto.atributos
     tipo = objeto.objeto
-    print("Struct:    {")
-    print("Tipo: ", tipo, ",")
-    f.write("Struct     {\nTipo: " + tipo + "\n")
+    string += "Struct     {\nTipo: " + tipo + "\n"
     llaves = atributos.keys()
     for elemento in llaves:
         valor = atributos.get(elemento)
-        print(elemento, ": ", end="")
-        f.write(elemento + ": ")
+        string += elemento + ": "
         if valor.tipo == Tipo.ARRAY:
-            imprimirlistas(valor.valor, f)
-            print()
-            f.write("\n")
+            string += imprimirlistas(valor.valor) + "\n"
         elif valor.tipo == Tipo.STRUCT:
-            print("struct: ", valor.objeto)
-            f.write("struct: " + valor.objeto + "\n")
+            string += "struct: " + valor.objeto + "\n"
         else:
-            print(valor.valor)
-            f.write(str(valor.valor) + "\n")
-    print("}", end="")
-    f.write("}")
+            string += str(valor.valor) + "\n"
+    string += "}"
+    return string
 
 
 class Print(Expresion):
@@ -56,23 +51,13 @@ class Print(Expresion):
         for exp in self.valor:
             valor = exp.execute(entorno)
             if valor.tipo == Tipo.ARRAY:
-                print("[", end="")
-                f.write("[")
-                i = 1
-                for valores in valor.valor:
-                    if valores.tipo == Tipo.ARRAY:
-                        imprimirlistas(valores.valor, f)
-                    else:
-                        print(valores.valor, end="")
-                        f.write(str(valores.valor))
-                    if i != len(valor.valor):
-                        print(",", end="")
-                        f.write(",")
-                    i += 1
-                print("]", end="")
-                f.write("]")
+                recibido = imprimirlistas(valor.valor)
+                print(recibido, end="")
+                f.write(recibido)
             elif valor.tipo == Tipo.STRUCT:
-                imprimirObjeto(valor, f)
+                recibido = imprimirObjeto(valor)
+                print(recibido, end="")
+                f.write(recibido)
             else:
                 print(valor.valor, end="")
                 f.write(str(valor.valor))
@@ -80,3 +65,5 @@ class Print(Expresion):
             print("\n")
             f.write("\n")
         f.close()
+            #print("Error en print")
+            #entorno.guardarError("Error en print", self.linea, self.columna)

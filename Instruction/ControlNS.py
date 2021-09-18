@@ -22,4 +22,5 @@ class ControlIns(Expresion):
             return Return(None, self.tipo, "")
         else:
             print("Error en sentencia de control")
+            entorno.guardarError("Error en sentencia de control, no esta dentro de un ciclo", self.linea, self.columna)
             return None

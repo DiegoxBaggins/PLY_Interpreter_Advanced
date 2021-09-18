@@ -1,5 +1,6 @@
 from Abstract.Expresion import *
 from Abstract.Return import *
+from Symbol.Entorno import *
 
 
 class For(Expresion):
@@ -55,3 +56,6 @@ class For(Expresion):
                             continue
                         else:
                             return rtr
+            else:
+                print("No se puede hacer For de tipo: " + expresion1.tipo.name)
+                entorno.guardarError("No se puede hacer For de tipo: " + expresion1.tipo.name, self.linea, self.columna)

@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from Symbol.Entorno import *
 
 
 class Expresion(ABC):

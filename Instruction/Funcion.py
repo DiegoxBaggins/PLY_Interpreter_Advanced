@@ -9,7 +9,10 @@ class Function(Expresion):
         self.instrucciones = instr
 
     def execute(self, entorno):
-        try:
+        func = entorno.getFunc(self.id)
+        if func is None:
             entorno.newFunc(self.id, self)
-        except:
-            print("Error al guardar funcion")
+            entorno.guardarTS(self.id, self.linea, self.columna, "Funcion")
+        else:
+            print("Funcion " + self.id + "repetida")
+            entorno.guardarError("Funcion " + self.id + "repetida", self.linea, self.columna)

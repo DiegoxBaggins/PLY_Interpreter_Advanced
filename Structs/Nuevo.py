@@ -15,4 +15,9 @@ class NuevoStruct(Expresion):
         self.atributos = atributos
 
     def execute(self, entorno):
-        entorno.newStruct(self.id, self)
+        if entorno.getStruct(self.id) is None:
+            entorno.newStruct(self.id, self)
+            entorno.guardarTS(self.id, self.linea, self.columna, "Struct " + self.tipo.name)
+        else:
+            print("Struct " + self.id + "repetida")
+            entorno.guardarError("Struct " + self.id + "repetida", self.linea, self.columna)

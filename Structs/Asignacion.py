@@ -25,7 +25,10 @@ class AsignacionStruct(Expresion):
                     variable.atributos[atributo] = valor
                 else:
                     print("Struct no cuenta con este atributo")
+                    entorno.guardarError("Struct no cuenta con este atributo " + atributo, self.linea, self.columna)
             else:
                 print("El struct no es mutable")
+                entorno.guardarError("El struct no es mutable", self.linea, self.columna)
         else:
             print("var no existe")
+            entorno.guardarError("La variable no existe", self.linea, self.columna)

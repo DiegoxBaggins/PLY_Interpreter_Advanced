@@ -1,5 +1,6 @@
 from Abstract.Expresion import *
 from Abstract.Return import *
+from Symbol.Entorno import *
 
 
 class While(Expresion):
@@ -12,6 +13,7 @@ class While(Expresion):
         condicion = self.condicion.execute(entorno)
         if condicion.tipo != Tipo.BOOLEAN:
             print("La condicion no es bool")
+            entorno.guardarError("La condicion no es bool", self.linea, self.columna)
             return
         control = 0
         nuevoEntorno = Entorno(entorno, "WHILE")
@@ -28,3 +30,4 @@ class While(Expresion):
                     return rtr
         if control == 250:
             print("Error en sentencia While, stack overflow")
+            entorno.guardarError("Error en sentencia While, stack overflow", self.linea, self.columna)

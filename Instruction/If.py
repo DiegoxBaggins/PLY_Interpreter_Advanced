@@ -14,6 +14,7 @@ class If(Expresion):
         cond = self.condicion.execute(entorno)
         if cond.tipo != Tipo.BOOLEAN:
             print("Condición de tipo no boolean")
+            entorno.guardarError("Condicion no es de tipo boolean", self.linea, self.columna)
             return
         if cond.valor:
             return self.instrucciones.execute(entorno)

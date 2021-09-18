@@ -1,4 +1,5 @@
 from Abstract.Expresion import *
+from Abstract.Return import *
 
 
 class AccesoArreglo(Expresion):
@@ -15,11 +16,17 @@ class AccesoArreglo(Expresion):
             var = entorno.getVar(self.id)
         if var is not None:
             indice = self.exp.execute(entorno).valor - 1
-            tamano = len(var.valor)
-            if tamano > indice >= 0:
-                rtr = var.valor[indice]
-                return rtr
+            if var.tipo == Tipo.ARRAY:
+                tamano = len(var.valor)
+                if tamano > indice >= 0:
+                    rtr = var.valor[indice]
+                    return rtr
+                else:
+                    print("Indice fuera de rango")
+                    entorno.guardarError("Indice fuera de rango", self.linea, self.columna)
             else:
-                print("Indice fuera de rango")
+                print("No es un arreglo")
+                entorno.guardarError("No es un arreglo", self.linea, self.columna)
         else:
             print("No existe la variable")
+            entorno.guardarError("No existe la variable", self.linea, self.columna)

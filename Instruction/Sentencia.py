@@ -10,8 +10,11 @@ class Sentencia(Expresion):
         self.instrucciones = instrucciones
 
     def execute(self, entorno):
-        for ins in self.instrucciones:
-            rtr = ins.execute(entorno)
-            if rtr is not None:
-                return rtr
-            
+        try:
+            for ins in self.instrucciones:
+                rtr = ins.execute(entorno)
+                if rtr is not None:
+                    return rtr
+        except:
+            print("Error ejecutando instrucciones")
+            entorno.guardarError("Error ejecutando instrucciones", self.linea, self.columna)

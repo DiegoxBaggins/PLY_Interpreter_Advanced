@@ -1,5 +1,4 @@
 import math
-
 from Abstract.Expresion import *
 from Abstract.Return import *
 from enum import Enum
@@ -32,29 +31,57 @@ class Aritmetico(Expresion):
         if self.tipo == OperacionAritmetica.SUMA:
             if comprobar(valorIzq, valorDer):
                 resultado.valor = valorIzq.valor + valorDer.valor
+            else:
+                print("No se puede sumar tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name)
+                entorno.guardarError("No se puede sumar tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name
+                                     , self.linea, self.columna)
         elif self.tipo == OperacionAritmetica.RESTA:
             if comprobar(valorIzq, valorDer):
                 resultado.valor = valorIzq.valor - valorDer.valor
+            else:
+                print("No se puede restar tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name)
+                entorno.guardarError("No se puede restar tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name
+                                     , self.linea, self.columna)
         elif self.tipo == OperacionAritmetica.MULTI:
             if valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
                 resultado.valor = valorIzq.valor + valorDer.valor
             elif comprobar(valorIzq, valorDer):
                 resultado.valor = valorIzq.valor * valorDer.valor
+            else:
+                print("No se puede multplicar o concatenar tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name)
+                entorno.guardarError("No se puede multiplicar o concatenar tipo: " + valorIzq.tipo.name + " y tipo: " +
+                                     valorDer.tipo.name, self.linea, self.columna)
         elif self.tipo == OperacionAritmetica.DIV:
             if comprobar(valorIzq, valorDer):
                 resultado = Return(0.0, Tipo.FLOAT)
                 resultado.valor = valorIzq.valor / valorDer.valor
+            else:
+                print("No se puede dividir tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name)
+                entorno.guardarError("No se puede dividr tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name
+                                     , self.linea, self.columna)
         elif self.tipo == OperacionAritmetica.MENOS:
             if comprobar(valorIzq, valorDer):
                 resultado.valor = -valorIzq.valor
+            else:
+                print("No se puede hacer negativo tipo: " + valorIzq.tipo.name)
+                entorno.guardarError("No se puede hacer negativo de tipo: " + valorIzq.tipo.name, self.linea, self.columna)
         elif self.tipo == OperacionAritmetica.POTENCIA:
             if valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.INT:
                 resultado.valor = valorIzq.valor * valorDer.valor
             elif comprobar(valorIzq, valorDer):
                 resultado.valor = math.pow(valorIzq.valor, valorDer.valor)
+            else:
+                print("No se puede potenciar o multplicar string de tipo: " + valorIzq.tipo.name + " y tipo: " +
+                      valorDer.tipo.name)
+                entorno.guardarError("No se puede potenciar o multplicar string de tipo: " + valorIzq.tipo.name + " y tipo: "
+                                     + valorDer.tipo.name, self.linea, self.columna)
         elif self.tipo == OperacionAritmetica.MODULO:
             if comprobar(valorIzq, valorDer):
                 resultado.valor = valorIzq.valor % valorDer.valor
+            else:
+                print("No se puede modulo de tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name)
+                entorno.guardarError("No se puede modulo de tipo: " + valorIzq.tipo.name + " y tipo: " + valorDer.tipo.name
+                                     , self.linea, self.columna)
         return resultado
 
 

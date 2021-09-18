@@ -1,6 +1,7 @@
 from Abstract.Expresion import *
 from Abstract.Return import *
 from enum import Enum
+from Symbol.Simbolo import Simbolo
 
 
 class TipoAcceso(Enum):
@@ -50,5 +51,7 @@ class Declaracion(Expresion):
                     entorno.newVarStruct(self.id, valor)
                 else:
                     entorno.newVariable(self.id, valor.valor, valor.tipo)
+            entorno.guardarTS(self.id, self.linea, self.columna, valor.tipo)
         else:
             print("Error, tipos no coinciden")
+            entorno.guardarError("Error, los tipos no coinciden", self.linea, self.columna)

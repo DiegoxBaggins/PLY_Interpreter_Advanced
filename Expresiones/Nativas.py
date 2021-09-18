@@ -34,31 +34,63 @@ class Nativo(Expresion):
         if self.tipo == FuncionNativa.LOG10:
             if valorArg1.tipo == Tipo.FLOAT or valorArg1.tipo == Tipo.INT:
                 resultado.valor = math.log(valorArg1.valor, 10)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.LOGBAS:
+            valorArg2 = self.arg2.execute(entorno)
             if valorArg1.tipo == Tipo.FLOAT or valorArg1.tipo == Tipo.INT:
-                valorArg2 = self.arg2.execute(entorno)
                 if valorArg2.tipo == Tipo.FLOAT or valorArg2.tipo == Tipo.INT:
                     resultado.valor = math.log(valorArg2.valor, valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipos: " + valorArg1.tip.nameo + "y " + valorArg2.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipos: " + valorArg1.tipo.name + "y " +
+                                     valorArg2.tipo.name, self.linea, self.columna)
         elif self.tipo == FuncionNativa.SEN:
             if valorArg1.tipo == Tipo.FLOAT or valorArg1.tipo == Tipo.INT:
                 resultado.valor = math.sin(valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.COS:
             if valorArg1.tipo == Tipo.FLOAT or valorArg1.tipo == Tipo.INT:
                 resultado.valor = math.cos(valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.TAN:
             if valorArg1.tipo == Tipo.FLOAT or valorArg1.tipo == Tipo.INT:
                 resultado.valor = math.tan(valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.RAIZ:
             if valorArg1.tipo == Tipo.FLOAT or valorArg1.tipo == Tipo.INT:
                 resultado.valor = math.sqrt(valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo + "de tipo " + valorArg1.tipo)
+                entorno.guardarError("No se puede sacar " + self.tipo + "de tipo " + valorArg1.tipo,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.UPPER:
             if valorArg1.tipo == Tipo.STRING:
                 resultado = Return("", Tipo.STRING)
                 resultado.valor = valorArg1.valor.upper()
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.LOWER:
             if valorArg1.tipo == Tipo.STRING:
                 resultado = Return("", Tipo.STRING)
                 resultado.valor = valorArg1.valor.lower()
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.PARSE:
             if self.arg1.tipo == Tipo.STRING:
                 if self.arg2 == Tipo.FLOAT:
@@ -66,19 +98,33 @@ class Nativo(Expresion):
                         resultado.valor = float(valorArg1.valor)
                     except ValueError:
                         print("No es un float")
+                        entorno.guardarError("Valor no es un float", self.linea, self.columna)
                 elif self.arg2 == Tipo.INT:
                     resultado = Return(0, Tipo.INT)
                     try:
                         resultado.valor = int(valorArg1.valor)
                     except ValueError:
                         print("No es un int")
+                        entorno.guardarError("Valor no es un int", self.linea, self.columna)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.TRUNC:
             if valorArg1.tipo == Tipo.FLOAT:
                 resultado = Return(0, Tipo.INT)
                 resultado.valor = math.floor(valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.FLOAT:
             if valorArg1.tipo == Tipo.INT:
                 resultado.valor = float(valorArg1.valor)
+            else:
+                print("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name)
+                entorno.guardarError("No se puede sacar " + self.tipo.name + "de tipo " + valorArg1.tipo.name,
+                                     self.linea, self.columna)
         elif self.tipo == FuncionNativa.STRING:
             if valorArg1.tipo != Tipo.STRING and valorArg1.tipo != Tipo.CHAR:
                 resultado = Return("", Tipo.STRING)

@@ -19,5 +19,7 @@ class AccesoStruct(Expresion):
                 return atributo
             else:
                 print("No existe ese atributo")
+                entorno.guardarError("No existe el atributo" + self.atributo, self.linea, self.columna)
         else:
             print("No existe la variable")
+            entorno.guardarError("Variable " + self.id + " no exoste", self.linea, self.columna)

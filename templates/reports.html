@@ -9,11 +9,19 @@
         <table class="default">
             <caption>Tabla de Errores</caption>
             <tr>
-                <th>Tipo</th>
+                <th>No.</th>
                 <th>Descripcion</th>
                 <th>Linea</th>
                 <th>Columna</th>
+                <th>Fecha y Hora</th>
             </tr>
+            {% for error in errores %}
+            <tr>
+               {% for err in error %}
+                <th>{{ err }}</th>
+            {% endfor %}
+            </tr>
+            {% endfor %}
         </table>
     </div>
     <br>
@@ -21,13 +29,19 @@
         <table class="default">
             <caption>Tabla de Variables</caption>
             <tr>
-                <th>Tipo</th>
-                <th>Tipo especifico</th>
                 <th>Id</th>
+                <th>Tipo</th>
+                <th>Ambito</th>
                 <th>Linea</th>
                 <th>Columna</th>
-                <th>Ambito</th>
             </tr>
+            {% for simbol in simbols %}
+            <tr>
+            {% for simbolo in simbol %}
+                <th>{{ simbolo }}</th>
+            {% endfor %}
+            </tr>
+            {% endfor %}
         </table>
     </div>
     <div class="div-table">

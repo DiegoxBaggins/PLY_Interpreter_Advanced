@@ -25,19 +25,30 @@ class FuncArreglo(Expresion):
                 var = self.id.execute(entorno)
             if var.tipo == Tipo.ARRAY:
                 return Return(len(var.valor), Tipo.INT)
+            else:
+                entorno.guardarError("No se puede obtener length si no es arrelo", self.linea, self.columna)
         elif self.tipo == FuncionArreglo.PUSH:
             exp = self.exp.execute(entorno)
+            var = None
             if isinstance(self.id, str):
                 var = entorno.getVar(self.id)
-                var.valor.append(exp)
             else:
                 var = self.id.execute(entorno)
+            if var.tipo == Tipo.ARRAY:
                 var.valor.append(exp)
+            else:
+                print("Var no es un arreglo")
+                entorno.guardarError("Var no es un arreglo", self.linea, self.columna)
         elif self.tipo == FuncionArreglo.POP:
+            var = None
             if isinstance(self.id, str):
                 var = entorno.getVar(self.id)
-                exp = var.valor.pop()
             else:
                 var = self.id.execute(entorno)
+            if var.tipo == Tipo.ARRAY:
                 exp = var.valor.pop()
-            return exp
+                return exp
+            else:
+                print("Var no es arreglo")
+                entorno.guardarError("Var no es arreglo", self.linea, self.columna)
+                return Return(None, Tipo.UNDEFINED)

@@ -12,6 +12,7 @@ class LlamadaFunc(Expresion):
 
     def execute(self, entorno):
         func = entorno.getFunc(self.id)
+        struct = entorno.getStruct(self.id)
         if func is not None:
             nuevoEntorno = Entorno(entorno.getGlobal(), self.id)
             i = 0
@@ -19,8 +20,10 @@ class LlamadaFunc(Expresion):
                 valor = param.execute(entorno)
                 if isinstance(valor, Simbolo):
                     nuevoEntorno.newVarStruct(func.params[i].id, valor)
+                    nuevoEntorno.guardarTS(func.params[i].id, self.linea, self.columna, valor.tipo)
                 else:
                     nuevoEntorno.newVariable(func.params[i].id, valor.valor, valor.tipo)
+                    nuevoEntorno.guardarTS(func.params[i].id, self.linea, self.columna, valor.tipo)
                 i += 1
             rtr = func.instrucciones.execute(nuevoEntorno)
             if rtr is not None:
@@ -28,8 +31,7 @@ class LlamadaFunc(Expresion):
                     return None
                 else:
                     return rtr
-        struct = entorno.getStruct(self.id)
-        if struct is not None:
+        elif struct is not None:
             ids = struct.atributos
             attrs = {}
             i = 0
@@ -42,6 +44,7 @@ class LlamadaFunc(Expresion):
                         })
                     else:
                         print("Error de tipos")
+                        entorno.guardarError("Error de tipos", self.linea, self.columna)
                 else:
                     attrs.update({
                         id.valor: valor
@@ -50,3 +53,6 @@ class LlamadaFunc(Expresion):
             nuevoSimbolo = Simbolo(0, "", Tipo.STRUCT, self.id)
             nuevoSimbolo.atributos = attrs
             return nuevoSimbolo
+        else:
+            print("No existe la funcion o el struct")
+            entorno.guardarError("No existe la funcion o el struct", self.linea, self.columna)

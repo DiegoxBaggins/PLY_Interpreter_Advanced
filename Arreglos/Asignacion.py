@@ -1,20 +1,6 @@
 from Abstract.Expresion import *
 from Arreglos.Acceso import *
-
-
-def asignarAtras(acceso, exp, entorno):
-    id = acceso.id
-    if isinstance(id, AccesoArreglo):
-        variable = id.execute(entorno)
-        indice = acceso.exp.execute(entorno).valor - 1
-        variable.valor[indice] = exp
-        exp = variable
-        asignarAtras(id, exp, entorno)
-    else:
-        var = entorno.getVar(id)
-        indice = acceso.exp.execute(entorno).valor - 1
-        var.valor[indice] = exp
-        entorno.newVariable(var.id, var.valor, var.tipo)
+from Abstract.Return import *
 
 
 class AsignacionArreglo(Expresion):
@@ -36,12 +22,16 @@ class AsignacionArreglo(Expresion):
             variable = entorno.getVar(id)
         if variable is not None:
             indice = indice.execute(entorno).valor - 1
-            tamano = len(variable.valor)
-            if tamano > indice >= 0:
-                variable.valor[indice] = valor
+            if variable.tipo == Tipo.ARRAY:
+                tamano = len(variable.valor)
+                if tamano > indice >= 0:
+                    variable.valor[indice] = valor
+                else:
+                    print("Indice fuera de rango")
+                    entorno.guardarError("Indice fuera de rango", self.linea, self.columna)
             else:
-                print("Indice fuera de rango")
+                print("No es un arreglo")
+                entorno.guardarError("No es un arreglo", self.linea, self.columna)
         else:
             print("var no existe")
-        #asignarAtras(self.id, valor, entorno)
-
+            entorno.guardarError("Variable no existe", self.linea, self.columna)

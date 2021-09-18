@@ -1,4 +1,8 @@
+from enum import Enum
+from Abstract.Expresion import *
 from Symbol.Simbolo import *
+from Instruction.Declaracion import *
+from datetime import datetime
 
 
 def copiarArreglo(arreglo):
@@ -21,6 +25,8 @@ class Entorno:
         self.variables = {}
         self.funciones = {}
         self.structs = {}
+        self.simbols = []
+        self.errors = []
 
     def newVariableGlobal(self, idVar, valor, tipo):
         if isinstance(valor, list):
@@ -107,3 +113,37 @@ class Entorno:
         while env.prev is not None:
             env = env.prev
         return env
+
+    def guardarTS(self, id, linea, columna, clas):
+        env = self.getGlobal()
+        simbol = TablaS(id, clas, self.nombre, linea, columna)
+        var = None
+        if isinstance(clas, Enum):
+            tp = clas.name
+        else:
+            tp = clas
+        for elemento in env.simbols:
+            if elemento[0] == id and elemento[1] == tp and elemento[2] == self.nombre and elemento[3] == linea:
+                var = elemento
+        if var is None:
+            env.simbols.append(simbol)
+
+    def guardarError(self, descripcion, linea, columna):
+        now = datetime.now()
+        env = self.getGlobal()
+        num = len(env.errors) + 1
+        fecha = now.strftime("%d/%m/%Y %H:%M:%S")
+        error = Error(num, descripcion, linea, columna, fecha)
+        env.errors.append(error)
+
+
+def TablaS(id, tipo, ambito, linea, columna):
+    if isinstance(tipo, Enum):
+        tp = tipo.name
+    else:
+        tp = tipo
+    return [id, tp, ambito, linea, columna]
+
+
+def Error(num, descripcion, linea, columna, fecha):
+    return [num, descripcion, linea, columna, fecha]
