@@ -30,3 +30,21 @@ class AccesoArreglo(Expresion):
         else:
             print("No existe la variable")
             entorno.guardarError("No existe la variable", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "ACCESO ARREGLO")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        if isinstance(self.id, AccesoArreglo):
+            self.id.graph(grafo, graph)
+        else:
+            grafo.node(str(graph.indice), "Id: " + self.id)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1
+        grafo.node(str(graph.indice), "INDICE")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.exp.graph(grafo, graph)
+        graph.indice += 1

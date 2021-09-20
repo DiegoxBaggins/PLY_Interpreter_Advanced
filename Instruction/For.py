@@ -59,3 +59,33 @@ class For(Expresion):
             else:
                 print("No se puede hacer For de tipo: " + expresion1.tipo.name)
                 entorno.guardarError("No se puede hacer For de tipo: " + expresion1.tipo.name, self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "FOR")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        aux = graph.indice
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Id: " + self.variable)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        if self.exp2 is not None:
+            grafo.node(str(graph.indice), "Rango")
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.pivote1 = graph.indice
+            aux2 = graph.indice
+            graph.indice += 1
+            self.exp1.graph(grafo, graph)
+            graph.indice += 1
+            graph.pivote1 = aux2
+            self.exp2.graph(grafo, graph)
+            graph.indice += 1
+        else:
+            self.exp1.graph(grafo, graph)
+            graph.indice += 1
+        graph.pivote1 = aux
+        grafo.node(str(graph.indice), "INSTRUCCIONES")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.instrucciones.graph(grafo, graph)

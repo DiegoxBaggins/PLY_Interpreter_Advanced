@@ -77,3 +77,16 @@ class Relacional(Expresion):
             else:
                 resultado.valor = not valorIzq.valor
         return resultado
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        aux = graph.indice
+        graph.indice += 1
+        self.izq.graph(grafo, graph)
+        graph.indice += 1
+        graph.pivote1 = aux
+        if self.tipo != OperacionRelacional.NOT:
+            self.der.graph(grafo, graph)
+            graph.indice += 1

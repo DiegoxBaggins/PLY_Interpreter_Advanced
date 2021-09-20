@@ -32,3 +32,27 @@ class AsignacionStruct(Expresion):
         else:
             print("var no existe")
             entorno.guardarError("La variable no existe", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "ASIGNACION STRUCT")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        aux = graph.pivote1
+        id = self.id.id
+        atributo = self.id.atributo
+        if isinstance(id, AccesoStruct):
+            id.graph(grafo, graph)
+        else:
+            grafo.node(str(graph.indice), "Id: " + id)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1
+        graph.pivote1 = aux
+        grafo.node(str(graph.indice), "Atributo: " + atributo)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        grafo.node(str(graph.indice), "EXP")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.exp.graph(grafo, graph)

@@ -16,6 +16,25 @@ class OperacionAritmetica(Enum):
     CONCAT = 8
 
 
+def casteos(izq, der):
+    if izq.tipo == Tipo.FLOAT or der.tipo == Tipo.FLOAT:
+        return Return(0.0, Tipo.FLOAT)
+    elif izq.tipo == Tipo.STRING or der.tipo == Tipo.STRING:
+        return Return("", Tipo.STRING)
+    else:
+        return Return(0, Tipo.INT)
+
+
+def comprobar(izq, der):
+    if izq.tipo == Tipo.FLOAT or izq.tipo == Tipo.INT:
+        if der.tipo == Tipo.FLOAT or der.tipo == Tipo.INT:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
 class Aritmetico(Expresion):
 
     def __init__(self, izq, der, tipo, linea, columna):
@@ -84,21 +103,15 @@ class Aritmetico(Expresion):
                                      , self.linea, self.columna)
         return resultado
 
-
-def casteos(izq, der):
-    if izq.tipo == Tipo.FLOAT or der.tipo == Tipo.FLOAT:
-        return Return(0.0, Tipo.FLOAT)
-    elif izq.tipo == Tipo.STRING or der.tipo == Tipo.STRING:
-        return Return("", Tipo.STRING)
-    else:
-        return Return(0, Tipo.INT)
-
-
-def comprobar(izq, der):
-    if izq.tipo == Tipo.FLOAT or izq.tipo == Tipo.INT:
-        if der.tipo == Tipo.FLOAT or der.tipo == Tipo.INT:
-            return True
-        else:
-            return False
-    else:
-        return False
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        aux = graph.indice
+        graph.indice += 1
+        self.izq.graph(grafo, graph)
+        graph.indice += 1
+        graph.pivote1 = aux
+        if self.tipo != OperacionAritmetica.MENOS:
+            self.der.graph(grafo, graph)
+            graph.indice += 1

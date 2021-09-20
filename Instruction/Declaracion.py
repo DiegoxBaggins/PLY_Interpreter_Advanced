@@ -55,3 +55,26 @@ class Declaracion(Expresion):
         else:
             print("Error, tipos no coinciden")
             entorno.guardarError("Error, los tipos no coinciden", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "DECLARACION")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Acceso: " + self.acceso.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Id: " + self.id)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Exp")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        aux = graph.pivote1
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.valor.graph(grafo, graph)
+        graph.indice += 1
+        graph.pivote1 = aux
+        grafo.node(str(graph.indice), "Tipo: " + self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+

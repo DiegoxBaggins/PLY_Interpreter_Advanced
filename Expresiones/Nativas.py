@@ -135,3 +135,20 @@ class Nativo(Expresion):
             resultado = Return("", Tipo.STRING)
             resultado.valor = valorArg1.tipo.name
         return resultado
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        aux = graph.indice
+        graph.indice += 1
+        self.arg1.graph(grafo, graph)
+        graph.indice += 1
+        graph.pivote1 = aux
+        if self.tipo == FuncionNativa.LOGBAS:
+            self.arg2.graph(grafo, graph)
+            graph.indice += 1
+        elif self.tipo == FuncionNativa.PARSE:
+            grafo.node(str(graph.indice), self.arg2.name)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1

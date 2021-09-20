@@ -13,3 +13,14 @@ class ReturnIns(Expresion):
             return valor
         else:
             return Return(None, Tipo.RETURNINS, "")
+
+    def graph(self, grafo, graph):
+        if self.exp is not None:
+            grafo.node(str(graph.indice), "RETURN")
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.pivote1 = graph.indice
+            graph.indice += 1
+            self.exp.graph(grafo, graph)
+        else:
+            grafo.node(str(graph.indice), "RETURN")
+            grafo.edge(str(graph.pivote1), str(graph.indice))

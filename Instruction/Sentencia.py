@@ -18,3 +18,10 @@ class Sentencia(Expresion):
         except:
             print("Error ejecutando instrucciones")
             entorno.guardarError("Error ejecutando instrucciones", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        aux = graph.pivote1
+        for ins in self.instrucciones:
+            ins.graph(grafo, graph)
+            graph.indice += 1
+            graph.pivote1 = aux

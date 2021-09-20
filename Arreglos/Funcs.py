@@ -52,3 +52,24 @@ class FuncArreglo(Expresion):
                 print("Var no es arreglo")
                 entorno.guardarError("Var no es arreglo", self.linea, self.columna)
                 return Return(None, Tipo.UNDEFINED)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        aux = graph.pivote1
+        if isinstance(self.id, str):
+            grafo.node(str(graph.indice), "Id: " + self.id)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1
+        else:
+            self.id.graph(grafo, graph)
+        graph.pivote1 = aux
+        if self.tipo == FuncionArreglo.PUSH:
+            grafo.node(str(graph.indice), "EXP")
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.pivote1 = graph.indice
+            graph.indice += 1
+            self.exp.graph(grafo, graph)
+

@@ -21,3 +21,24 @@ class NuevoStruct(Expresion):
         else:
             print("Struct " + self.id + "repetida")
             entorno.guardarError("Struct " + self.id + "repetida", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "STRUCT")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        aux = graph.indice
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Tipo: " + self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Id: " + self.id)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        grafo.node(str(graph.indice), "ATRIBUTOS")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        for exp in self.atributos:
+            grafo.node(str(graph.indice), "Tipo: " + exp.tipo.name + " / Id: " + exp.valor)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1

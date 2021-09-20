@@ -31,3 +31,23 @@ class While(Expresion):
         if control == 250:
             print("Error en sentencia While, stack overflow")
             entorno.guardarError("Error en sentencia While, stack overflow", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "WHILE")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Condición")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        aux = graph.pivote1
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.condicion.graph(grafo, graph)
+        graph.indice += 1
+        graph.pivote1 = aux
+        grafo.node(str(graph.indice), "INSTRUCCIONES")
+        grafo.edge(str(aux), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.instrucciones.graph(grafo, graph)
+        graph.pivote1 = aux

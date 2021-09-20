@@ -3,6 +3,7 @@ import json
 from flask import Flask, render_template, url_for, redirect, request
 from Analyzer.Grammar import parse
 from Symbol.Entorno import *
+from Graph.Inicio import *
 
 app = Flask(__name__)
 
@@ -51,6 +52,7 @@ def procesoPrincipal(codigo):
     ast = parse(codigo)
     for instr in ast:
         instr.execute(newEnv)
+    crearArbol(ast)
     errores = newEnv.errors
     for error in errores:
         string += error[1] + " en linea: " + str(error[2]) + " en columna: " + str(error[3]) + "\n"

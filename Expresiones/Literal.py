@@ -11,3 +11,7 @@ class Literal(Expresion):
 
     def execute(self, entorno):
         return Return(self.valor, self.tipo)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), str(self.valor))
+        grafo.edge(str(graph.pivote1), str(graph.indice))

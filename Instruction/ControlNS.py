@@ -24,3 +24,7 @@ class ControlIns(Expresion):
             print("Error en sentencia de control")
             entorno.guardarError("Error en sentencia de control, no esta dentro de un ciclo", self.linea, self.columna)
             return None
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), self.tipo.name)
+        grafo.edge(str(graph.pivote1), str(graph.indice))

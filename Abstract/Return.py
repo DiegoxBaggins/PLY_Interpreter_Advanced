@@ -21,3 +21,7 @@ class Return:
         self.valor = valor
         self.tipo = returnTipo
         self.auxTipo = auxTipo
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), str(self.valor))
+        grafo.edge(str(graph.pivote1), str(graph.indice))

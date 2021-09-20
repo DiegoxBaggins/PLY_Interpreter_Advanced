@@ -26,3 +26,24 @@ class CutArreglo(Expresion):
                 entorno.guardarError("No es un arreglo", self.linea, self.columna)
         else:
             entorno.guardarError("El arreglo no existe", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "CUT ARREGLO")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Id: " + self.id)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Exp Inicio")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        aux = graph.pivote1
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.exp1.graph(grafo, graph)
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Exp Final")
+        grafo.edge(str(aux), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.exp2.graph(grafo, graph)

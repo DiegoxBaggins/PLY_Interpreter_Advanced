@@ -35,3 +35,31 @@ class AsignacionArreglo(Expresion):
         else:
             print("var no existe")
             entorno.guardarError("Variable no existe", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "ASIGNACION ARREGLO")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        id = self.id.id
+        aux = graph.pivote1
+        indice = self.id.exp
+        if isinstance(id, AccesoArreglo):
+            id.graph(grafo, graph)
+        else:
+            grafo.node(str(graph.indice), "Id: " + id)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1
+        graph.pivote1 = aux
+        grafo.node(str(graph.indice), "Indice")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        indice.graph(grafo, graph)
+        graph.indice += 1
+        graph.pivote1 = aux
+        grafo.node(str(graph.indice), "EXP")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        self.exp.graph(grafo, graph)

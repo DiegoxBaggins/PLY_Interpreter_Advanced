@@ -16,3 +16,7 @@ class Acceso(Expresion):
         if valor.tipo == Tipo.STRUCT or valor.tipo == Tipo.ARRAY:
             return valor
         return Return(valor.valor, valor.tipo)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), str(self.id))
+        grafo.edge(str(graph.pivote1), str(graph.indice))

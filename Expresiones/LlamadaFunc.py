@@ -56,3 +56,17 @@ class LlamadaFunc(Expresion):
         else:
             print("No existe la funcion o el struct")
             entorno.guardarError("No existe la funcion o el struct", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "LLAMADA FUNC / CREACION STRUCT")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        aux = graph.pivote1
+        graph.indice += 1
+        grafo.node(str(graph.indice), "Id: " + self.id)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+        for param in self.params:
+            param.graph(grafo, graph)
+            graph.pivote1 = aux
+            graph.indice += 1

@@ -23,3 +23,20 @@ class AccesoStruct(Expresion):
         else:
             print("No existe la variable")
             entorno.guardarError("Variable " + self.id + " no exoste", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), "ACCESO STRUCT")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        if isinstance(self.id, AccesoStruct):
+            self.id.graph(grafo, graph)
+        else:
+            grafo.node(str(graph.indice), "Id: " + self.id)
+            grafo.edge(str(graph.pivote1), str(graph.indice))
+            graph.indice += 1
+        grafo.node(str(graph.indice), "Atributo: " + self.atributo)
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.indice += 1
+
+

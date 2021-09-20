@@ -8,3 +8,7 @@ class Parametro(Expresion):
 
     def execute(self):
         return self
+
+    def graph(self, grafo, graph):
+        grafo.node(str(graph.indice), self.id)
+        grafo.edge(str(graph.pivote1), str(graph.indice))

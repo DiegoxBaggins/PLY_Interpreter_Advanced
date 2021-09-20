@@ -67,3 +67,18 @@ class Print(Expresion):
         f.close()
             #print("Error en print")
             #entorno.guardarError("Error en print", self.linea, self.columna)
+
+    def graph(self, grafo, graph):
+        if self.salto:
+            grafo.node(str(graph.indice), "PRINTLN")
+        else:
+            grafo.node(str(graph.indice), "PRINT")
+        grafo.edge(str(graph.pivote1), str(graph.indice))
+        graph.pivote1 = graph.indice
+        graph.indice += 1
+        aux = graph.pivote1
+        for exp in self.valor:
+            exp.graph(grafo, graph)
+            graph.pivote1 = aux
+            graph.indice += 1
+        graph.pivote1 = aux
