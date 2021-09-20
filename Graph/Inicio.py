@@ -32,7 +32,7 @@ def crearArbol(ast):
         graph.indice += 1
         graph.pivote1 = 0
     print(grafo.source)
-    grafo.render(view=True)
+    grafo.render(view=False)
 
 
 class Grafo:

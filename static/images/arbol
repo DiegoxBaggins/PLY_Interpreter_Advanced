@@ -1,278 +1,254 @@
 graph arbol {
 	node [shape=record]
 	0 [label=INSTRUCCIONES]
-	1 [label=PRINTLN]
+	1 [label=FUNCION]
 	0 -- 1
-	2 [label="======================================================================="]
+	2 [label="Id: ackerman"]
 	1 -- 2
-	4 [label=PRINTLN]
-	0 -- 4
-	5 [label="==========================FUNCIONES Y RETURN==========================="]
-	4 -- 5
-	7 [label=PRINTLN]
-	0 -- 7
-	8 [label="======================================================================="]
+	3 [label=Parametros]
+	1 -- 3
+	4 [label=m]
+	3 -- 4
+	5 [label=n]
+	3 -- 5
+	6 [label=INSTRUCCIONES]
+	1 -- 6
+	7 [label=IF]
+	6 -- 7
+	8 [label="Condición"]
 	7 -- 8
-	10 [label=FUNCION]
-	0 -- 10
-	11 [label="Id: potenciaNativa"]
-	10 -- 11
-	12 [label=Parametros]
-	10 -- 12
-	13 [label=base]
-	12 -- 13
-	14 [label=exponente]
-	12 -- 14
-	15 [label=INSTRUCCIONES]
-	10 -- 15
-	16 [label=DECLARACION]
+	9 [label=IGUALES]
+	8 -- 9
+	10 [label=m]
+	9 -- 10
+	11 [label=0]
+	9 -- 11
+	13 [label="TRUE INSTRUCCIONES"]
+	7 -- 13
+	14 [label=RETURN]
+	13 -- 14
+	15 [label=SUMA]
+	14 -- 15
+	16 [label=n]
 	15 -- 16
-	17 [label="Acceso: VACIO"]
-	16 -- 17
-	18 [label="Id: resultado"]
-	16 -- 18
-	19 [label=Exp]
-	16 -- 19
-	20 [label=base]
-	19 -- 20
-	21 [label="Tipo: UNDEFINED"]
-	16 -- 21
-	22 [label=WHILE]
-	15 -- 22
-	23 [label="Condición"]
+	17 [label=1]
+	15 -- 17
+	20 [label="ELSE-ELSEIF INSTRUCCIONES"]
+	7 -- 20
+	21 [label=IF]
+	20 -- 21
+	22 [label="Condición"]
+	21 -- 22
+	23 [label=AND]
 	22 -- 23
 	24 [label=MAYOR]
 	23 -- 24
-	25 [label=exponente]
+	25 [label=m]
 	24 -- 25
-	26 [label=1]
+	26 [label=0]
 	24 -- 26
-	28 [label=INSTRUCCIONES]
-	22 -- 28
-	29 [label=DECLARACION]
+	28 [label=IGUALES]
+	23 -- 28
+	29 [label=n]
 	28 -- 29
-	30 [label="Acceso: VACIO"]
-	29 -- 30
-	31 [label="Id: resultado"]
-	29 -- 31
-	32 [label=Exp]
-	29 -- 32
-	33 [label=MULTI]
-	32 -- 33
-	34 [label=resultado]
+	30 [label=0]
+	28 -- 30
+	33 [label="TRUE INSTRUCCIONES"]
+	21 -- 33
+	34 [label=RETURN]
 	33 -- 34
-	35 [label=base]
-	33 -- 35
-	37 [label="Tipo: UNDEFINED"]
-	29 -- 37
-	38 [label=DECLARACION]
-	28 -- 38
-	39 [label="Acceso: VACIO"]
-	38 -- 39
-	40 [label="Id: exponente"]
-	38 -- 40
-	41 [label=Exp]
-	38 -- 41
-	42 [label=RESTA]
-	41 -- 42
-	43 [label=exponente]
-	42 -- 43
-	44 [label=1]
-	42 -- 44
-	46 [label="Tipo: UNDEFINED"]
-	38 -- 46
-	48 [label=RETURN]
-	15 -- 48
-	49 [label=resultado]
+	35 [label="LLAMADA FUNC / CREACION STRUCT"]
+	34 -- 35
+	36 [label="Id: ackerman"]
+	35 -- 36
+	37 [label=RESTA]
+	35 -- 37
+	38 [label=m]
+	37 -- 38
+	39 [label=1]
+	37 -- 39
+	41 [label=1]
+	35 -- 41
+	44 [label="ELSE-ELSEIF INSTRUCCIONES"]
+	21 -- 44
+	45 [label=RETURN]
+	44 -- 45
+	46 [label="LLAMADA FUNC / CREACION STRUCT"]
+	45 -- 46
+	47 [label="Id: ackerman"]
+	46 -- 47
+	48 [label=RESTA]
+	46 -- 48
+	49 [label=m]
 	48 -- 49
-	51 [label=PRINTLN]
-	0 -- 51
+	50 [label=1]
+	48 -- 50
 	52 [label="LLAMADA FUNC / CREACION STRUCT"]
-	51 -- 52
-	53 [label="Id: potenciaNativa"]
+	46 -- 52
+	53 [label="Id: ackerman"]
 	52 -- 53
-	54 [label=5]
+	54 [label=m]
 	52 -- 54
-	55 [label=7]
+	55 [label=RESTA]
 	52 -- 55
-	58 [label=PRINTLN]
-	0 -- 58
-	59 [label="LLAMADA FUNC / CREACION STRUCT"]
-	58 -- 59
-	60 [label="Id: potenciaNativa"]
-	59 -- 60
-	61 [label=2]
-	59 -- 61
-	62 [label=2]
-	59 -- 62
-	65 [label=PRINTLN]
-	0 -- 65
-	66 [label="LLAMADA FUNC / CREACION STRUCT"]
+	56 [label=n]
+	55 -- 56
+	57 [label=1]
+	55 -- 57
+	63 [label=FUNCION]
+	0 -- 63
+	64 [label="Id: hanoi"]
+	63 -- 64
+	65 [label=Parametros]
+	63 -- 65
+	66 [label=discos]
 	65 -- 66
-	67 [label="Id: potenciaNativa"]
-	66 -- 67
-	68 [label=4]
-	66 -- 68
-	69 [label=2]
-	66 -- 69
-	72 [label=FUNCION]
-	0 -- 72
-	73 [label="Id: sumarTodo"]
+	67 [label=origen]
+	65 -- 67
+	68 [label=auxiliar]
+	65 -- 68
+	69 [label=destino]
+	65 -- 69
+	70 [label=INSTRUCCIONES]
+	63 -- 70
+	71 [label=IF]
+	70 -- 71
+	72 [label="Condición"]
+	71 -- 72
+	73 [label=IGUALES]
 	72 -- 73
-	74 [label=Parametros]
-	72 -- 74
-	75 [label=num1]
-	74 -- 75
-	76 [label=num2]
-	74 -- 76
-	77 [label=INSTRUCCIONES]
-	72 -- 77
-	78 [label=DECLARACION]
+	74 [label=discos]
+	73 -- 74
+	75 [label=1]
+	73 -- 75
+	77 [label="TRUE INSTRUCCIONES"]
+	71 -- 77
+	78 [label=PRINTLN]
 	77 -- 78
-	79 [label="Acceso: VACIO"]
+	79 [label="Mover de "]
 	78 -- 79
-	80 [label="Id: result"]
+	80 [label=origen]
 	78 -- 80
-	81 [label=Exp]
+	81 [label=" a "]
 	78 -- 81
-	82 [label=0]
-	81 -- 82
-	83 [label="Tipo: UNDEFINED"]
-	78 -- 83
-	84 [label=IF]
-	77 -- 84
-	85 [label="Condición"]
-	84 -- 85
-	86 [label=OR]
+	82 [label=destino]
+	78 -- 82
+	85 [label="ELSE-ELSEIF INSTRUCCIONES"]
+	71 -- 85
+	86 [label="LLAMADA FUNC / CREACION STRUCT"]
 	85 -- 86
-	87 [label=MENOR]
+	87 [label="Id: hanoi"]
 	86 -- 87
-	88 [label=num1]
-	87 -- 88
-	89 [label=0]
-	87 -- 89
-	91 [label=MENOR]
-	86 -- 91
-	92 [label=num2]
-	91 -- 92
-	93 [label=0]
-	91 -- 93
-	96 [label="TRUE INSTRUCCIONES"]
-	84 -- 96
-	97 [label=RETURN]
+	88 [label=RESTA]
+	86 -- 88
+	89 [label=discos]
+	88 -- 89
+	90 [label=1]
+	88 -- 90
+	92 [label=origen]
+	86 -- 92
+	93 [label=destino]
+	86 -- 93
+	94 [label=auxiliar]
+	86 -- 94
+	96 [label=PRINTLN]
+	85 -- 96
+	97 [label="Mover de "]
 	96 -- 97
-	98 [label=MENOS]
-	97 -- 98
-	99 [label=1]
-	98 -- 99
-	103 [label=WHILE]
-	77 -- 103
-	104 [label="Condición"]
-	103 -- 104
-	105 [label=OR]
+	98 [label=origen]
+	96 -- 98
+	99 [label=" a "]
+	96 -- 99
+	100 [label=destino]
+	96 -- 100
+	102 [label="LLAMADA FUNC / CREACION STRUCT"]
+	85 -- 102
+	103 [label="Id: hanoi"]
+	102 -- 103
+	104 [label=RESTA]
+	102 -- 104
+	105 [label=discos]
 	104 -- 105
-	106 [label=MAYOR]
-	105 -- 106
-	107 [label=num1]
-	106 -- 107
-	108 [label=0]
-	106 -- 108
-	110 [label=MAYOR]
-	105 -- 110
-	111 [label=num2]
-	110 -- 111
-	112 [label=0]
-	110 -- 112
-	115 [label=INSTRUCCIONES]
-	103 -- 115
-	116 [label=DECLARACION]
-	115 -- 116
-	117 [label="Acceso: VACIO"]
+	106 [label=1]
+	104 -- 106
+	108 [label=auxiliar]
+	102 -- 108
+	109 [label=origen]
+	102 -- 109
+	110 [label=destino]
+	102 -- 110
+	114 [label=FUNCION]
+	0 -- 114
+	115 [label="Id: factorial"]
+	114 -- 115
+	116 [label=Parametros]
+	114 -- 116
+	117 [label=num]
 	116 -- 117
-	118 [label="Id: result"]
-	116 -- 118
-	119 [label=Exp]
-	116 -- 119
-	120 [label=SUMA]
+	118 [label=INSTRUCCIONES]
+	114 -- 118
+	119 [label=IF]
+	118 -- 119
+	120 [label="Condición"]
 	119 -- 120
-	121 [label=result]
+	121 [label=IGUALES]
 	120 -- 121
-	122 [label=SUMA]
-	120 -- 122
-	123 [label=num1]
-	122 -- 123
-	124 [label=num2]
-	122 -- 124
-	127 [label="Tipo: UNDEFINED"]
-	116 -- 127
-	128 [label=DECLARACION]
-	115 -- 128
-	129 [label="Acceso: VACIO"]
-	128 -- 129
-	130 [label="Id: num1"]
-	128 -- 130
-	131 [label=Exp]
-	128 -- 131
-	132 [label=RESTA]
+	122 [label=num]
+	121 -- 122
+	123 [label=1]
+	121 -- 123
+	125 [label="TRUE INSTRUCCIONES"]
+	119 -- 125
+	126 [label=RETURN]
+	125 -- 126
+	127 [label=1]
+	126 -- 127
+	129 [label="ELSE-ELSEIF INSTRUCCIONES"]
+	119 -- 129
+	130 [label=RETURN]
+	129 -- 130
+	131 [label=MULTI]
+	130 -- 131
+	132 [label=num]
 	131 -- 132
-	133 [label=num1]
-	132 -- 133
-	134 [label=1]
-	132 -- 134
-	136 [label="Tipo: UNDEFINED"]
-	128 -- 136
-	137 [label=DECLARACION]
-	115 -- 137
-	138 [label="Acceso: VACIO"]
-	137 -- 138
-	139 [label="Id: num2"]
-	137 -- 139
-	140 [label=Exp]
-	137 -- 140
-	141 [label=RESTA]
-	140 -- 141
-	142 [label=num2]
-	141 -- 142
-	143 [label=1]
-	141 -- 143
-	145 [label="Tipo: UNDEFINED"]
-	137 -- 145
-	147 [label=RETURN]
-	77 -- 147
-	148 [label=result]
-	147 -- 148
-	150 [label=PRINTLN]
-	0 -- 150
-	151 [label="LLAMADA FUNC / CREACION STRUCT"]
+	133 [label="LLAMADA FUNC / CREACION STRUCT"]
+	131 -- 133
+	134 [label="Id: factorial"]
+	133 -- 134
+	135 [label=RESTA]
+	133 -- 135
+	136 [label=num]
+	135 -- 136
+	137 [label=1]
+	135 -- 137
+	143 [label=PRINTLN]
+	0 -- 143
+	144 [label="LLAMADA FUNC / CREACION STRUCT"]
+	143 -- 144
+	145 [label="Id: factorial"]
+	144 -- 145
+	146 [label=5]
+	144 -- 146
+	149 [label=PRINTLN]
+	0 -- 149
+	150 [label="LLAMADA FUNC / CREACION STRUCT"]
+	149 -- 150
+	151 [label="Id: ackerman"]
 	150 -- 151
-	152 [label="Id: sumarTodo"]
-	151 -- 152
+	152 [label=3]
+	150 -- 152
 	153 [label=5]
-	151 -- 153
-	154 [label=4]
-	151 -- 154
-	157 [label=PRINTLN]
-	0 -- 157
-	158 [label="LLAMADA FUNC / CREACION STRUCT"]
-	157 -- 158
-	159 [label="Id: sumarTodo"]
-	158 -- 159
-	160 [label=MENOS]
-	158 -- 160
-	161 [label=1]
-	160 -- 161
-	163 [label=MENOS]
-	158 -- 163
-	164 [label=5]
-	163 -- 164
-	168 [label=PRINTLN]
-	0 -- 168
-	169 [label="LLAMADA FUNC / CREACION STRUCT"]
-	168 -- 169
-	170 [label="Id: sumarTodo"]
-	169 -- 170
-	171 [label=7]
-	169 -- 171
-	172 [label=7]
-	169 -- 172
+	150 -- 153
+	156 [label="LLAMADA FUNC / CREACION STRUCT"]
+	0 -- 156
+	157 [label="Id: hanoi"]
+	156 -- 157
+	158 [label=3]
+	156 -- 158
+	159 [label=1]
+	156 -- 159
+	160 [label=2]
+	156 -- 160
+	161 [label=3]
+	156 -- 161
 }
