@@ -31,7 +31,7 @@ def crearArbol(ast):
         instr.graph(grafo, graph)
         graph.indice += 1
         graph.pivote1 = 0
-    print(grafo.source)
+    #print(grafo.source)
     grafo.render(view=False)
 
 

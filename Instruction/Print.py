@@ -52,17 +52,17 @@ class Print(Expresion):
             valor = exp.execute(entorno)
             if valor.tipo == Tipo.ARRAY:
                 recibido = imprimirlistas(valor.valor)
-                print(recibido, end="")
+                #print(recibido, end="")
                 f.write(recibido)
             elif valor.tipo == Tipo.STRUCT:
                 recibido = imprimirObjeto(valor)
-                print(recibido, end="")
+                #print(recibido, end="")
                 f.write(recibido)
             else:
-                print(valor.valor, end="")
+                #print(valor.valor, end="")
                 f.write(str(valor.valor))
         if self.salto:
-            print("\n")
+            #print("\n")
             f.write("\n")
         f.close()
             #print("Error en print")
