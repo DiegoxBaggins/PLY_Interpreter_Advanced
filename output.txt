@@ -1,9 +1,2 @@
-120
-253
-Mover de 1 a 3
-Mover de 1 a 2
-Mover de 3 a 2
-Mover de 1 a 3
-Mover de 2 a 1
-Mover de 2 a 3
-Mover de 1 a 3
+BubbleSort => [1.0,2,3,7,8,9,10,11,21,32,44,56,89,109,909,8200]
+InsertionSort => [1.0,2,3,7,8,9,10,11,21,44,56,89,109,909,8200,9874.0]

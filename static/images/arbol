@@ -3,252 +3,460 @@ graph arbol {
 	0 [label=INSTRUCCIONES]
 	1 [label=FUNCION]
 	0 -- 1
-	2 [label="Id: ackerman"]
+	2 [label="Id: swap"]
 	1 -- 2
 	3 [label=Parametros]
 	1 -- 3
-	4 [label=m]
+	4 [label=i]
 	3 -- 4
-	5 [label=n]
+	5 [label=j]
 	3 -- 5
-	6 [label=INSTRUCCIONES]
-	1 -- 6
-	7 [label=IF]
-	6 -- 7
-	8 [label="Condición"]
+	6 [label=arr]
+	3 -- 6
+	7 [label=INSTRUCCIONES]
+	1 -- 7
+	8 [label=DECLARACION]
 	7 -- 8
-	9 [label=IGUALES]
+	9 [label="Acceso: VACIO"]
 	8 -- 9
-	10 [label=m]
-	9 -- 10
-	11 [label=0]
-	9 -- 11
-	13 [label="TRUE INSTRUCCIONES"]
-	7 -- 13
-	14 [label=RETURN]
-	13 -- 14
-	15 [label=SUMA]
+	10 [label="Id: temp"]
+	8 -- 10
+	11 [label=Exp]
+	8 -- 11
+	12 [label="ACCESO ARREGLO"]
+	11 -- 12
+	13 [label="Id: arr"]
+	12 -- 13
+	14 [label=INDICE]
+	12 -- 14
+	15 [label=i]
 	14 -- 15
-	16 [label=n]
-	15 -- 16
-	17 [label=1]
-	15 -- 17
-	20 [label="ELSE-ELSEIF INSTRUCCIONES"]
-	7 -- 20
-	21 [label=IF]
+	17 [label="Tipo: INT"]
+	8 -- 17
+	18 [label="ASIGNACION ARREGLO"]
+	7 -- 18
+	19 [label="Id: arr"]
+	18 -- 19
+	20 [label=Indice]
+	18 -- 20
+	21 [label=i]
 	20 -- 21
-	22 [label="Condición"]
-	21 -- 22
-	23 [label=AND]
+	22 [label=EXP]
+	18 -- 22
+	23 [label="ACCESO ARREGLO"]
 	22 -- 23
-	24 [label=MAYOR]
+	24 [label="Id: arr"]
 	23 -- 24
-	25 [label=m]
-	24 -- 25
-	26 [label=0]
-	24 -- 26
-	28 [label=IGUALES]
-	23 -- 28
-	29 [label=n]
+	25 [label=INDICE]
+	23 -- 25
+	26 [label=j]
+	25 -- 26
+	28 [label="ASIGNACION ARREGLO"]
+	7 -- 28
+	29 [label="Id: arr"]
 	28 -- 29
-	30 [label=0]
+	30 [label=Indice]
 	28 -- 30
-	33 [label="TRUE INSTRUCCIONES"]
-	21 -- 33
-	34 [label=RETURN]
-	33 -- 34
-	35 [label="LLAMADA FUNC / CREACION STRUCT"]
-	34 -- 35
-	36 [label="Id: ackerman"]
+	31 [label=j]
+	30 -- 31
+	32 [label=EXP]
+	28 -- 32
+	33 [label=temp]
+	32 -- 33
+	35 [label=FUNCION]
+	0 -- 35
+	36 [label="Id: bubbleSort"]
 	35 -- 36
-	37 [label=RESTA]
+	37 [label=Parametros]
 	35 -- 37
-	38 [label=m]
+	38 [label=arr]
 	37 -- 38
-	39 [label=1]
-	37 -- 39
-	41 [label=1]
-	35 -- 41
-	44 [label="ELSE-ELSEIF INSTRUCCIONES"]
-	21 -- 44
-	45 [label=RETURN]
+	39 [label=INSTRUCCIONES]
+	35 -- 39
+	40 [label=FOR]
+	39 -- 40
+	41 [label="Id: i"]
+	40 -- 41
+	42 [label=Rango]
+	40 -- 42
+	43 [label=0]
+	42 -- 43
+	44 [label=RESTA]
+	42 -- 44
+	45 [label=LENGTH]
 	44 -- 45
-	46 [label="LLAMADA FUNC / CREACION STRUCT"]
+	46 [label="Id: arr"]
 	45 -- 46
-	47 [label="Id: ackerman"]
-	46 -- 47
-	48 [label=RESTA]
-	46 -- 48
-	49 [label=m]
-	48 -- 49
-	50 [label=1]
-	48 -- 50
-	52 [label="LLAMADA FUNC / CREACION STRUCT"]
-	46 -- 52
-	53 [label="Id: ackerman"]
-	52 -- 53
-	54 [label=m]
-	52 -- 54
+	48 [label=1]
+	44 -- 48
+	50 [label=INSTRUCCIONES]
+	40 -- 50
+	51 [label=FOR]
+	50 -- 51
+	52 [label="Id: j"]
+	51 -- 52
+	53 [label=Rango]
+	51 -- 53
+	54 [label=1]
+	53 -- 54
 	55 [label=RESTA]
-	52 -- 55
-	56 [label=n]
+	53 -- 55
+	56 [label=LENGTH]
 	55 -- 56
-	57 [label=1]
-	55 -- 57
-	63 [label=FUNCION]
-	0 -- 63
-	64 [label="Id: hanoi"]
+	57 [label="Id: arr"]
+	56 -- 57
+	59 [label=1]
+	55 -- 59
+	61 [label=INSTRUCCIONES]
+	51 -- 61
+	62 [label=IF]
+	61 -- 62
+	63 [label="Condición"]
+	62 -- 63
+	64 [label=MAYOR]
 	63 -- 64
-	65 [label=Parametros]
-	63 -- 65
-	66 [label=discos]
+	65 [label="ACCESO ARREGLO"]
+	64 -- 65
+	66 [label="Id: arr"]
 	65 -- 66
-	67 [label=origen]
+	67 [label=INDICE]
 	65 -- 67
-	68 [label=auxiliar]
-	65 -- 68
-	69 [label=destino]
-	65 -- 69
-	70 [label=INSTRUCCIONES]
-	63 -- 70
-	71 [label=IF]
+	68 [label=j]
+	67 -- 68
+	70 [label="ACCESO ARREGLO"]
+	64 -- 70
+	71 [label="Id: arr"]
 	70 -- 71
-	72 [label="Condición"]
-	71 -- 72
-	73 [label=IGUALES]
+	72 [label=INDICE]
+	70 -- 72
+	73 [label=SUMA]
 	72 -- 73
-	74 [label=discos]
+	74 [label=j]
 	73 -- 74
 	75 [label=1]
 	73 -- 75
-	77 [label="TRUE INSTRUCCIONES"]
-	71 -- 77
-	78 [label=PRINTLN]
-	77 -- 78
-	79 [label="Mover de "]
-	78 -- 79
-	80 [label=origen]
-	78 -- 80
-	81 [label=" a "]
-	78 -- 81
-	82 [label=destino]
-	78 -- 82
-	85 [label="ELSE-ELSEIF INSTRUCCIONES"]
-	71 -- 85
-	86 [label="LLAMADA FUNC / CREACION STRUCT"]
-	85 -- 86
-	87 [label="Id: hanoi"]
-	86 -- 87
-	88 [label=RESTA]
-	86 -- 88
-	89 [label=discos]
-	88 -- 89
-	90 [label=1]
-	88 -- 90
-	92 [label=origen]
-	86 -- 92
-	93 [label=destino]
-	86 -- 93
-	94 [label=auxiliar]
-	86 -- 94
-	96 [label=PRINTLN]
-	85 -- 96
-	97 [label="Mover de "]
+	79 [label="TRUE INSTRUCCIONES"]
+	62 -- 79
+	80 [label="LLAMADA FUNC / CREACION STRUCT"]
+	79 -- 80
+	81 [label="Id: swap"]
+	80 -- 81
+	82 [label=j]
+	80 -- 82
+	83 [label=SUMA]
+	80 -- 83
+	84 [label=j]
+	83 -- 84
+	85 [label=1]
+	83 -- 85
+	87 [label=arr]
+	80 -- 87
+	94 [label=FUNCION]
+	0 -- 94
+	95 [label="Id: insertionSort"]
+	94 -- 95
+	96 [label=Parametros]
+	94 -- 96
+	97 [label=arr]
 	96 -- 97
-	98 [label=origen]
-	96 -- 98
-	99 [label=" a "]
-	96 -- 99
-	100 [label=destino]
-	96 -- 100
-	102 [label="LLAMADA FUNC / CREACION STRUCT"]
-	85 -- 102
-	103 [label="Id: hanoi"]
-	102 -- 103
-	104 [label=RESTA]
-	102 -- 104
-	105 [label=discos]
-	104 -- 105
-	106 [label=1]
-	104 -- 106
-	108 [label=auxiliar]
-	102 -- 108
-	109 [label=origen]
-	102 -- 109
-	110 [label=destino]
-	102 -- 110
-	114 [label=FUNCION]
-	0 -- 114
-	115 [label="Id: factorial"]
-	114 -- 115
-	116 [label=Parametros]
-	114 -- 116
-	117 [label=num]
+	98 [label=INSTRUCCIONES]
+	94 -- 98
+	99 [label=FOR]
+	98 -- 99
+	100 [label="Id: i"]
+	99 -- 100
+	101 [label=Rango]
+	99 -- 101
+	102 [label=2]
+	101 -- 102
+	103 [label=LENGTH]
+	101 -- 103
+	104 [label="Id: arr"]
+	103 -- 104
+	106 [label=INSTRUCCIONES]
+	99 -- 106
+	107 [label=DECLARACION]
+	106 -- 107
+	108 [label="Acceso: VACIO"]
+	107 -- 108
+	109 [label="Id: j"]
+	107 -- 109
+	110 [label=Exp]
+	107 -- 110
+	111 [label=i]
+	110 -- 111
+	112 [label="Tipo: UNDEFINED"]
+	107 -- 112
+	113 [label=DECLARACION]
+	106 -- 113
+	114 [label="Acceso: VACIO"]
+	113 -- 114
+	115 [label="Id: temp"]
+	113 -- 115
+	116 [label=Exp]
+	113 -- 116
+	117 [label="ACCESO ARREGLO"]
 	116 -- 117
-	118 [label=INSTRUCCIONES]
-	114 -- 118
-	119 [label=IF]
-	118 -- 119
-	120 [label="Condición"]
+	118 [label="Id: arr"]
+	117 -- 118
+	119 [label=INDICE]
+	117 -- 119
+	120 [label=i]
 	119 -- 120
-	121 [label=IGUALES]
-	120 -- 121
-	122 [label=num]
-	121 -- 122
-	123 [label=1]
-	121 -- 123
-	125 [label="TRUE INSTRUCCIONES"]
-	119 -- 125
-	126 [label=RETURN]
+	122 [label="Tipo: UNDEFINED"]
+	113 -- 122
+	123 [label=WHILE]
+	106 -- 123
+	124 [label="Condición"]
+	123 -- 124
+	125 [label=AND]
+	124 -- 125
+	126 [label=MAYOR]
 	125 -- 126
-	127 [label=1]
+	127 [label=j]
 	126 -- 127
-	129 [label="ELSE-ELSEIF INSTRUCCIONES"]
-	119 -- 129
-	130 [label=RETURN]
-	129 -- 130
-	131 [label=MULTI]
+	128 [label=1]
+	126 -- 128
+	130 [label=MAYOR]
+	125 -- 130
+	131 [label="ACCESO ARREGLO"]
 	130 -- 131
-	132 [label=num]
+	132 [label="Id: arr"]
 	131 -- 132
-	133 [label="LLAMADA FUNC / CREACION STRUCT"]
+	133 [label=INDICE]
 	131 -- 133
-	134 [label="Id: factorial"]
+	134 [label=RESTA]
 	133 -- 134
-	135 [label=RESTA]
-	133 -- 135
-	136 [label=num]
-	135 -- 136
-	137 [label=1]
-	135 -- 137
-	143 [label=PRINTLN]
-	0 -- 143
-	144 [label="LLAMADA FUNC / CREACION STRUCT"]
+	135 [label=j]
+	134 -- 135
+	136 [label=1]
+	134 -- 136
+	139 [label=temp]
+	130 -- 139
+	142 [label=INSTRUCCIONES]
+	123 -- 142
+	143 [label="ASIGNACION ARREGLO"]
+	142 -- 143
+	144 [label="Id: arr"]
 	143 -- 144
-	145 [label="Id: factorial"]
-	144 -- 145
-	146 [label=5]
-	144 -- 146
-	149 [label=PRINTLN]
-	0 -- 149
-	150 [label="LLAMADA FUNC / CREACION STRUCT"]
-	149 -- 150
-	151 [label="Id: ackerman"]
+	145 [label=Indice]
+	143 -- 145
+	146 [label=j]
+	145 -- 146
+	147 [label=EXP]
+	143 -- 147
+	148 [label="ACCESO ARREGLO"]
+	147 -- 148
+	149 [label="Id: arr"]
+	148 -- 149
+	150 [label=INDICE]
+	148 -- 150
+	151 [label=RESTA]
 	150 -- 151
-	152 [label=3]
-	150 -- 152
-	153 [label=5]
-	150 -- 153
-	156 [label="LLAMADA FUNC / CREACION STRUCT"]
-	0 -- 156
-	157 [label="Id: hanoi"]
+	152 [label=j]
+	151 -- 152
+	153 [label=1]
+	151 -- 153
+	156 [label=DECLARACION]
+	142 -- 156
+	157 [label="Acceso: VACIO"]
 	156 -- 157
-	158 [label=3]
+	158 [label="Id: j"]
 	156 -- 158
-	159 [label=1]
+	159 [label=Exp]
 	156 -- 159
-	160 [label=2]
-	156 -- 160
-	161 [label=3]
-	156 -- 161
+	160 [label=RESTA]
+	159 -- 160
+	161 [label=j]
+	160 -- 161
+	162 [label=1]
+	160 -- 162
+	164 [label="Tipo: UNDEFINED"]
+	156 -- 164
+	166 [label="ASIGNACION ARREGLO"]
+	106 -- 166
+	167 [label="Id: arr"]
+	166 -- 167
+	168 [label=Indice]
+	166 -- 168
+	169 [label=j]
+	168 -- 169
+	170 [label=EXP]
+	166 -- 170
+	171 [label=temp]
+	170 -- 171
+	174 [label=DECLARACION]
+	0 -- 174
+	175 [label="Acceso: GLOBAL"]
+	174 -- 175
+	176 [label="Id: arreglo"]
+	174 -- 176
+	177 [label=Exp]
+	174 -- 177
+	178 [label=ARREGLO]
+	177 -- 178
+	179 [label=32]
+	178 -- 179
+	180 [label=MULTI]
+	178 -- 180
+	181 [label=7]
+	180 -- 181
+	182 [label=3]
+	180 -- 182
+	184 [label=7]
+	178 -- 184
+	185 [label=89]
+	178 -- 185
+	186 [label=56]
+	178 -- 186
+	187 [label=909]
+	178 -- 187
+	188 [label=109]
+	178 -- 188
+	189 [label=2]
+	178 -- 189
+	190 [label=9]
+	178 -- 190
+	191 [label=POTENCIA]
+	178 -- 191
+	192 [label=9874]
+	191 -- 192
+	193 [label=0]
+	191 -- 193
+	195 [label=44]
+	178 -- 195
+	196 [label=3]
+	178 -- 196
+	197 [label=MULTI]
+	178 -- 197
+	198 [label=820]
+	197 -- 198
+	199 [label=10]
+	197 -- 199
+	201 [label=11]
+	178 -- 201
+	202 [label=SUMA]
+	178 -- 202
+	203 [label=MULTI]
+	202 -- 203
+	204 [label=8]
+	203 -- 204
+	205 [label=0]
+	203 -- 205
+	207 [label=8]
+	202 -- 207
+	209 [label=10]
+	178 -- 209
+	211 [label="Tipo: UNDEFINED"]
+	174 -- 211
+	212 [label="LLAMADA FUNC / CREACION STRUCT"]
+	0 -- 212
+	213 [label="Id: bubbleSort"]
+	212 -- 213
+	214 [label=arreglo]
+	212 -- 214
+	216 [label=PRINTLN]
+	0 -- 216
+	217 [label="BubbleSort => "]
+	216 -- 217
+	218 [label=arreglo]
+	216 -- 218
+	220 [label=DECLARACION]
+	0 -- 220
+	221 [label="Acceso: GLOBAL"]
+	220 -- 221
+	222 [label="Id: arreglo"]
+	220 -- 222
+	223 [label=Exp]
+	220 -- 223
+	224 [label=ARREGLO]
+	223 -- 224
+	225 [label=32]
+	224 -- 225
+	226 [label=MULTI]
+	224 -- 226
+	227 [label=7]
+	226 -- 227
+	228 [label=3]
+	226 -- 228
+	230 [label=7]
+	224 -- 230
+	231 [label=89]
+	224 -- 231
+	232 [label=56]
+	224 -- 232
+	233 [label=909]
+	224 -- 233
+	234 [label=109]
+	224 -- 234
+	235 [label=2]
+	224 -- 235
+	236 [label=9]
+	224 -- 236
+	237 [label=POTENCIA]
+	224 -- 237
+	238 [label=9874]
+	237 -- 238
+	239 [label=1]
+	237 -- 239
+	241 [label=44]
+	224 -- 241
+	242 [label=3]
+	224 -- 242
+	243 [label=MULTI]
+	224 -- 243
+	244 [label=820]
+	243 -- 244
+	245 [label=10]
+	243 -- 245
+	247 [label=11]
+	224 -- 247
+	248 [label=SUMA]
+	224 -- 248
+	249 [label=MULTI]
+	248 -- 249
+	250 [label=8]
+	249 -- 250
+	251 [label=0]
+	249 -- 251
+	253 [label=8]
+	248 -- 253
+	255 [label=10]
+	224 -- 255
+	257 [label="Tipo: UNDEFINED"]
+	220 -- 257
+	258 [label="ASIGNACION ARREGLO"]
+	0 -- 258
+	259 [label="Id: arreglo"]
+	258 -- 259
+	260 [label=Indice]
+	258 -- 260
+	261 [label=1]
+	260 -- 261
+	262 [label=EXP]
+	258 -- 262
+	263 [label=POTENCIA]
+	262 -- 263
+	264 [label="ACCESO ARREGLO"]
+	263 -- 264
+	265 [label="Id: arreglo"]
+	264 -- 265
+	266 [label=INDICE]
+	264 -- 266
+	267 [label=2]
+	266 -- 267
+	269 [label=0]
+	263 -- 269
+	271 [label="LLAMADA FUNC / CREACION STRUCT"]
+	0 -- 271
+	272 [label="Id: insertionSort"]
+	271 -- 272
+	273 [label=arreglo]
+	271 -- 273
+	275 [label=PRINT]
+	0 -- 275
+	276 [label="InsertionSort => "]
+	275 -- 276
+	277 [label=arreglo]
+	275 -- 277
 }
